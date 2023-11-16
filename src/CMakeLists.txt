@@ -6,17 +6,14 @@ enable_testing()
 
 set(sources
   main.cpp
-  base/controller.h
   base/global.h
   base/global.cpp
   base/menu.h
   base/menu.cpp
   base/opcao_menu.h
   base/opcao_menu.cpp
-  base/controller_sair.h
-  base/controller_sair.cpp
-  base/controller_voltar.h
-  base/controller_voltar.cpp
+  initializers/main_initializer.h
+  initializers/main_initializer.cpp
   menus/menu_inicial.h
   menus/menu_inicial.cpp
   controllers/controller_login.h
@@ -25,6 +22,7 @@ set(sources
 
 set (dirs
   base
+  initializers
   controllers
   menus
   usecases

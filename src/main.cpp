@@ -1,10 +1,10 @@
 #include <iostream>
-#include "menu_inicial.h"
+#include "main_initializer.h"
 
 int main()
 {
-    MenuInicial menu("Menu Inicial");
-    menu.executar();
+    MainInitializer initializer;
+    initializer.executar();
     std::cout << "Volte sempre!\n";
     return 0;
 }

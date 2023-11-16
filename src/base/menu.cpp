@@ -5,8 +5,6 @@ Menu::Menu(std::string title) : _title(title)
 {
 }
 
-Menu::~Menu() {}
-
 RetornoController Menu::executar()
 {
   int retorno;
@@ -29,6 +27,7 @@ RetornoController Menu::executar()
       break;
     else if (retorno == RetornoController::Sair)
       return RetornoController::Sair;
+    finalizarTela();
   }
   return RetornoController::Completo;
 }

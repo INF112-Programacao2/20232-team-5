@@ -1,16 +1,16 @@
 #ifndef INF112_MENU_INICIAL_H
 #define INF112_MENU_INICIAL_H
 #include "menu.h"
-#include "controller_login.h"
+#include "controller_autenticacao.h"
 
 class MenuInicial : public Menu
 {
 protected:
-  ControllerLogin *_controllerLogin;
+  ControllerAutenticacao *_controllerAutenticacao;
   virtual void inicializarOpcoes();
 
 public:
-  MenuInicial(std::string title, ControllerLogin *controllerLogin);
+  MenuInicial(std::string title, ControllerAutenticacao *controllerAutenticacao);
 };
 
 #endif

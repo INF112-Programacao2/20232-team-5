@@ -1,13 +1,15 @@
 #ifndef INF112_MAIN_INITIALIZER_H
 #define INF112_MAIN_INITIALIZER_H
 #include "menu_inicial.h"
-#include "controller_login.h"
+#include "controller_autenticacao.h"
+#include "session.h"
 
 class MainInitializer
 {
 private:
   MenuInicial *_menuInicial;
-  ControllerLogin *_controllerLogin;
+  ControllerAutenticacao *_controllerAutenticacao;
+  Session *_session;
 
 public:
   MainInitializer();

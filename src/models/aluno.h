@@ -11,15 +11,15 @@ private:
   int _numAulas;
 
 public:
-  Aluno(int chaveAlu, int chaveUsu, int chavePer, int chaveGrd, int numAulas,
+  Aluno(int chaveAlu, int chaveUsu, int chavePer,
+        std::string nome, int chaveGrd, int numAulas,
         std::string apelido, std::string dtNascimento,
-        std::string cpf, std::string rg, char sexo,
-        std::string nome, std::string login, std::string senha, char tipo);
+        std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo);
 
   // Getters
-  int getChaveAlu() const;
-  int getChaveGrd() const;
-  int getNumAulas() const;
+  int getChaveAlu();
+  int getChaveGrd();
+  int getNumAulas();
 
   // Setters
   void setChaveAlu(int chaveAlu);
@@ -27,4 +27,4 @@ public:
   void setNumAulas(int numAulas);
 };
 
-#endif INF112_ALUNO_H
+#endif

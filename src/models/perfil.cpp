@@ -1,15 +1,15 @@
 #include "perfil.h"
 
-Perfil::Perfil(int chavePer, int chaveUsu, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string nome, std::string login, std::string senha, char tipo) : Usuario(chaveUsu, apelido, dtNascimento, cpf, rg, sexo, nome, login, senha), _chavePer(chavePer), _tipo(tipo)
+Perfil::Perfil(int chavePer, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha), _chavePer(chavePer), _tipo(tipo)
 {
 }
 
-int Perfil::getChavePer() const
+int Perfil::getChavePer()
 {
   return _chavePer;
 }
 
-char Perfil::getTipo() const
+char Perfil::getTipo()
 {
   return _tipo;
 }

@@ -14,7 +14,7 @@ enum RetornoController
 void finalizarTela();
 
 template <typename T>
-T readNumber(std::function<bool(T)> extraValidation = NULL)
+T readVal(std::function<bool(T)> extraValidation = NULL)
 {
   T val;
   bool invalid;

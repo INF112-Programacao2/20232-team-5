@@ -13,8 +13,8 @@ public:
   Modalidade(int chaveMod, std::string nome);
 
   // Getters
-  int getChaveMod() const;
-  std::string getNome() const;
+  int getChaveMod();
+  std::string getNome();
 
   // Setters
   void setChaveMod(int chaveMod);

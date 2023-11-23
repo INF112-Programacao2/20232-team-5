@@ -1,25 +1,25 @@
 #include "aluno.h"
 
-Aluno::Aluno(int chaveAlu, int chaveUsu, int chavePer, int chaveGrd, int numAulas,
+Aluno::Aluno(int chaveAlu, int chaveUsu, int chavePer,
+             std::string nome, int chaveGrd, int numAulas,
              std::string apelido, std::string dtNascimento,
-             std::string cpf, std::string rg, char sexo,
-             std::string nome, std::string login, std::string senha, char tipo)
-    : Perfil(chavePer, chaveUsu, apelido, dtNascimento, cpf, rg, sexo, nome, login, senha, tipo),
+             std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo)
+    : Perfil(chavePer, chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo),
       _chaveAlu(chaveAlu), _chaveGrd(chaveGrd), _numAulas(numAulas)
 {
 }
 
-int Aluno::getChaveAlu() const
+int Aluno::getChaveAlu()
 {
   return _chaveAlu;
 }
 
-int Aluno::getChaveGrd() const
+int Aluno::getChaveGrd()
 {
   return _chaveGrd;
 }
 
-int Aluno::getNumAulas() const
+int Aluno::getNumAulas()
 {
   return _numAulas;
 }

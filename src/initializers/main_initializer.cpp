@@ -2,14 +2,16 @@
 
 MainInitializer::MainInitializer()
 {
-  _controllerLogin = new ControllerLogin();
-  _menuInicial = new MenuInicial("Menu Inicial", _controllerLogin);
+  _session = new Session();
+  _controllerAutenticacao = new ControllerAutenticacao(_session);
+  _menuInicial = new MenuInicial("Menu Inicial", _controllerAutenticacao);
 }
 
 MainInitializer::~MainInitializer()
 {
   delete _menuInicial;
-  delete _controllerLogin;
+  delete _controllerAutenticacao;
+  delete _session;
 }
 
 void MainInitializer::executar()

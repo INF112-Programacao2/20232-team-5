@@ -10,10 +10,10 @@ private:
   char _tipo;
 
 public:
-  Perfil(int chavePer, int chaveUsu, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string nome, std::string login, std::string senha, char tipo);
+  Perfil(int chavePer, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo);
 
-  int getChavePer() const;
-  char getTipo() const;
+  int getChavePer();
+  char getTipo();
 
   void setChavePer(int chavePer);
   void setTipo(char tipo);

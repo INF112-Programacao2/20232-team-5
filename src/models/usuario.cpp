@@ -1,56 +1,55 @@
 #include "usuario.h"
 
 // Construtor
-Usuario::Usuario(int chaveUsu, std::string apelido, std::string dtNascimento,
-                 std::string cpf, std::string rg, char sexo, std::string nome,
+Usuario::Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo,
                  std::string login, std::string senha)
-    : _chaveUsu(chaveUsu), _apelido(apelido), _dtNascimento(dtNascimento),
-      _cpf(cpf), _rg(rg), _sexo(sexo), _nome(nome), _login(login), _senha(senha)
+    : _chaveUsu(chaveUsu), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento),
+      _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha)
 {
 }
 
 // Getters
-int Usuario::getChaveUsu() const
+int Usuario::getChaveUsu()
 {
   return _chaveUsu;
 }
 
-std::string Usuario::getApelido() const
+std::string Usuario::getApelido()
 {
   return _apelido;
 }
 
-std::string Usuario::getDtNascimento() const
+std::string Usuario::getDtNascimento()
 {
   return _dtNascimento;
 }
 
-std::string Usuario::getCpf() const
+std::string Usuario::getCpf()
 {
   return _cpf;
 }
 
-std::string Usuario::getRg() const
+std::string Usuario::getRg()
 {
   return _rg;
 }
 
-char Usuario::getSexo() const
+char Usuario::getSexo()
 {
   return _sexo;
 }
 
-std::string Usuario::getNome() const
+std::string Usuario::getNome()
 {
   return _nome;
 }
 
-std::string Usuario::getLogin() const
+std::string Usuario::getLogin()
 {
   return _login;
 }
 
-std::string Usuario::getSenha() const
+std::string Usuario::getSenha()
 {
   return _senha;
 }

@@ -12,20 +12,37 @@ set(sources
   base/menu.cpp
   base/opcao_menu.h
   base/opcao_menu.cpp
+  base/session.h
+  base/session.cpp
+  models/usuario.h
+  models/usuario.cpp
+  models/perfil.h
+  models/perfil.cpp
+  models/aluno.h
+  models/aluno.cpp
+  models/modalidade.h
+  models/modalidade.cpp
   initializers/main_initializer.h
   initializers/main_initializer.cpp
   menus/menu_inicial.h
   menus/menu_inicial.cpp
-  controllers/controller_login.h
-  controllers/controller_login.cpp
+  features/autenticacao/controllers/controller_autenticacao.h
+  features/autenticacao/controllers/controller_autenticacao.cpp
+  features/autenticacao/data/data_autenticacao.h
+  features/autenticacao/data/data_autenticacao.cpp
+  features/modalidade/data/data_modalidade.h
+  features/modalidade/data/data_modalidade.cpp
 )
 
 set (dirs
   base
   initializers
-  controllers
   menus
   usecases
+  models
+  features/autenticacao/controllers
+  features/autenticacao/data
+  features/modalidade/data
 )
 
 add_executable(tpfinal ${sources})

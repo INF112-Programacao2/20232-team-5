@@ -5,12 +5,12 @@ Modalidade::Modalidade(int chaveMod, std::string nome)
 {
 }
 
-int Modalidade::getChaveMod() const
+int Modalidade::getChaveMod()
 {
   return _chaveMod;
 }
 
-std::string Modalidade::getNome() const
+std::string Modalidade::getNome()
 {
   return _nome;
 }

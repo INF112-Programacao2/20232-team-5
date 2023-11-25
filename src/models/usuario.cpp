@@ -1,10 +1,7 @@
 #include "usuario.h"
 
 // Construtor
-Usuario::Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo,
-                 std::string login, std::string senha)
-    : _chaveUsu(chaveUsu), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento),
-      _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha)
+Usuario::Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha) : _chaveUsu(chaveUsu), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha)
 {
 }
 
@@ -54,6 +51,11 @@ std::string Usuario::getSenha()
   return _senha;
 }
 
+std::vector<Perfil> Usuario::getPerfilList()
+{
+  return _perfilList;
+}
+
 // Setters
 void Usuario::setChaveUsu(int chaveUsu)
 {
@@ -98,4 +100,14 @@ void Usuario::setLogin(std::string login)
 void Usuario::setSenha(std::string senha)
 {
   _senha = senha;
+}
+
+void Usuario::setPerfilList(std::vector<Perfil> perfilList)
+{
+  _perfilList = perfilList;
+}
+
+void Usuario::addPerfil(Perfil perfil)
+{
+  _perfilList.push_back(perfil);
 }

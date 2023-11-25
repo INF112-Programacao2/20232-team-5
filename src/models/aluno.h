@@ -1,9 +1,10 @@
 #ifndef INF112_ALUNO_H
 #define INF112_ALUNO_H
 
-#include "perfil.h"
+#include "usuario.h"
+#include <string>
 
-class Aluno : public Perfil
+class Aluno : public Usuario
 {
 private:
   int _chaveAlu;
@@ -11,10 +12,7 @@ private:
   int _numAulas;
 
 public:
-  Aluno(int chaveAlu, int chaveUsu, int chavePer,
-        std::string nome, int chaveGrd, int numAulas,
-        std::string apelido, std::string dtNascimento,
-        std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo);
+  Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas);
 
   // Getters
   int getChaveAlu();

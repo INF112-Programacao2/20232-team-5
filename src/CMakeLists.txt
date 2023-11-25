@@ -22,10 +22,18 @@ set(sources
   models/aluno.cpp
   models/modalidade.h
   models/modalidade.cpp
+  models/cad_pendente.h
+  models/cad_pendente.cpp
   initializers/main_initializer.h
   initializers/main_initializer.cpp
   menus/menu_inicial.h
   menus/menu_inicial.cpp
+  menus/menu_cliente.h
+  menus/menu_cliente.cpp
+  menus/menu_professor.h
+  menus/menu_professor.cpp
+  menus/menu_administrador.h
+  menus/menu_administrador.cpp
   features/autenticacao/controllers/controller_autenticacao.h
   features/autenticacao/controllers/controller_autenticacao.cpp
   features/autenticacao/data/data_autenticacao.h

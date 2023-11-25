@@ -1,10 +1,7 @@
 #include "aluno.h"
 
-Aluno::Aluno(int chaveAlu, int chaveUsu, int chavePer,
-             std::string nome, int chaveGrd, int numAulas,
-             std::string apelido, std::string dtNascimento,
-             std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo)
-    : Perfil(chavePer, chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo),
+Aluno::Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas)
+    : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha),
       _chaveAlu(chaveAlu), _chaveGrd(chaveGrd), _numAulas(numAulas)
 {
 }

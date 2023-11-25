@@ -1,6 +1,8 @@
 #ifndef INF112_USUARIO_H
 #define INF112_USUARIO_H
 #include <string>
+#include <vector>
+#include "perfil.h"
 
 class Usuario
 {
@@ -14,6 +16,7 @@ private:
   char _sexo;
   std::string _login;
   std::string _senha;
+  std::vector<Perfil> _perfilList;
 
 public:
   Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha);
@@ -28,9 +31,11 @@ public:
   char getSexo();
   std::string getLogin();
   std::string getSenha();
+  std::vector<Perfil> getPerfilList();
 
   // Setters
-  void setChaveUsu(int chaveUsu);
+  void
+  setChaveUsu(int chaveUsu);
   void setNome(std::string nome);
   void setApelido(std::string apelido);
   void setDtNascimento(std::string dtNascimento);
@@ -39,6 +44,10 @@ public:
   void setSexo(char sexo);
   void setLogin(std::string login);
   void setSenha(std::string senha);
+  void setPerfilList(std::vector<Perfil> perfilList);
+
+  // Outros
+  void addPerfil(Perfil perfil);
 };
 
 #endif

@@ -9,5 +9,6 @@ MenuInicial::MenuInicial(std::string title, ControllerAutenticacao *controllerAu
 void MenuInicial::inicializarOpcoes()
 {
   _opcaoList.push_back(OpcaoMenu("Cadastro", std::bind(&ControllerAutenticacao::realizaCadastro, _controllerAutenticacao)));
+  _opcaoList.push_back(OpcaoMenu("Login", std::bind(&ControllerAutenticacao::realizaLogin, _controllerAutenticacao)));
   _opcaoList.push_back(OpcaoMenu("Sair", std::bind(sair)));
 }

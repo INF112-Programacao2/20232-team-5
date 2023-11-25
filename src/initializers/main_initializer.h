@@ -3,13 +3,27 @@
 #include "menu_inicial.h"
 #include "controller_autenticacao.h"
 #include "session.h"
+#include "data_modalidade.h"
+#include "data_autenticacao.h"
+#include "menu_cliente.h"
+#include "menu_professor.h"
+#include "menu_administrador.h"
 
 class MainInitializer
 {
 private:
+  Session *_session;
   MenuInicial *_menuInicial;
   ControllerAutenticacao *_controllerAutenticacao;
-  Session *_session;
+  DataModalidade *_dataModalidade;
+  DataAutenticacao *_dataAutenticacao;
+  MenuCliente *_menuCliente;
+  MenuProfessor *_menuProfessor;
+  MenuAdministrador *_menuAdministrador;
+  void initializeAutenticacao();
+  void initializeModalidade();
+  void destroyAutenticacao();
+  void destroyModalidade();
 
 public:
   MainInitializer();

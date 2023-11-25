@@ -1,6 +1,6 @@
 #include "perfil.h"
 
-Perfil::Perfil(int chavePer, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha), _chavePer(chavePer), _tipo(tipo)
+Perfil::Perfil(int chavePer, char tipo) : _chavePer(chavePer), _tipo(tipo)
 {
 }
 

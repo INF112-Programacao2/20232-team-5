@@ -40,6 +40,12 @@ set(sources
   features/autenticacao/data/data_autenticacao.cpp
   features/modalidade/data/data_modalidade.h
   features/modalidade/data/data_modalidade.cpp
+  features/graduacao/controllers/controller_graduacao.h
+  features/graduacao/controllers/controller_graduacao.cpp
+  features/graduacao/graduacao.h
+  features/graduacao/graduacao.cpp
+  features/graduacao/data/data_graduacao.h
+  features/graduacao/data/data_graduacao.cpp
 )
 
 set (dirs
@@ -51,6 +57,8 @@ set (dirs
   features/autenticacao/controllers
   features/autenticacao/data
   features/modalidade/data
+  features/graduacao/controllers
+  features/graduacao/data
 )
 
 add_executable(tpfinal ${sources})

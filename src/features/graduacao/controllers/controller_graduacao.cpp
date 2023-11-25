@@ -1,9 +1,11 @@
 ﻿#include "controller_graduacao.h"
 #include <iostream>
+#include "graduacao.h"
 
-ControllerGraduacao::ControllerGraduacao(Session *session)
-    : _session(session)
-{}
+ControllerGraduacao::ControllerGraduacao(Session *session, DataGraduacao *dataGraduacao)
+    : _session(session), _dataGraduacao(dataGraduacao)
+{
+}
 
 RetornoController ControllerGraduacao::realizaCadastro()
 {
@@ -45,9 +47,9 @@ RetornoController ControllerGraduacao::realizaCadastro()
   Graduacao *graduacao = new Graduacao(0, nome, ordem, minAulas);
 
   // Salva a graduação
-  _session->getGraduacaoRepository()->save(graduacao);
+  _dataGraduacao->cadastraGraduacao(graduacao);
 
-  return RetornoController::Sucesso;
+  return RetornoController::Completo;
 }
 
 // Path src/features/autenticacao/controllers/controller_autenticacao.cpp

@@ -24,6 +24,8 @@ set(sources
   models/modalidade.cpp
   models/cad_pendente.h
   models/cad_pendente.cpp
+  models/graduacao.h
+  models/graduacao.cpp
   initializers/main_initializer.h
   initializers/main_initializer.cpp
   menus/menu_inicial.h
@@ -42,8 +44,6 @@ set(sources
   features/modalidade/data/data_modalidade.cpp
   features/graduacao/controllers/controller_graduacao.h
   features/graduacao/controllers/controller_graduacao.cpp
-  features/graduacao/graduacao.h
-  features/graduacao/graduacao.cpp
   features/graduacao/data/data_graduacao.h
   features/graduacao/data/data_graduacao.cpp
 )

@@ -1,13 +1,14 @@
 #include "menu_administrador.h"
 #include "opcao_menu.h"
 
-MenuAdministrador::MenuAdministrador(std::string title, Session *session) : Menu(title), _session(session)
+MenuAdministrador::MenuAdministrador(std::string title, Session *session, MenuOpcoesUsuario *menuOpcoesUsuario) : Menu(title), _session(session), _menuOpcoesUsuario(menuOpcoesUsuario)
 {
   inicializarOpcoes();
 }
 
 void MenuAdministrador::inicializarOpcoes()
 {
-  _opcaoList.push_back(OpcaoMenu("Deslogar", std::bind(voltar)));
-  _opcaoList.push_back(OpcaoMenu("Sair do sistema", std::bind(sair)));
+  _opcaoList.push_back(OpcaoMenu("Opções do Usuário", std::bind(&MenuOpcoesUsuario::executar, _menuOpcoesUsuario)));
+  _opcaoList.push_back(OpcaoMenu("Logout", std::bind(logout)));
+  _opcaoList.push_back(OpcaoMenu("Sair do programa", std::bind(sair)));
 }

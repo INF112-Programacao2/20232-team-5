@@ -29,3 +29,8 @@ RetornoController sair()
 {
   return RetornoController::Sair;
 }
+
+RetornoController logout()
+{
+  return RetornoController::Logout;
+}

@@ -3,10 +3,11 @@
 MainInitializer::MainInitializer()
 {
   _session = new Session();
+  initializeUsuario();
   initializeModalidade();
-  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session);
-  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session);
-  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session);
+  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
+  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
+  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario);
   initializeAutenticacao();
   _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
 }
@@ -19,6 +20,7 @@ MainInitializer::~MainInitializer()
   delete _menuProfessor;
   delete _menuCliente;
   destroyModalidade();
+  destroyUsuario();
   delete _session;
 }
 
@@ -26,6 +28,11 @@ void MainInitializer::initializeAutenticacao()
 {
   _dataAutenticacao = new DataAutenticacao();
   _controllerAutenticacao = new ControllerAutenticacao(_session, _dataModalidade, _dataAutenticacao, _menuCliente, _menuProfessor, _menuAdministrador);
+}
+
+void MainInitializer::initializeUsuario()
+{
+  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerAutenticacao);
 }
 
 void MainInitializer::initializeModalidade()
@@ -42,6 +49,11 @@ void MainInitializer::destroyAutenticacao()
 void MainInitializer::destroyModalidade()
 {
   delete _dataModalidade;
+}
+
+void MainInitializer::destroyUsuario()
+{
+  delete _menuOpcoesUsuario;
 }
 
 void MainInitializer::executar()

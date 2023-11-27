@@ -12,6 +12,7 @@ protected:
 
 public:
   MenuInicial(std::string title, ControllerAutenticacao *controllerAutenticacao);
+  virtual RetornoController executar() override;
 };
 
 #endif

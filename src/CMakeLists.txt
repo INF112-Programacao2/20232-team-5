@@ -26,6 +26,8 @@ set(sources
   models/cad_pendente.cpp
   models/graduacao.h
   models/graduacao.cpp
+  models/turma.h
+  models/turma.cpp
   initializers/main_initializer.h
   initializers/main_initializer.cpp
   menus/menu_inicial.h
@@ -40,6 +42,8 @@ set(sources
   features/autenticacao/controllers/controller_autenticacao.cpp
   features/autenticacao/data/data_autenticacao.h
   features/autenticacao/data/data_autenticacao.cpp
+  features/usuario/menus/menu_opcoes_usuario.h
+  features/usuario/menus/menu_opcoes_usuario.cpp
   features/modalidade/data/data_modalidade.h
   features/modalidade/data/data_modalidade.cpp
   features/graduacao/controllers/controller_graduacao.h
@@ -65,6 +69,7 @@ set (dirs
   features/graduacao/data
   features/turma/controllers
   features/turma/data
+  features/usuario/menus
 )
 
 add_executable(tpfinal ${sources})

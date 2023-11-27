@@ -44,10 +44,10 @@ RetornoController ControllerTurma::realizaCadastro()
         });
 
     // Cria a turma
-    Turma *turma = new Turma(0, nome, ordem, minAulas);
+    // Turma *turma = new Turma(0, nome, ordem, minAulas);
 
     // Salva a turma
-    _dataTurma->cadastraTurma(turma);
+    //_dataTurma->cadastraTurma(turma);
 
     return RetornoController::Completo;
 }

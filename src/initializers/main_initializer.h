@@ -13,16 +13,22 @@ class MainInitializer
 {
 private:
   Session *_session;
+  // MENUS
   MenuInicial *_menuInicial;
-  ControllerAutenticacao *_controllerAutenticacao;
-  DataModalidade *_dataModalidade;
-  DataAutenticacao *_dataAutenticacao;
   MenuCliente *_menuCliente;
   MenuProfessor *_menuProfessor;
   MenuAdministrador *_menuAdministrador;
+  MenuOpcoesUsuario *_menuOpcoesUsuario;
+  // CONTROLLERS
+  ControllerAutenticacao *_controllerAutenticacao;
+  // DATA
+  DataModalidade *_dataModalidade;
+  DataAutenticacao *_dataAutenticacao;
   void initializeAutenticacao();
+  void initializeUsuario();
   void initializeModalidade();
   void destroyAutenticacao();
+  void destroyUsuario();
   void destroyModalidade();
 
 public:

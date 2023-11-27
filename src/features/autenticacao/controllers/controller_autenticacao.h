@@ -24,6 +24,7 @@ public:
   ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador);
   RetornoController realizaCadastro();
   RetornoController realizaLogin();
+  RetornoController alternaPerfil();
 };
 
 #endif

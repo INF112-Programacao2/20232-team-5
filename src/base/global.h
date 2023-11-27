@@ -9,6 +9,7 @@ enum RetornoController
   Voltar = 1,
   Sair = 2,
   Completo = 3,
+  Logout = 4,
 };
 
 void finalizarTela();
@@ -49,5 +50,7 @@ std::string readLine();
 RetornoController voltar();
 
 RetornoController sair();
+
+RetornoController logout();
 
 #endif

@@ -8,11 +8,11 @@ class Menu
 {
 protected:
   std::vector<OpcaoMenu> _opcaoList;
+  void exibir();
   virtual void inicializarOpcoes() = 0;
 
 private:
   std::string _title;
-  virtual void exibir();
 
 public:
   Menu(std::string title);

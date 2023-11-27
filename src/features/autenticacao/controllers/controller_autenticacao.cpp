@@ -194,3 +194,9 @@ RetornoController ControllerAutenticacao::realizaLogin()
     return RetornoController::Completo;
   }
 }
+
+RetornoController ControllerAutenticacao::alternaPerfil()
+{
+  std::cout << "Perfil alternado!" << std::endl;
+  return RetornoController::Completo;
+}

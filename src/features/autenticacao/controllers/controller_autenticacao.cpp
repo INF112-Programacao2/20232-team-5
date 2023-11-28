@@ -107,7 +107,7 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   catch (std::exception e)
   {
     std::cout << "Ocorreu um erro inesperado!" << std::endl;
-    std::cout << e.what() << std::endl;
+    std::cerr << e.what() << std::endl;
   }
 
   delete cad;
@@ -207,7 +207,7 @@ RetornoController ControllerAutenticacao::realizaLogin()
   catch (std::exception e)
   {
     std::cout << "Ocorreu um erro inesperado!" << std::endl;
-    std::cout << e.what() << std::endl;
+    std::cerr << e.what() << std::endl;
   }
   return RetornoController::Completo;
 }

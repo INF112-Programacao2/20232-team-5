@@ -1,8 +1,9 @@
 #include "controller_usuario.h"
 #include <vector>
 #include "perfil.h"
+#include <exception>
 
-ControllerUsuario::ControllerUsuario(Session *session) : _session(session) {}
+ControllerUsuario::ControllerUsuario(Session *session, DataUsuario *dataUsuario) : _session(session), _dataUsuario(dataUsuario) {}
 
 int ControllerUsuario::escolhaPerfil()
 {
@@ -52,5 +53,43 @@ RetornoController ControllerUsuario::alternaPerfil()
 
 RetornoController ControllerUsuario::trocaSenha()
 {
+  std::string oldPas, newPas;
+  std::cout << "Informe a senha antiga: ";
+  std::cin >> oldPas;
+  // Se senha estiver incorreta, interrompe
+  if (_session->getUsuario()->getSenha() != oldPas)
+  {
+    std::cout << "Senha incorreta!" << std::endl;
+    return RetornoController::Completo;
+  }
+  std::cout << "Informe a nova senha: ";
+  std::cin >> newPas;
+  std::cout << "Confirme a nova senha: ";
+  // Lê apenas para confirmar a senha (não precisa salvar o valor)
+  readVal<std::string>(
+      [&](std::string senha)
+      {
+        if (senha != newPas)
+        {
+          std::cout << "As senhas não batem!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
+  try
+  {
+    // Salva senha no banco
+    _dataUsuario->salvarSenha(_session->getUsuario()->getChaveUsu(), newPas);
+    // Atualiza senha na instância de usuário em Session
+    _session->getUsuario()->setSenha(newPas);
+    std::cout << "Senha alterada com sucesso!" << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cout << "Ocorreu um erro inesperado!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
+
   return RetornoController::Completo;
 }

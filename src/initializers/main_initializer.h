@@ -9,6 +9,7 @@
 #include "menu_professor.h"
 #include "menu_administrador.h"
 #include "controller_usuario.h"
+#include "data_usuario.h"
 
 class MainInitializer
 {
@@ -26,6 +27,8 @@ private:
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
+  DataUsuario *_dataUsuario;
+
   void initializeAutenticacao();
   void initializeUsuario();
   void initializeModalidade();

@@ -32,7 +32,8 @@ void MainInitializer::initializeAutenticacao()
 
 void MainInitializer::initializeUsuario()
 {
-  _controllerUsuario = new ControllerUsuario(_session);
+  _dataUsuario = new DataUsuario();
+  _controllerUsuario = new ControllerUsuario(_session, _dataUsuario);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerUsuario);
 }
 

@@ -3,6 +3,7 @@
 #include "global.h"
 #include "session.h"
 #include <vector>
+#include "data_usuario.h"
 
 // Classe responsável por controlar as operações de autenticação
 
@@ -10,10 +11,11 @@ class ControllerUsuario
 {
 private:
   Session *_session;
+  DataUsuario *_dataUsuario;
   int escolhaPerfil();
 
 public:
-  ControllerUsuario(Session *session);
+  ControllerUsuario(Session *session, DataUsuario *dataUsuario);
   RetornoController alternaPerfil();
   RetornoController trocaSenha();
 };

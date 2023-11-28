@@ -46,6 +46,8 @@ set(sources
   features/usuario/menus/menu_opcoes_usuario.cpp
   features/usuario/controllers/controller_usuario.h
   features/usuario/controllers/controller_usuario.cpp
+  features/usuario/data/data_usuario.h
+  features/usuario/data/data_usuario.cpp
   features/modalidade/data/data_modalidade.h
   features/modalidade/data/data_modalidade.cpp
   features/graduacao/controllers/controller_graduacao.h
@@ -68,6 +70,7 @@ set (dirs
   features/autenticacao/data
   features/usuario/menus
   features/usuario/controllers
+  features/usuario/data
   features/modalidade/data
   features/graduacao/controllers
   features/graduacao/data

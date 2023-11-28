@@ -11,6 +11,6 @@ MenuOpcoesUsuario::MenuOpcoesUsuario(std::string title, ControllerUsuario *contr
 void MenuOpcoesUsuario::inicializarOpcoes()
 {
   _opcaoList.push_back(OpcaoMenu("Alternar perfil", std::bind(&ControllerUsuario::alternaPerfil, _controllerUsuario)));
-  _opcaoList.push_back(OpcaoMenu("Trocar senha", std::bind(&ControllerUsuario::alternaPerfil, _controllerUsuario)));
+  _opcaoList.push_back(OpcaoMenu("Trocar senha", std::bind(&ControllerUsuario::trocaSenha, _controllerUsuario)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

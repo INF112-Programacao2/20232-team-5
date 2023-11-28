@@ -1,7 +1,7 @@
 #include "menu_professor.h"
 #include "opcao_menu.h"
 
-MenuProfessor::MenuProfessor(std::string title, Session *session, MenuOpcoesUsuario *menuOpcoesUsuario) : Menu(title), _session(session)
+MenuProfessor::MenuProfessor(std::string title, Session *session, MenuOpcoesUsuario *menuOpcoesUsuario) : Menu(title), _session(session), _menuOpcoesUsuario(menuOpcoesUsuario)
 {
   inicializarOpcoes();
 }

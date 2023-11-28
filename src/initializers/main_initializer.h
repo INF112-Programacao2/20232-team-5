@@ -8,6 +8,7 @@
 #include "menu_cliente.h"
 #include "menu_professor.h"
 #include "menu_administrador.h"
+#include "controller_usuario.h"
 
 class MainInitializer
 {
@@ -21,6 +22,7 @@ private:
   MenuOpcoesUsuario *_menuOpcoesUsuario;
   // CONTROLLERS
   ControllerAutenticacao *_controllerAutenticacao;
+  ControllerUsuario *_controllerUsuario;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;

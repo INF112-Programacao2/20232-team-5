@@ -10,6 +10,7 @@ enum RetornoController
   Sair = 2,
   Completo = 3,
   Logout = 4,
+  AlternaPerfil = 5,
 };
 
 void finalizarTela();

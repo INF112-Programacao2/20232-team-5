@@ -32,7 +32,8 @@ void MainInitializer::initializeAutenticacao()
 
 void MainInitializer::initializeUsuario()
 {
-  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerAutenticacao);
+  _controllerUsuario = new ControllerUsuario(_session);
+  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerUsuario);
 }
 
 void MainInitializer::initializeModalidade()
@@ -54,6 +55,7 @@ void MainInitializer::destroyModalidade()
 void MainInitializer::destroyUsuario()
 {
   delete _menuOpcoesUsuario;
+  delete _controllerUsuario;
 }
 
 void MainInitializer::executar()

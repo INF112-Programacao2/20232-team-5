@@ -3,13 +3,14 @@
 #include "global.h"
 #include "controller_autenticacao.h"
 
-MenuOpcoesUsuario::MenuOpcoesUsuario(std::string title, ControllerAutenticacao *controllerAutenticacao) : Menu(title), _controllerAutenticacao(controllerAutenticacao)
+MenuOpcoesUsuario::MenuOpcoesUsuario(std::string title, ControllerUsuario *controllerUsuario) : Menu(title), _controllerUsuario(controllerUsuario)
 {
   inicializarOpcoes();
 }
 
 void MenuOpcoesUsuario::inicializarOpcoes()
 {
-  _opcaoList.push_back(OpcaoMenu("Alternar Perfil", std::bind(&ControllerAutenticacao::alternaPerfil, _controllerAutenticacao)));
+  _opcaoList.push_back(OpcaoMenu("Alternar perfil", std::bind(&ControllerUsuario::alternaPerfil, _controllerUsuario)));
+  _opcaoList.push_back(OpcaoMenu("Trocar senha", std::bind(&ControllerUsuario::alternaPerfil, _controllerUsuario)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

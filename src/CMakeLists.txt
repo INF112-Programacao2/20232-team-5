@@ -44,6 +44,8 @@ set(sources
   features/autenticacao/data/data_autenticacao.cpp
   features/usuario/menus/menu_opcoes_usuario.h
   features/usuario/menus/menu_opcoes_usuario.cpp
+  features/usuario/controllers/controller_usuario.h
+  features/usuario/controllers/controller_usuario.cpp
   features/modalidade/data/data_modalidade.h
   features/modalidade/data/data_modalidade.cpp
   features/graduacao/controllers/controller_graduacao.h
@@ -64,12 +66,13 @@ set (dirs
   models
   features/autenticacao/controllers
   features/autenticacao/data
+  features/usuario/menus
+  features/usuario/controllers
   features/modalidade/data
   features/graduacao/controllers
   features/graduacao/data
   features/turma/controllers
   features/turma/data
-  features/usuario/menus
 )
 
 add_executable(tpfinal ${sources})

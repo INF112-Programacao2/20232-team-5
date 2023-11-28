@@ -8,7 +8,8 @@ void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
 Usuario *DataAutenticacao::buscaUsuario(std::string login)
 {
   // Mock
-  return new Usuario(1, "João", "Joaozin", "17/04/2003", "10164444602", "20834320", 'M', "joaovitor", "senha123");
+  Usuario *u = new Usuario(1, "João", "Joaozin", "17/04/2003", "10164444602", "20834320", 'M', "joaovitor", "senha123");
+  return u;
 }
 
 std::vector<Perfil> DataAutenticacao::buscaPerfis(int chaveUsu)

@@ -7,7 +7,8 @@ Menu::Menu(std::string title) : _title(title)
 
 RetornoController Menu::executar()
 {
-  int escolha, retorno;
+  int escolha;
+  RetornoController retorno;
   while (true)
   {
     exibir();
@@ -26,10 +27,8 @@ RetornoController Menu::executar()
     retorno = _opcaoList[escolha].executar();
     if (retorno == RetornoController::Voltar)
       break;
-    else if (retorno == RetornoController::Sair)
-      return RetornoController::Sair;
-    else if (retorno == RetornoController::Logout)
-      return RetornoController::Logout;
+    else if (retorno != RetornoController::Completo)
+      return retorno;
     finalizarTela();
   }
   return RetornoController::Completo;

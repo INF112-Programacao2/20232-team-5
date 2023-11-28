@@ -7,7 +7,7 @@ std::string OpcaoMenu::getLabel()
   return _label;
 }
 
-int OpcaoMenu::executar()
+RetornoController OpcaoMenu::executar()
 {
   return _action();
 }

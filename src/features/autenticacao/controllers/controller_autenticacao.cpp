@@ -1,6 +1,5 @@
 #include <iostream>
 #include "controller_autenticacao.h"
-#include <vector>
 #include "modalidade.h"
 #include "cad_pendente.h"
 #include "exception"
@@ -115,13 +114,44 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   return RetornoController::Completo;
 }
 
+int ControllerAutenticacao::escolhaPerfil()
+{
+  std::cout << "Em qual perfil você deseja entrar?" << std::endl;
+  std::vector<Perfil> perfilList = _session->getUsuario()->getPerfilList();
+  int perfil;
+  for (int i = 0; i < perfilList.size(); i++)
+  {
+    std::cout << i + 1 << " - ";
+    if (perfilList[i].getTipo() == 'C')
+      std::cout << "Cliente";
+    else if (perfilList[i].getTipo() == 'P')
+      std::cout << "Professor";
+    else
+      std::cout << "Administrador";
+    std::cout << std::endl;
+  }
+  std::cout << "Sua escolha: ";
+  perfil = readVal<int>(
+      [&](int option)
+      {
+        if (option < 1 || option > perfilList.size())
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+  perfil--;
+  return perfil;
+}
+
 RetornoController ControllerAutenticacao::realizaLogin()
 {
+  RetornoController retorno;
+  std::string login;
+  std::string senha;
   try
   {
-    std::string login;
-    std::string senha;
-
     std::cout << "Digite o login: ";
     login = readLine();
 
@@ -141,62 +171,43 @@ RetornoController ControllerAutenticacao::realizaLogin()
       std::cout << "Senha incorreta!" << std::endl;
       return RetornoController::Completo;
     }
-    std::cout << "Usuário autenticado!" << std::endl;
+
+    std::cout << "Bem-vindo, " << usuario->getNome() << "!" << std::endl;
+
     // Busca lista de perfis do usuário
     std::vector<Perfil> perfilList = _dataAutenticacao->buscaPerfis(usuario->getChaveUsu());
     usuario->setPerfilList(perfilList);
+    // Salva usuário na sessão
+    _session->setUsuario(usuario);
+
     int currentPerfil = 0;
     // Se possui mais de um perfil, pergunta em qual quer entrar
     if (perfilList.size() > 1)
     {
       finalizarTela();
-      std::cout << "Em qual perfil você deseja entrar?" << std::endl;
-      for (int i = 0; i < perfilList.size(); i++)
-      {
-        std::cout << i + 1 << " - ";
-        if (perfilList[i].getTipo() == 'C')
-          std::cout << "Cliente" << std::endl;
-        else if (perfilList[i].getTipo() == 'P')
-          std::cout << "Professor" << std::endl;
-        else
-          std::cout << "Administrador" << std::endl;
-      }
-      std::cout << "Sua escolha: ";
-      currentPerfil = readVal<int>(
-          [&](int option)
-          {
-            if (option < 1 || option > perfilList.size())
-            {
-              std::cout << "Opção inválida!" << std::endl;
-              return false;
-            }
-            return true;
-          });
-      currentPerfil--;
+      currentPerfil = escolhaPerfil();
     }
-    // Salva usuário e perfil na sessão
-    _session->setUsuario(usuario);
+    // Salva perfil na sessão
     _session->setCurrentPerfil(currentPerfil);
 
     // Redireciona para o menu apropriado
     finalizarTela();
-    if (perfilList[currentPerfil].getTipo() == 'C')
-      return _menuCliente->executar();
-    else if (perfilList[currentPerfil].getTipo() == 'P')
-      return _menuProfessor->executar();
-    else
-      return _menuAdministrador->executar();
+    do
+    {
+      if (perfilList[_session->getCurrentPerfil()].getTipo() == 'C')
+        retorno = _menuCliente->executar();
+      else if (perfilList[_session->getCurrentPerfil()].getTipo() == 'P')
+        retorno = _menuProfessor->executar();
+      else
+        retorno = _menuAdministrador->executar();
+    } while (retorno == RetornoController::AlternaPerfil);
+    if (retorno == RetornoController::Sair)
+      return retorno;
   }
   catch (std::exception e)
   {
     std::cout << "Ocorreu um erro inesperado!" << std::endl;
     std::cout << e.what() << std::endl;
-    return RetornoController::Completo;
   }
-}
-
-RetornoController ControllerAutenticacao::alternaPerfil()
-{
-  std::cout << "Perfil alternado!" << std::endl;
   return RetornoController::Completo;
 }

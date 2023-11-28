@@ -14,7 +14,7 @@ private:
 public:
   OpcaoMenu(std::string label, std::function<RetornoController()> action);
   std::string getLabel();
-  int executar();
+  RetornoController executar();
 };
 
 #endif

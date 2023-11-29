@@ -64,6 +64,10 @@ set(sources
   features/turma/controllers/controller_turma.cpp
   features/turma/data/data_turma.h
   features/turma/data/data_turma.cpp
+  features/graduacao/menus/menu_graduacao.h
+  features/graduacao/menus/menu_graduacao.cpp
+  features/turma/menus/menu_turma.h
+  features/turma/menus/menu_turma.cpp
 )
 
 set (dirs

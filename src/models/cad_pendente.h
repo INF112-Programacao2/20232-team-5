@@ -2,6 +2,12 @@
 #define INF112_CAD_PENDENTE_H
 #include <string>
 
+enum TipoCadastro
+{
+  Externo = 0,
+  Interno = 1
+};
+
 class CadPendente
 {
 private:
@@ -17,6 +23,7 @@ private:
   char _tipo;
   int _chaveMod;
   int _chaveUsu;
+  TipoCadastro _tipoCadastro;
 
 public:
   // Construtor para cadastro externo de professor (novo usuário)
@@ -41,6 +48,7 @@ public:
   char getTipo();
   int getChaveMod();
   int getChaveUsu();
+  TipoCadastro getTipoCadastro();
 
   // Setters
   void setChaveCad(int chaveCad);
@@ -55,6 +63,7 @@ public:
   void setTipo(char tipo);
   void setChaveMod(int chaveMod);
   void setChaveUsu(int chaveUsu);
+  void setTipoCadastro(TipoCadastro tipoCadastro);
 };
 
 #endif

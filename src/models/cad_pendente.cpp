@@ -3,18 +3,26 @@
 // Construtor para cadastro externo de professor (novo usuário)
 CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo)
 {
+  _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro externo de aluno (novo usuário, necessita informar a modalidade)
 CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod)
 {
+  _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro interno de professor (usuário já existente)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo) {}
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo)
+{
+  _tipoCadastro = TipoCadastro::Interno;
+}
 
 // Construtor para cadastro interno de aluno (usuário já existente, necessita informar a modalidade)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo), _chaveMod(chaveMod) {}
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo), _chaveMod(chaveMod)
+{
+  _tipoCadastro = TipoCadastro::Interno;
+}
 
 int CadPendente::getChaveCad()
 {
@@ -76,6 +84,11 @@ int CadPendente::getChaveUsu()
   return _chaveUsu;
 }
 
+TipoCadastro CadPendente::getTipoCadastro()
+{
+  return _tipoCadastro;
+}
+
 void CadPendente::setChaveCad(int chaveCad)
 {
   _chaveCad = chaveCad;
@@ -134,4 +147,9 @@ void CadPendente::setChaveMod(int chaveMod)
 void CadPendente::setChaveUsu(int chaveUsu)
 {
   _chaveUsu = chaveUsu;
+}
+
+void CadPendente::setTipoCadastro(TipoCadastro tipoCadastro)
+{
+  _tipoCadastro = tipoCadastro;
 }

@@ -1,5 +1,5 @@
-#ifndef INF112_ALUNO_H
-#define INF112_ALUNO_H
+#ifndef INF112_CONTROLLER_AUTENTICACAO_H
+#define INF112_CONTROLLER_AUTENTICACAO_H
 #include "global.h"
 #include "session.h"
 #include <vector>
@@ -27,6 +27,7 @@ public:
   ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador);
   RetornoController realizaCadastro();
   RetornoController realizaLogin();
+  bool checaExisteLogin(std::string login);
 };
 
 #endif

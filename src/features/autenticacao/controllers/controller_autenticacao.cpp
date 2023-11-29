@@ -8,6 +8,16 @@
 
 ControllerAutenticacao::ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador) : _session(session), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _menuCliente(menuCliente), _menuProfessor(menuProfessor), _menuAdministrador(menuAdministrador) {}
 
+bool ControllerAutenticacao::checaExisteLogin(std::string login)
+{
+  if (_dataAutenticacao->existeLogin(login))
+  {
+    std::cout << "Login já existente!" << std::endl;
+    return false;
+  }
+  return true;
+}
+
 RetornoController ControllerAutenticacao::realizaCadastro()
 {
   std::string apelido;
@@ -52,12 +62,15 @@ RetornoController ControllerAutenticacao::realizaCadastro()
       });
 
   std::cout << "Digite o login: ";
-  login = readLine();
+  login = readVal<std::string>(
+      [&](std::string val)
+      { return checaExisteLogin(val); });
 
   std::cout << "Digite a senha: ";
   senha = readLine();
 
-  std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)? ";
+  std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)?" << std::endl;
+  std::cout << "Sua escolha: ";
   tipo = readVal<char>(
       [&](char tipo)
       {

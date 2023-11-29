@@ -66,8 +66,8 @@ set(sources
   features/turma/data/data_turma.cpp
   features/graduacao/menus/menu_graduacao.h
   features/graduacao/menus/menu_graduacao.cpp
-  features/turma/menus/menu_turma.h
-  features/turma/menus/menu_turma.cpp
+  features/turma/menus/menu_opcoes_turma.h
+  features/turma/menus/menu_opcoes_turma.cpp
 )
 
 set (dirs
@@ -87,8 +87,10 @@ set (dirs
   features/modalidade/data
   features/graduacao/controllers
   features/graduacao/data
+  features/graduacao/menus
   features/turma/controllers
   features/turma/data
+  features/turma/menus
 )
 
 add_executable(tpfinal ${sources})

@@ -38,6 +38,8 @@ set(sources
   menus/menu_professor.cpp
   menus/menu_administrador.h
   menus/menu_administrador.cpp
+  menus/menu_cadastros.h
+  menus/menu_cadastros.cpp
   features/autenticacao/controllers/controller_autenticacao.h
   features/autenticacao/controllers/controller_autenticacao.cpp
   features/autenticacao/data/data_autenticacao.h

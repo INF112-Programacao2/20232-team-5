@@ -2,10 +2,10 @@
 #include <vector>
 #include "cad_pendente.h"
 
-ControllerCadastroPendente::ControllerCadastroPendente(Session *session) : _session(session) {}
+ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente) : _session(session), _dataCadastroPendente(dataCadastroPendente) {}
 
 RetornoController ControllerCadastroPendente::listaTodos()
 {
-  // std::vector<CadPendente> listaCadPendente = _data
+  _dataCadastroPendente->buscaListaCadastroPendente();
   return RetornoController::Completo;
 }

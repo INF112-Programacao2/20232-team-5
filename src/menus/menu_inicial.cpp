@@ -15,7 +15,6 @@ void MenuInicial::inicializarOpcoes()
 
 RetornoController MenuInicial::executar()
 {
-
   int escolha, retorno;
   while (true)
   {

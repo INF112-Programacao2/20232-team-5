@@ -8,6 +8,7 @@ set(sources
   main.cpp
   base/global.h
   base/global.cpp
+  base/database.h
   base/menu.h
   base/menu.cpp
   base/opcao_menu.h
@@ -66,8 +67,8 @@ set(sources
   features/turma/controllers/controller_turma.cpp
   features/turma/data/data_turma.h
   features/turma/data/data_turma.cpp
-  features/graduacao/menus/menu_graduacao.h
-  features/graduacao/menus/menu_graduacao.cpp
+  features/graduacao/menus/menu_opcoes_graduacao.h
+  features/graduacao/menus/menu_opcoes_graduacao.cpp
   features/turma/menus/menu_opcoes_turma.h
   features/turma/menus/menu_opcoes_turma.cpp
 )
@@ -95,8 +96,12 @@ set (dirs
   features/turma/menus
 )
 
+find_package(PostgreSQL REQUIRED)
+
 add_executable(tpfinal ${sources})
 
+target_link_libraries (tpfinal ${PostgreSQL_LIBRARIES})
+target_include_directories(tpfinal PRIVATE ${PostgreSQL_INCLUDE_DIRS} ${PostgreSQL_LIBRARY_DIRS})
 target_include_directories(tpfinal PRIVATE ${dirs})
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

@@ -1,5 +1,10 @@
 #include "data_autenticacao.h"
 
+DataAutenticacao::DataAutenticacao(PGconn *conn)
+{
+  _conn = conn;
+}
+
 void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
 {
   // Mock

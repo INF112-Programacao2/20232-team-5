@@ -2,12 +2,14 @@
 
 Session::Session()
 {
+  _usuario = nullptr;
   _currentPerfil = 0;
 }
 
 Session::~Session()
 {
-  delete _usuario;
+  if (_usuario != nullptr)
+    delete _usuario;
 }
 
 Usuario *Session::getUsuario()

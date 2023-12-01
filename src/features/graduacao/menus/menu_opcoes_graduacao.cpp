@@ -10,8 +10,7 @@ MenuOpcoesGraduacao::MenuOpcoesGraduacao(std::string title, ControllerGraduacao 
 
 void MenuOpcoesGraduacao::inicializarOpcoes()
 {
-  _opcaoList.push_back(OpcaoMenu("Cadastrar graduacao", std::bind(&ControllerGraduacao::cadastraGraduacao, _controllerGraduacao)));
-  _opcaoList.push_back(OpcaoMenu("Listar graduacoes", std::bind(&ControllerGraduacao::listaGraduacoes, _controllerGraduacao)));
+  _opcaoList.push_back(OpcaoMenu("Cadastrar graduacao", std::bind(&ControllerGraduacao::realizaCadastro, _controllerGraduacao)));
+  /*_opcaoList.push_back(OpcaoMenu("Listar graduacoes", std::bind(&ControllerGraduacao::, _controllerGraduacao)));*/
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }
-

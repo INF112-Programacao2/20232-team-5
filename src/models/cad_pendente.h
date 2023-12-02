@@ -5,8 +5,8 @@
 
 enum TipoCadastro
 {
-  Externo = 0,
-  Interno = 1
+  Externo = 'E',
+  Interno = 'I'
 };
 
 class CadPendente

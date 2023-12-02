@@ -87,7 +87,7 @@ RetornoController ControllerAutenticacao::realizaCadastro()
     finalizarTela();
     int opcaoMod, chaveMod;
     std::vector<Modalidade>
-        modalidadeList = _dataModalidade->leListaModalidade();
+        modalidadeList = _dataModalidade->buscaListaModalidade();
     std::cout << "Seleção de modalidade: " << std::endl;
     for (int i = 0; i < modalidadeList.size(); i++)
       std::cout << i + 1 << " - " << modalidadeList[i].getNome() << std::endl;

@@ -1,6 +1,7 @@
 #ifndef INF112_CAD_PENDENTE_H
 #define INF112_CAD_PENDENTE_H
 #include <string>
+#include "usuario.h"
 
 enum TipoCadastro
 {
@@ -64,6 +65,7 @@ public:
   void setChaveMod(int chaveMod);
   void setChaveUsu(int chaveUsu);
   void setTipoCadastro(TipoCadastro tipoCadastro);
+  void setFromUsuario(Usuario *usuario);
 };
 
 #endif

@@ -11,7 +11,7 @@ private:
 
 public:
   DataModalidade(PGconn *conn);
-  std::vector<Modalidade> leListaModalidade();
+  std::vector<Modalidade> buscaListaModalidade();
 };
 
 #endif

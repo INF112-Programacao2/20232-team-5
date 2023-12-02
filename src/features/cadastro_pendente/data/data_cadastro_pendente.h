@@ -11,7 +11,7 @@ private:
 
 public:
   DataCadastroPendente(PGconn *conn);
-  std::vector<CadPendente *> buscaListaCadastroPendente();
+  std::vector<CadPendente> buscaListaCadastroPendente();
 };
 
 #endif

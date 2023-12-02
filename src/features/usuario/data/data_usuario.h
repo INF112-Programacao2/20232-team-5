@@ -11,6 +11,7 @@ private:
 public:
   DataUsuario(PGconn *conn);
   void salvarSenha(int chaveUsu, std::string senha);
+  Usuario *buscaUsuarioByChave(int chaveUsu);
 };
 
 #endif

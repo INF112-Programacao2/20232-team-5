@@ -63,7 +63,7 @@ void MainInitializer::initializeUsuario()
 void MainInitializer::initializeCadastroPendente()
 {
   _dataCadastroPendente = new DataCadastroPendente(_conn);
-  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente);
+  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade);
   _menuCadastroPendente = new MenuCadastroPendente("Cadastros Pendentes", _controllerCadastroPendente);
 }
 

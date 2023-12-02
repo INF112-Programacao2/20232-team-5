@@ -153,3 +153,15 @@ void CadPendente::setTipoCadastro(TipoCadastro tipoCadastro)
 {
   _tipoCadastro = tipoCadastro;
 }
+
+void CadPendente::setFromUsuario(Usuario *usuario)
+{
+  setNome(usuario->getNome());
+  setApelido(usuario->getApelido());
+  setDtNascimento(usuario->getDtNascimento());
+  setCpf(usuario->getCpf());
+  setRg(usuario->getRg());
+  setSexo(usuario->getSexo());
+  setLogin(usuario->getLogin());
+  setSenha(usuario->getSenha());
+}

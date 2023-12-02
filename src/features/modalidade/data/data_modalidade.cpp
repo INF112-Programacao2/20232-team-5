@@ -5,7 +5,7 @@ DataModalidade::DataModalidade(PGconn *conn)
   _conn = conn;
 }
 
-std::vector<Modalidade> DataModalidade::leListaModalidade()
+std::vector<Modalidade> DataModalidade::buscaListaModalidade()
 {
   // Retorno mockado
   return {

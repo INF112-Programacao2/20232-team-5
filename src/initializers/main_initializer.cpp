@@ -3,18 +3,6 @@
 
 MainInitializer::MainInitializer()
 {
-  _session = new Session();
-  initializeUsuario();
-  initializeCadastroPendente();
-  initializeModalidade();
-  initializeTurma();
-  initializeGraduacao();
-  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma);
-  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
-  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
-  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
-  initializeAutenticacao();
-  _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
 }
 
 MainInitializer::~MainInitializer()
@@ -34,6 +22,26 @@ MainInitializer::~MainInitializer()
   destroyConn();
 }
 
+bool MainInitializer::initialize()
+{
+  if (!initializeConn())
+    return false;
+  _session = new Session();
+  initializeUsuario();
+  initializeCadastroPendente();
+  initializeModalidade();
+  initializeTurma();
+  initializeGraduacao();
+  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma);
+  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
+  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
+  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
+  initializeAutenticacao();
+  _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
+  return true;
+}
+
+// Conecta com o banco de dados
 bool MainInitializer::initializeConn()
 {
   _conn = PQconnectdb(conninfo.c_str());

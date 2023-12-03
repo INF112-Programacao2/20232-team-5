@@ -54,6 +54,7 @@ private:
   DataTurma *_dataTurma;
   DataGraduacao *_dataGraduacao;
 
+  bool initializeConn();
   void initializeAutenticacao();
   void initializeUsuario();
   void initializeCadastroPendente();
@@ -71,7 +72,7 @@ private:
 public:
   MainInitializer();
   ~MainInitializer();
-  bool initializeConn();
+  bool initialize();
   void executar();
 };
 

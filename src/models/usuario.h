@@ -48,6 +48,9 @@ public:
 
   // Outros
   void addPerfil(Perfil perfil);
+
+  // Conversion
+  void toQueryParams(char **paramValues);
 };
 
 #endif

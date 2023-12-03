@@ -111,3 +111,12 @@ void Usuario::addPerfil(Perfil perfil)
 {
   _perfilList.push_back(perfil);
 }
+
+void Usuario::toQueryParams(char **paramValues)
+{
+  std::sprintf(paramValues[0], "%d", _chaveUsu);
+  std::sprintf(paramValues[1], "%s", _nome);
+  std::sprintf(paramValues[2], "%s", _apelido);
+  std::sprintf(paramValues[3], "%s", _dtNascimento);
+  std::sprintf(paramValues[4], "%s", _cpf);
+}

@@ -4,7 +4,7 @@
 int main()
 {
     MainInitializer *initializer = new MainInitializer();
-    if (!initializer->initializeConn())
+    if (!initializer->initialize())
         exit(1);
     initializer->executar();
     delete initializer;

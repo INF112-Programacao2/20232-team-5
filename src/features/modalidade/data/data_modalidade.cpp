@@ -1,8 +1,8 @@
 #include "data_modalidade.h"
 
-DataModalidade::DataModalidade(PGconn *conn)
+DataModalidade::DataModalidade(Database *database)
 {
-  _conn = conn;
+  _database = database;
 }
 
 std::vector<Modalidade> DataModalidade::buscaListaModalidade()

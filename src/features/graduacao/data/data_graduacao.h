@@ -1,15 +1,15 @@
 ﻿#ifndef INF112_DATA_GRADUACAO_H
 #define INF112_DATA_GRADUACAO_H
-#include <libpq-fe.h>
 #include "graduacao.h"
+#include "database.h"
 
 class DataGraduacao
 {
 private:
-  PGconn *_conn;
+  Database *_database;
 
 public:
-  DataGraduacao(PGconn *conn);
+  DataGraduacao(Database *database);
   void cadastraGraduacao(Graduacao *graduacao);
 };
 

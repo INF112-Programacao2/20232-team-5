@@ -7,18 +7,18 @@ class Turma
 {
 private:
   int _chaveTur;
-  int _chavePes;
+  int _chaveUsu;
   int _chaveMod;
   std::string _hrInicio;
   std::string _hrFim;
   std::string _diasSemana;
 
 public:
-  Turma(int chaveTur, int chavePes, int chaveMod, std::string hrInicio, std::string hrFim, std::string diasSemana);
+  Turma(int chaveTur, int chaveUsu, int chaveMod, std::string hrInicio, std::string hrFim, std::string diasSemana);
 
   // Getters
   int getChaveTur();
-  int getChavePes();
+  int getChaveUsu();
   int getChaveMod();
   std::string getHrInicio();
   std::string getHrFim();
@@ -26,7 +26,7 @@ public:
 
   // Setters
   void setChaveTur(int chaveTur);
-  void setChavePes(int chavePes);
+  void setChaveUsu(int chaveUsu);
   void setChaveMod(int chaveMod);
   void setHrInicio(std::string hrInicio);
   void setHrFim(std::string hrFim);

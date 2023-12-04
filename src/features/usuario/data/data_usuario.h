@@ -1,15 +1,15 @@
 #ifndef INF112_DATA_USUARIO_H
 #define INF112_DATA_USUARIO_H
-#include <libpq-fe.h>
+#include "database.h"
 #include "usuario.h"
 
 class DataUsuario
 {
 private:
-  PGconn *_conn;
+  Database *_database;
 
 public:
-  DataUsuario(PGconn *conn);
+  DataUsuario(Database *database);
   void salvarSenha(int chaveUsu, std::string senha);
   Usuario *buscaUsuarioByChave(int chaveUsu);
 };

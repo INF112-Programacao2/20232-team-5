@@ -1,13 +1,27 @@
 #ifndef INF112_DATABASE_H
 #define INF112_DATABASE_H
+#include <libpq-fe.h>
 #include <string>
+#include <iostream>
+#include <vector>
+#include "database_error.h"
 
-std::string dbname = "jxolioyt";
-std::string user = "jxolioyt";
-std::string password = "yT9JBzWPzlIZacZsqsfvm5qg6oIMBQ1y";
-std::string host = "isabelle.db.elephantsql.com";
-std::string port = "5432";
+// Classe base que controla as operações relacionadas ao banco de dados
 
-std::string conninfo = "dbname=" + dbname + " user=" + user + " password=" + password + " host=" + host + " port=" + port;
+class Database
+{
+private:
+  std::string _connectionString;
+  PGconn *_conn;
+
+public:
+  Database(std::string connectionString);
+  ~Database();
+  bool initializeConn();
+  // Sem parametros
+  PGresult *executar(std::string &query);
+  // Com parametros
+  PGresult *executar(std::string &query, std::vector<std::string> &params);
+};
 
 #endif

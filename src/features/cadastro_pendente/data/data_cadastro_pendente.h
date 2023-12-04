@@ -1,16 +1,16 @@
 #ifndef INF112_DATA_CADASTRO_PENDENTE_H
 #define INF112_DATA_CADASTRO_PENDENTE_H
-#include <libpq-fe.h>
+#include <database.h>
 #include <vector>
 #include "cad_pendente.h"
 
 class DataCadastroPendente
 {
 private:
-  PGconn *_conn;
+  Database *_database;
 
 public:
-  DataCadastroPendente(PGconn *conn);
+  DataCadastroPendente(Database *database);
   std::vector<CadPendente> buscaListaCadastroPendente();
 };
 

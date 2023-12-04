@@ -1,16 +1,16 @@
 #ifndef INF112_DATA_MODALIDADE_H
 #define INF112_DATA_MODALIDADE_H
-#include <libpq-fe.h>
+#include "database.h"
 #include <vector>
 #include "modalidade.h"
 
 class DataModalidade
 {
 private:
-  PGconn *_conn;
+  Database *_database;
 
 public:
-  DataModalidade(PGconn *conn);
+  DataModalidade(Database *database);
   std::vector<Modalidade> buscaListaModalidade();
 };
 

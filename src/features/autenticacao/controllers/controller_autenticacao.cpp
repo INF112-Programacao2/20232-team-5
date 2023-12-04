@@ -3,6 +3,7 @@
 #include "modalidade.h"
 #include "cad_pendente.h"
 #include "exception"
+#include "database_error.h"
 
 // Classe responsável por controlar as operações de autenticação
 
@@ -216,6 +217,11 @@ RetornoController ControllerAutenticacao::realizaLogin()
     } while (retorno == RetornoController::AlternaPerfil);
     if (retorno == RetornoController::Sair)
       return retorno;
+  }
+  catch (DatabaseError e)
+  {
+    std::cout << "Erro do banco!" << std::endl;
+    std::cerr << e.what() << std::endl;
   }
   catch (std::exception e)
   {

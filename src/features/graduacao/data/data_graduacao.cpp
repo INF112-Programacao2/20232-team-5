@@ -1,8 +1,8 @@
 ﻿#include "data_graduacao.h"
 
-DataGraduacao::DataGraduacao(PGconn *conn)
+DataGraduacao::DataGraduacao(Database *database)
 {
-  _conn = conn;
+  _database = database;
 }
 
 void DataGraduacao::cadastraGraduacao(Graduacao *graduacao)

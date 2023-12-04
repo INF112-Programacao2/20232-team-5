@@ -1,5 +1,5 @@
 #include "main_initializer.h"
-#include "database.h"
+#include "config.h"
 
 MainInitializer::MainInitializer()
 {
@@ -19,12 +19,12 @@ MainInitializer::~MainInitializer()
   destroyCadastroPendente();
   destroyUsuario();
   delete _session;
-  destroyConn();
 }
 
 bool MainInitializer::initialize()
 {
-  if (!initializeConn())
+  _database = new Database(conninfo);
+  if (!_database->initializeConn())
     return false;
   _session = new Session();
   initializeUsuario();
@@ -41,63 +41,43 @@ bool MainInitializer::initialize()
   return true;
 }
 
-// Conecta com o banco de dados
-bool MainInitializer::initializeConn()
-{
-  _conn = PQconnectdb(conninfo.c_str());
-  if (PQstatus(_conn) != CONNECTION_OK)
-  {
-    // Printa o erro
-    printf("Erro conectando com o banco de dados: %s\n", PQerrorMessage(_conn));
-    destroyConn();
-    return false;
-  }
-  return true;
-}
-
 void MainInitializer::initializeAutenticacao()
 {
-  _dataAutenticacao = new DataAutenticacao(_conn);
+  _dataAutenticacao = new DataAutenticacao(_database);
   _controllerAutenticacao = new ControllerAutenticacao(_session, _dataModalidade, _dataAutenticacao, _menuCliente, _menuProfessor, _menuAdministrador);
 }
 
 void MainInitializer::initializeUsuario()
 {
-  _dataUsuario = new DataUsuario(_conn);
+  _dataUsuario = new DataUsuario(_database);
   _controllerUsuario = new ControllerUsuario(_session, _dataUsuario);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerUsuario);
 }
 
 void MainInitializer::initializeCadastroPendente()
 {
-  _dataCadastroPendente = new DataCadastroPendente(_conn);
+  _dataCadastroPendente = new DataCadastroPendente(_database);
   _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade);
   _menuCadastroPendente = new MenuCadastroPendente("Cadastros Pendentes", _controllerCadastroPendente);
 }
 
 void MainInitializer::initializeModalidade()
 {
-  _dataModalidade = new DataModalidade(_conn);
+  _dataModalidade = new DataModalidade(_database);
 }
 
 void MainInitializer::initializeTurma()
 {
-  _dataTurma = new DataTurma(_conn);
+  _dataTurma = new DataTurma(_database);
   _controllerTurma = new ControllerTurma(_session, _dataTurma);
   _menuOpcoesTurma = new MenuOpcoesTurma("Turmas", _controllerTurma);
 }
 
 void MainInitializer::initializeGraduacao()
 {
-  _dataGraduacao = new DataGraduacao(_conn);
+  _dataGraduacao = new DataGraduacao(_database);
   _controllerGraduacao = new ControllerGraduacao(_session, _dataGraduacao);
   _menuOpcoesGraduacao = new MenuOpcoesGraduacao("Graduação", _controllerGraduacao);
-}
-
-void MainInitializer::destroyConn()
-{
-  // Finaliza a conexão
-  PQfinish(_conn);
 }
 
 void MainInitializer::destroyAutenticacao()

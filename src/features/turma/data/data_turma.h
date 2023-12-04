@@ -1,16 +1,16 @@
 ﻿#ifndef INF112_DATA_TURMA_H
 #define INF112_DATA_TURMA_H
-#include <libpq-fe.h>
+#include "database.h"
 #include "turma.h"
 #include <bits/stdc++.h>
 
 class DataTurma
 {
 private:
-  PGconn *_conn;
+  Database *_database;
 
 public:
-  DataTurma(PGconn *conn);
+  DataTurma(Database *database);
   void cadastraTurma(Turma *turma);
 };
 

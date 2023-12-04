@@ -165,12 +165,3 @@ void CadPendente::setFromUsuario(Usuario *usuario)
   setLogin(usuario->getLogin());
   setSenha(usuario->getSenha());
 }
-
-void CadPendente::toQueryParams(char paramValues[][1000])
-{
-  /*std::sprintf(paramValues[0], "%d", _chaveCad);
-  std::sprintf(paramValues[1], "%s", _nome);
-  std::sprintf(paramValues[2], "%s", _apelido);
-  std::sprintf(paramValues[3], "%s", _dtNascimento);
-  std::sprintf(paramValues[4], "%s", _cpf);*/
-}

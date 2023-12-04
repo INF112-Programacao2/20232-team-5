@@ -2,9 +2,9 @@
 #include <libpq-fe.h>
 #include <iostream>
 
-DataCadastroPendente::DataCadastroPendente(PGconn *conn)
+DataCadastroPendente::DataCadastroPendente(Database *database)
 {
-    _conn = conn;
+    _database = database;
 }
 
 std::vector<CadPendente> DataCadastroPendente::buscaListaCadastroPendente()

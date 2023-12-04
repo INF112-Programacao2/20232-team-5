@@ -1,7 +1,7 @@
 #include "turma.h"
 
-Turma::Turma(int chaveTur, int chaveUsu, int chaveMod, std::string hrInicio, std::string hrFim, std::string diasSemana)
-    : _chaveTur(chaveTur), _chaveUsu(chaveUsu), _chaveMod(chaveMod),
+Turma::Turma(int chaveTur, int chavePes, int chaveMod, std::string hrInicio, std::string hrFim, std::string diasSemana)
+    : _chaveTur(chaveTur), _chavePes(chavePes), _chaveMod(chaveMod),
       _hrInicio(hrInicio), _hrFim(hrFim), _diasSemana(diasSemana)
 {
 }
@@ -11,9 +11,9 @@ int Turma::getChaveTur()
   return _chaveTur;
 }
 
-int Turma::getChaveUsu()
+int Turma::getChavePes()
 {
-  return _chaveUsu;
+  return _chavePes;
 }
 
 int Turma::getChaveMod()
@@ -41,9 +41,9 @@ void Turma::setChaveTur(int chaveTur)
   _chaveTur = chaveTur;
 }
 
-void Turma::setChaveUsu(int chaveUsu)
+void Turma::setChavePes(int chavePes)
 {
-  _chaveUsu = chaveUsu;
+  _chavePes = chavePes;
 }
 
 void Turma::setChaveMod(int chaveMod)

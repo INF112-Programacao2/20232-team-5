@@ -2,18 +2,18 @@
 #define INF112_DATA_AUTENTICACAO_H
 #include <vector>
 #include <string>
+#include <libpq-fe.h>
 #include "cad_pendente.h"
 #include "usuario.h"
 #include "perfil.h"
-#include "database.h"
 
 class DataAutenticacao
 {
 private:
-  Database *_database;
+  PGconn *_conn;
 
 public:
-  DataAutenticacao(Database *database);
+  DataAutenticacao(PGconn *conn);
   void inscreveCadastroPendente(CadPendente *cad);
   Usuario *buscaUsuario(std::string login);
   std::vector<Perfil> buscaPerfis(int chaveUsu);

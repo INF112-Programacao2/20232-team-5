@@ -2,7 +2,6 @@
 #define INF112_USUARIO_H
 #include <string>
 #include <vector>
-#include <libpq-fe.h>
 #include "perfil.h"
 
 class Usuario
@@ -51,7 +50,7 @@ public:
   void addPerfil(Perfil perfil);
 
   // Conversion
-  static Usuario *fromDatabase(PGresult *res, int row);
+  void toQueryParams(char **paramValues);
 };
 
 #endif

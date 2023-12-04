@@ -1,42 +1,33 @@
 ﻿#include "data_turma.h"
-#include <string>
-#include <vector>
-#include "database_error.h"
-#include <exception>
 
-DataTurma::DataTurma(Database *database)
+DataTurma::DataTurma(PGconn *conn)
 {
-  _database = database;
+  _conn = conn;
 }
 
 void DataTurma::cadastraTurma(Turma *turma)
 {
-  std::string insertQuery = "INSERT INTO public.\"TURMA\" "
+  const char *insertQuery = "INSERT INTO public.\"TURMA\" "
                             "(\"CHAVEUSU\", \"CHAVEMOD\", \"HRINICIO\", \"HRFIM\", \"DIASSEMANA\") "
                             "VALUES ($1, $2, $3, $4, $5)";
 
-  std::cout << insertQuery << std::endl;
+  std::cout << *insertQuery << std::endl;
 
-  std::vector<std::string> params = {
-      std::to_string(turma->getChaveUsu()),
-      std::to_string(turma->getChaveMod()),
-      turma->getHrInicio(),
-      turma->getHrFim(),
-      turma->getDiasSemana(),
+  const char *const paramValues[5] = {
+      std::to_string(turma->getChavePes()).c_str(),
+      std::to_string(turma->getChaveMod()).c_str(),
+      turma->getHrInicio().c_str(),
+      turma->getHrFim().c_str(),
+      turma->getDiasSemana().c_str()
   };
 
-  try
+  PGresult *res = PQexecParams(_conn, insertQuery, 5, NULL, paramValues, NULL, NULL, 0);
+  if (PQresultStatus(res) != PGRES_COMMAND_OK)
   {
-    PGresult *res = _database->executar(insertQuery, params);
-    PQclear(res);
+    std::cout << "PQexecParams failed: " << PQresultErrorMessage(res)
+              << std::endl;
+    std::cout << PQresultStatus(res) << std::endl;
   }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+
+  PQclear(res);
 }

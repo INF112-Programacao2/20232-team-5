@@ -112,16 +112,11 @@ void Usuario::addPerfil(Perfil perfil)
   _perfilList.push_back(perfil);
 }
 
-Usuario *Usuario::fromDatabase(PGresult *res, int row)
+void Usuario::toQueryParams(char **paramValues)
 {
-  return new Usuario(
-      std::atoi(PQgetvalue(res, row, 0)),
-      PQgetvalue(res, row, 1),
-      PQgetvalue(res, row, 2),
-      PQgetvalue(res, row, 3),
-      PQgetvalue(res, row, 4),
-      PQgetvalue(res, row, 5),
-      PQgetvalue(res, row, 6)[0],
-      PQgetvalue(res, row, 7),
-      PQgetvalue(res, row, 8));
+  std::sprintf(paramValues[0], "%d", _chaveUsu);
+  std::sprintf(paramValues[1], "%s", _nome);
+  std::sprintf(paramValues[2], "%s", _apelido);
+  std::sprintf(paramValues[3], "%s", _dtNascimento);
+  std::sprintf(paramValues[4], "%s", _cpf);
 }

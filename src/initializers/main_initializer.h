@@ -1,6 +1,6 @@
 #ifndef INF112_MAIN_INITIALIZER_H
 #define INF112_MAIN_INITIALIZER_H
-#include <database.h>
+#include <libpq-fe.h>
 #include <string>
 #include "session.h"
 #include "menu_inicial.h"
@@ -27,7 +27,7 @@ class MainInitializer
 {
 private:
   // CONEXAO COM BANCO
-  Database *_database;
+  PGconn *_conn;
   // SESSAO
   Session *_session;
   // MENUS
@@ -54,12 +54,14 @@ private:
   DataTurma *_dataTurma;
   DataGraduacao *_dataGraduacao;
 
+  bool initializeConn();
   void initializeAutenticacao();
   void initializeUsuario();
   void initializeCadastroPendente();
   void initializeModalidade();
   void initializeTurma();
   void initializeGraduacao();
+  void destroyConn();
   void destroyAutenticacao();
   void destroyUsuario();
   void destroyCadastroPendente();

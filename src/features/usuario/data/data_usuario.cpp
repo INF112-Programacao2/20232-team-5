@@ -1,8 +1,8 @@
 #include "data_usuario.h"
 
-DataUsuario::DataUsuario(Database *database)
+DataUsuario::DataUsuario(PGconn *conn)
 {
-  _database = database;
+  _conn = conn;
 }
 
 void DataUsuario::salvarSenha(int chaveUsu, std::string senha)

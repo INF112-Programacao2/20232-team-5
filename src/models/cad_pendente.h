@@ -67,6 +67,9 @@ public:
   void setChaveUsu(int chaveUsu);
   void setTipoCadastro(TipoCadastro tipoCadastro);
   void setFromUsuario(Usuario *usuario);
+
+  // Conversion
+  void toQueryParams(char paramValues[][1000]);
 };
 
 #endif

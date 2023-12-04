@@ -8,11 +8,7 @@ set(sources
   main.cpp
   base/global.h
   base/global.cpp
-  base/config.h
   base/database.h
-  base/database.cpp
-  base/database_error.h
-  base/database_error.cpp
   base/menu.h
   base/menu.cpp
   base/opcao_menu.h

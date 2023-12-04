@@ -2,6 +2,7 @@
 #define INF112_DATA_TURMA_H
 #include <libpq-fe.h>
 #include "turma.h"
+#include <bits/stdc++.h>
 
 class DataTurma
 {

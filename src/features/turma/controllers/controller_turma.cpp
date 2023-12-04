@@ -7,7 +7,7 @@ ControllerTurma::ControllerTurma(Session *session, DataTurma *dataTurma)
 {
 }
 
-RetornoController ControllerTurma::realizaCadastro()
+/*RetornoController ControllerTurma::realizaCadastro()
 {
     std::string nome;
     int ordem;
@@ -43,11 +43,31 @@ RetornoController ControllerTurma::realizaCadastro()
             return true;
         });
 
-    // Cria a turma
-    // Turma *turma = new Turma(0, nome, ordem, minAulas);
+    return RetornoController::Completo;
+}*/
 
-    // Salva a turma
-    //_dataTurma->cadastraTurma(turma);
+RetornoController ControllerTurma::realizaCadastro()
+{
+    std::string hrInicio;
+    std::string hrFim;
+    std::string diasSemana;
+
+    // Solicitar valores ao usuário
+    std::cout << "CADASTRO DE TURMA" << std::endl;
+
+    std::cout << "Digite a hora de início: ";
+    hrInicio = readLine();
+
+    std::cout << "Digite a hora de fim: ";
+    hrFim = readLine();
+
+    std::cout << "Digite os dias da semana: ";
+    diasSemana = readLine();
+
+    Turma *turma = new Turma(0, 0, 0, hrInicio, hrFim, diasSemana);
+
+    _dataTurma->cadastraTurma(turma);
 
     return RetornoController::Completo;
+
 }

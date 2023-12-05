@@ -1,6 +1,6 @@
 #ifndef INF112_MODALIDADE_H
 #define INF112_MODALIDADE_H
-
+#include <libpq-fe.h>
 #include <string>
 
 class Modalidade
@@ -19,6 +19,9 @@ public:
   // Setters
   void setChaveMod(int chaveMod);
   void setNome(std::string nome);
+
+  // Conversion
+  static Modalidade fromDatabase(PGresult *res, int row);
 };
 
 #endif

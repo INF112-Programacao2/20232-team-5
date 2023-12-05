@@ -118,6 +118,11 @@ RetornoController ControllerAutenticacao::realizaCadastro()
     _dataAutenticacao->inscreveCadastroPendente(cad);
     std::cout << "Cadastro submetido para aprovação do administrador!" << std::endl;
   }
+  catch (DatabaseError e)
+  {
+    std::cout << "Erro do banco!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
   catch (std::exception e)
   {
     std::cout << "Ocorreu um erro inesperado!" << std::endl;

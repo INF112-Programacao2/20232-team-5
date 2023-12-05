@@ -62,7 +62,7 @@ PGresult *Database::executar(std::string &query, std::vector<std::string> &param
   const char *paramValues[params.size()];
 
   for (int i = 0; i < params.size(); ++i)
-    paramValues[i] = params[i].c_str();
+    paramValues[i] = params[i] != "NULL" ? params[i].c_str() : NULL;
 
   PGresult *result = PQexecParams(_conn, query.c_str(), (int)params.size(), nullptr, paramValues, nullptr, nullptr, 0);
 

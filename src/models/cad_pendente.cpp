@@ -1,25 +1,25 @@
 #include "cad_pendente.h"
 
 // Construtor para cadastro externo de professor (novo usuário)
-CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo)
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(NULL), _chaveUsu(NULL)
 {
   _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro externo de aluno (novo usuário, necessita informar a modalidade)
-CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod)
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(NULL)
 {
   _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro interno de professor (usuário já existente)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo)
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _nome(""), _apelido(""), _dtNascimento(""), _cpf(""), _rg(""), _sexo(NULL), _login(""), _senha(""), _tipo(tipo), _chaveMod(NULL), _chaveUsu(chaveUsu)
 {
   _tipoCadastro = TipoCadastro::Interno;
 }
 
 // Construtor para cadastro interno de aluno (usuário já existente, necessita informar a modalidade)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _chaveUsu(chaveUsu), _tipo(tipo), _chaveMod(chaveMod)
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(""), _apelido(""), _dtNascimento(""), _cpf(""), _rg(""), _sexo(NULL), _login(""), _senha(""), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(chaveUsu)
 {
   _tipoCadastro = TipoCadastro::Interno;
 }

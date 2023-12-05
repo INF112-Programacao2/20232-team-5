@@ -24,3 +24,10 @@ void Modalidade::setNome(std::string nome)
 {
   _nome = nome;
 }
+
+Modalidade Modalidade::fromDatabase(PGresult *res, int row)
+{
+  return Modalidade(
+      std::atoi(PQgetvalue(res, row, 0)),
+      PQgetvalue(res, row, 2));
+}

@@ -1,5 +1,6 @@
 #ifndef INF112_PERFIL_H
 #define INF112_PERFIL_H
+#include <libpq-fe.h>
 
 class Perfil
 {
@@ -15,6 +16,9 @@ public:
 
   void setChavePer(int chavePer);
   void setTipo(char tipo);
+
+  // Conversion
+  static Perfil fromDatabase(PGresult *res, int row);
 };
 
 #endif

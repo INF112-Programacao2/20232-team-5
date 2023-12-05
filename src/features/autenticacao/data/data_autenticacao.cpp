@@ -88,9 +88,10 @@ void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
   // PQclear(res);
 }
 
+// Busca um usuário específico
 Usuario *DataAutenticacao::buscaUsuario(std::string login)
 {
-  std::string query = "SELECT * FROM \"USARIO\" WHERE \"LOGIN\" = $1";
+  std::string query = "SELECT * FROM \"USUARIO\" WHERE \"LOGIN\" = $1";
   std::vector<std::string> params = {
       login,
   };
@@ -102,18 +103,20 @@ Usuario *DataAutenticacao::buscaUsuario(std::string login)
   return u;
 }
 
+// Busca pelos perfis do usuário
 std::vector<Perfil> DataAutenticacao::buscaPerfis(int chaveUsu)
 {
   std::string query = "SELECT * FROM \"PERFIL\" WHERE \"CHAVEUSU\" = $1";
   std::vector<std::string> params = {
-      chaveUsu,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
-  Usuario *u = nullptr;
-  return {
-      Perfil(1, 'A'),
-      // Perfil(2, 'C'),
-  };
+  std::vector<Perfil> listaPerfil;
+  for (int i = 0; i < PQntuples(res); i++)
+  {
+    listaPerfil.push_back(Perfil::fromDatabase(res, i));
+  }
+  return listaPerfil;
 }
 
 bool DataAutenticacao::existeLogin(std::string login)

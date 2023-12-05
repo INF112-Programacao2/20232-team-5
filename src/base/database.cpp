@@ -1,5 +1,7 @@
 #include "database.h"
 
+// Classe base que controla as operações relacionadas ao banco de dados
+
 Database::Database(std::string connectionString)
 {
   _connectionString = connectionString;

@@ -104,7 +104,12 @@ Usuario *DataAutenticacao::buscaUsuario(std::string login)
 
 std::vector<Perfil> DataAutenticacao::buscaPerfis(int chaveUsu)
 {
-  // Mock
+  std::string query = "SELECT * FROM \"PERFIL\" WHERE \"CHAVEUSU\" = $1";
+  std::vector<std::string> params = {
+      chaveUsu,
+  };
+  PGresult *res = _database->executar(query, params);
+  Usuario *u = nullptr;
   return {
       Perfil(1, 'A'),
       // Perfil(2, 'C'),

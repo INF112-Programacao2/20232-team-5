@@ -51,4 +51,11 @@ INSERT INTO public."ALUNO"(
 	"CHAVEUSU", "CHAVEGRD", "NUMAULAS")
 	VALUES (2, 7, 0);
 
-	
+INSERT INTO public."PRESENCA"(
+	"CHAVEALU", "CHAVETUR")
+	VALUES (1, 1);
+
+/* Alterando a versão para 4 */
+SELECT setval('public."VERSAOBD"', 4, true);
+
+commit work;

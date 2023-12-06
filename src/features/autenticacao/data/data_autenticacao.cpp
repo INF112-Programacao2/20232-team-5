@@ -27,6 +27,7 @@ void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
       cad->getChaveUsu() ? std::to_string(cad->getChaveUsu()) : "NULL",
       cad->getTipoCadastro() ? std::string(1, cad->getTipoCadastro()) : "NULL",
   };
+
   PGresult *res = _database->executar(query, params);
   PQclear(res);
 }

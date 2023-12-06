@@ -1,4 +1,6 @@
 #include "modalidade.h"
+#include "database.h"
+#include "global.h"
 
 Modalidade::Modalidade(int chaveMod, std::string nome)
     : _chaveMod(chaveMod), _nome(nome)
@@ -27,7 +29,5 @@ void Modalidade::setNome(std::string nome)
 
 Modalidade Modalidade::fromDatabase(PGresult *res, int row)
 {
-  return Modalidade(
-      std::atoi(PQgetvalue(res, row, 0)),
-      PQgetvalue(res, row, 1));
+  return Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
 }

@@ -4,6 +4,10 @@
 #include <functional>
 #include <limits>
 
+#define nullstr "NULL"
+#define nullnum -1
+#define nullchar ' '
+
 enum RetornoController
 {
   Voltar = 1,

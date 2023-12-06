@@ -1,4 +1,5 @@
 #include "database.h"
+#include "global.h"
 
 // Classe base que controla as operações relacionadas ao banco de dados
 
@@ -112,4 +113,12 @@ void Database::rollback()
   }
 
   PQclear(result);
+}
+
+std::string Database::value(PGresult *res, int row, std::string fieldName)
+{
+  int pos = PQfnumber(res, ("\"" + fieldName + "\"").c_str());
+  if (PQgetisnull(res, row, pos))
+    return nullstr;
+  return std::string(PQgetvalue(res, row, pos));
 }

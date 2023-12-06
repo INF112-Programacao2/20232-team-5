@@ -18,14 +18,16 @@ public:
   Database(std::string connectionString);
   ~Database();
   bool initializeConn();
-  // Sem parametros
+  // Executa query sem parâmetros
   PGresult *executar(std::string &query);
-  // Com parametros
+  // Executa query com parâmetros
   PGresult *executar(std::string &query, std::vector<std::string> &params);
   // Persiste as alterações no banco de dados
   void commit();
   // Desfaz as alterações no banco de dados
   void rollback();
+  // Obtém valor de certo campo em um resultado do banco de dados
+  static std::string value(PGresult *res, int row, std::string fieldName);
 };
 
 #endif

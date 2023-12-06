@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "global.h"
 
 DataAutenticacao::DataAutenticacao(Database *database)
 {
@@ -19,13 +20,13 @@ void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
       cad->getDtNascimento(),
       cad->getCpf(),
       cad->getRg(),
-      cad->getSexo() ? std::string(1, cad->getSexo()) : "NULL",
+      cad->getSexo() != nullchar ? std::string(1, cad->getSexo()) : nullstr,
       cad->getLogin(),
       cad->getSenha(),
-      cad->getTipo() ? std::string(1, cad->getTipo()) : "NULL",
-      cad->getChaveMod() ? std::to_string(cad->getChaveMod()) : "NULL",
-      cad->getChaveUsu() ? std::to_string(cad->getChaveUsu()) : "NULL",
-      cad->getTipoCadastro() ? std::string(1, cad->getTipoCadastro()) : "NULL",
+      cad->getTipo() != nullchar ? std::string(1, cad->getTipo()) : nullstr,
+      cad->getChaveMod() != nullnum ? std::to_string(cad->getChaveMod()) : nullstr,
+      cad->getChaveUsu() != nullchar ? std::to_string(cad->getChaveUsu()) : nullstr,
+      std::string(1, cad->getTipoCadastro()),
   };
 
   PGresult *res = _database->executar(query, params);

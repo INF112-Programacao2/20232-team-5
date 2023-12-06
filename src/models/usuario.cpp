@@ -1,4 +1,5 @@
 #include "usuario.h"
+#include "database.h"
 
 // Construtor
 Usuario::Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha) : _chaveUsu(chaveUsu), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha)
@@ -115,13 +116,13 @@ void Usuario::addPerfil(Perfil perfil)
 Usuario *Usuario::fromDatabase(PGresult *res, int row)
 {
   return new Usuario(
-      std::atoi(PQgetvalue(res, row, 0)),
-      PQgetvalue(res, row, 1),
-      PQgetvalue(res, row, 2),
-      PQgetvalue(res, row, 3),
-      PQgetvalue(res, row, 4),
-      PQgetvalue(res, row, 5),
-      PQgetvalue(res, row, 6)[0],
-      PQgetvalue(res, row, 7),
-      PQgetvalue(res, row, 8));
+      std::stoi(Database::value(res, row, "CHAVEUSU")),
+      Database::value(res, row, "NOME"),
+      Database::value(res, row, "APELIDO"),
+      Database::value(res, row, "DTNASCIMENTO"),
+      Database::value(res, row, "CPF"),
+      Database::value(res, row, "RG"),
+      Database::value(res, row, "SEXO")[0],
+      Database::value(res, row, "LOGIN"),
+      Database::value(res, row, "SENHA"));
 }

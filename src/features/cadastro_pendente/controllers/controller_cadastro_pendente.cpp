@@ -32,7 +32,7 @@ RetornoController ControllerCadastroPendente::listaTodos()
       else
         tipo = "Administrador";
 
-      std::cout << "Código: "<< cadPendente.getChaveCad() << " | Nome: " << cadPendente.getNome() << " | Tipo: " << tipo;
+      std::cout << "Código: " << cadPendente.getChaveCad() << " | Nome: " << cadPendente.getNome() << " | Tipo: " << tipo;
       // Procura a modalidade para printar o nome, caso seja cliente
       if (cadPendente.getTipo() == 'C')
       {
@@ -40,7 +40,7 @@ RetornoController ControllerCadastroPendente::listaTodos()
           if (modalidade.getChaveMod() == cadPendente.getChaveMod())
             std::cout << " | Modalidade: " << modalidade.getNome();
       }
-      
+
       std::cout << std::endl;
     }
   }

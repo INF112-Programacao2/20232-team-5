@@ -60,6 +60,12 @@ private:
   void initializeModalidade();
   void initializeTurma();
   void initializeGraduacao();
+  void initializeData();
+  void initializeControllers();
+  void initializeMenus();
+  void destroyData();
+  void destroyControllers();
+  void destroyMenus();
   void destroyAutenticacao();
   void destroyUsuario();
   void destroyCadastroPendente();

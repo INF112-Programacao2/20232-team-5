@@ -15,6 +15,7 @@ RetornoController ControllerCadastroPendente::listaTodos()
     std::vector<Modalidade> listaModalidade = _dataModalidade->buscaListaModalidade();
     std::vector<CadPendente> listaCadPendente = _dataCadastroPendente->buscaListaCadastroPendente();
     std::string tipo;
+
     for (auto cadPendente : listaCadPendente)
     {
       if (cadPendente.getTipoCadastro() == TipoCadastro::Interno)
@@ -23,22 +24,24 @@ RetornoController ControllerCadastroPendente::listaTodos()
         cadPendente.setFromUsuario(usuario);
         delete usuario;
       }
+
       if (cadPendente.getTipo() == 'C')
         tipo = "Cliente";
       else if (cadPendente.getTipo() == 'P')
         tipo = "Professor";
       else
         tipo = "Administrador";
-      std::cout << "CHAVE: " << cadPendente.getChaveCad() << " | NOME: " << cadPendente.getNome() << " | TIPO: " << tipo;
+
+      std::cout << "Código: "<< cadPendente.getChaveCad() << " | Nome: " << cadPendente.getNome() << " | Tipo: " << tipo;
       // Procura a modalidade para printar o nome, caso seja cliente
       if (cadPendente.getTipo() == 'C')
       {
         for (auto modalidade : listaModalidade)
           if (modalidade.getChaveMod() == cadPendente.getChaveMod())
-            std::cout << " | MODALIDADE: " << modalidade.getNome() << std::endl;
+            std::cout << " | Modalidade: " << modalidade.getNome();
       }
-      else
-        std::cout << std::endl;
+      
+      std::cout << std::endl;
     }
   }
   catch (DatabaseError e)

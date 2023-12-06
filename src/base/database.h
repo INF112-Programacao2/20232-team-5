@@ -22,6 +22,10 @@ public:
   PGresult *executar(std::string &query);
   // Com parametros
   PGresult *executar(std::string &query, std::vector<std::string> &params);
+  // Persiste as alterações no banco de dados
+  void commit();
+  // Desfaz as alterações no banco de dados
+  void rollback();
 };
 
 #endif

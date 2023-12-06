@@ -29,5 +29,5 @@ Modalidade Modalidade::fromDatabase(PGresult *res, int row)
 {
   return Modalidade(
       std::atoi(PQgetvalue(res, row, 0)),
-      PQgetvalue(res, row, 2));
+      PQgetvalue(res, row, 1));
 }

@@ -11,14 +11,17 @@ DataCadastroPendente::DataCadastroPendente(Database *database)
 
 std::vector<CadPendente> DataCadastroPendente::buscaListaCadastroPendente()
 {
-    std::string query = "SELECT * FROM \"CADPENDENTE\"";
-    PGresult *res = _database->executar(query);
+    std::string SQL = "SELECT * FROM \"CADPENDENTE\"";
+
+    PGresult *query = _database->executar(SQL);
     std::vector<CadPendente> listaCadPendente;
-    for (int i = 0; i < PQntuples(res); i++)
+
+    for (int i = 0; i < PQntuples(query); i++)
     {
-        std::cout << PQgetvalue(res, i, 1) << std::endl;
-        listaCadPendente.push_back(CadPendente::fromDatabase(res, i));
+        //std::cout << PQgetvalue(res, i, 1) << std::endl;
+        listaCadPendente.push_back(CadPendente::fromDatabase(query, i));
     }
-    PQclear(res);
+
+    PQclear(query);
     return listaCadPendente;
 }

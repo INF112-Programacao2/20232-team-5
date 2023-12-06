@@ -75,3 +75,41 @@ PGresult *Database::executar(std::string &query, std::vector<std::string> &param
 
   return result;
 }
+
+void Database::commit()
+{
+  if (!_conn)
+  {
+    throw DatabaseError("Conexão inválida.");
+  }
+
+  PGresult *result = PQexec(_conn, "COMMIT");
+
+  if (PQresultStatus(result) != PGRES_COMMAND_OK)
+  {
+    std::string errorMsg = PQresultErrorMessage(result);
+    PQclear(result);
+    throw DatabaseError(errorMsg);
+  }
+
+  PQclear(result);
+}
+
+void Database::rollback()
+{
+  if (!_conn)
+  {
+    throw DatabaseError("Conexão inválida.");
+  }
+
+  PGresult *result = PQexec(_conn, "ROLLBACK");
+
+  if (PQresultStatus(result) != PGRES_COMMAND_OK)
+  {
+    std::string errorMsg = PQresultErrorMessage(result);
+    PQclear(result);
+    throw DatabaseError(errorMsg);
+  }
+
+  PQclear(result);
+}

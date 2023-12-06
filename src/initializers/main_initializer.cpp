@@ -28,8 +28,8 @@ bool MainInitializer::initialize()
     return false;
   _session = new Session();
   initializeUsuario();
-  initializeCadastroPendente();
   initializeModalidade();
+  initializeCadastroPendente();
   initializeTurma();
   initializeGraduacao();
   _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma);

@@ -1,5 +1,8 @@
 #include "cad_pendente.h"
 
+// Construtor para receber do banco (todos os dados)
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(NULL), _chaveUsu(NULL), _tipoCadastro(tipoCadastro) {}
+
 // Construtor para cadastro externo de professor (novo usuário)
 CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(NULL), _chaveUsu(NULL)
 {
@@ -164,4 +167,26 @@ void CadPendente::setFromUsuario(Usuario *usuario)
   setSexo(usuario->getSexo());
   setLogin(usuario->getLogin());
   setSenha(usuario->getSenha());
+}
+
+CadPendente CadPendente::fromDatabase(PGresult *res, int row)
+{
+  char sexo = PQgetvalue(res, row, 6) ? PQgetvalue(res, row, 6)[0] : NULL;
+  int chaveMod = PQgetvalue(res, row, 10) ? std::atoi(PQgetvalue(res, row, 10)) : NULL;
+  int chaveUsu = PQgetvalue(res, row, 11) ? std::atoi(PQgetvalue(res, row, 11)) : NULL;
+
+  return CadPendente(
+      std::atoi(PQgetvalue(res, row, 0)),
+      PQgetvalue(res, row, 1),
+      PQgetvalue(res, row, 2),
+      PQgetvalue(res, row, 3),
+      PQgetvalue(res, row, 4),
+      PQgetvalue(res, row, 5),
+      sexo,
+      PQgetvalue(res, row, 7),
+      PQgetvalue(res, row, 8),
+      PQgetvalue(res, row, 9)[0],
+      chaveMod,
+      chaveUsu,
+      static_cast<TipoCadastro>(PQgetvalue(res, row, 12)[0]));
 }

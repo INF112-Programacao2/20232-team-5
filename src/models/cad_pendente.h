@@ -28,6 +28,8 @@ private:
 
 public:
   const static int nParams = 4;
+  // Construtor para receber do banco (todos os dados)
+  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro);
   // Construtor para cadastro externo de professor (novo usuário)
   CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo);
   // Construtor para cadastro externo de aluno (novo usuário, necessita informar a modalidade)
@@ -67,6 +69,9 @@ public:
   void setChaveUsu(int chaveUsu);
   void setTipoCadastro(TipoCadastro tipoCadastro);
   void setFromUsuario(Usuario *usuario);
+
+  // Conversion
+  static CadPendente fromDatabase(PGresult *res, int row);
 };
 
 #endif

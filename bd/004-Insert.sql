@@ -1,6 +1,10 @@
 INSERT INTO public."USUARIO"(
-	"NOME", "APELIDO", "SEXO", "LOGIN", "SENHA")
-	VALUES ('Arlindão', 'Bola de Fogo', 'M', 'adm', 'adm',);
+	"CHAVEUSU", "NOME", "APELIDO", "SEXO", "LOGIN", "SENHA")
+	VALUES (1, 'Arlindão', 'Bola de Fogo', 'M', 'adm', 'adm',);
+
+INSERT INTO public."PERFIL"(
+	"CHAVEUSU", "TIPO")
+	VALUES (1, 'A');
 
 INSERT INTO public."MODALIDADE"(
 	"CHAVEMOD", "NOME")
@@ -44,8 +48,12 @@ INSERT INTO public."GRADUACAO"(
 	VALUES (1, 'Preta', 9, 150);
 
 INSERT INTO public."USUARIO"(
-	"NOME", "APELIDO", "SEXO", "LOGIN", "SENHA")
-	VALUES ('Lidson', 'Pitbull', 'M', 'lid', '1212');
+	"CHAVEUSU", "NOME", "APELIDO", "SEXO", "LOGIN", "SENHA")
+	VALUES (2, 'Lidson', 'Pitbull', 'M', 'lid', '1212');
+
+INSERT INTO public."PERFIL"(
+	"CHAVEUSU", "TIPO")
+	VALUES (2, 'C');
 
 INSERT INTO public."ALUNO"(
 	"CHAVEUSU", "CHAVEGRD", "NUMAULAS")

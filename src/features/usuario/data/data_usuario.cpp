@@ -1,4 +1,6 @@
 #include "data_usuario.h"
+#include <string>
+#include <libpq-fe.h>
 
 DataUsuario::DataUsuario(Database *database)
 {
@@ -7,13 +9,24 @@ DataUsuario::DataUsuario(Database *database)
 
 void DataUsuario::salvarSenha(int chaveUsu, std::string senha)
 {
-  // Mock
+  std::string query = "UPDATE \"USUARIO\" SET \"SENHA\" = $1;";
+  std::vector<std::string> params = {
+      senha,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
 }
 
 Usuario *DataUsuario::buscaUsuarioByChave(int chaveUsu)
 {
-  // Mock
-  // return nullptr;
-  Usuario *u = new Usuario(1, "João", "Joaozin", "17/04/2003", "10164444602", "20834320", 'M', "joaovitor", "senha123");
+  std::string query = "SELECT * FROM \"USUARIO\" WHERE \"CHAVEUSU\" = $1";
+  std::vector<std::string> params = {
+      std::to_string(chaveUsu),
+  };
+  PGresult *res = _database->executar(query, params);
+  Usuario *u = nullptr;
+  if (PQntuples(res))
+    u = Usuario::fromDatabase(res, 0);
+  PQclear(res);
   return u;
 }

@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <libpq-fe.h>
-#include "perfil.h"
+#include "enums.h"
 
 class Usuario
 {
@@ -17,7 +17,7 @@ private:
   char _sexo;
   std::string _login;
   std::string _senha;
-  std::vector<Perfil> _perfilList;
+  std::vector<TipoPerfil> _perfilList;
 
 public:
   Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha);
@@ -32,7 +32,7 @@ public:
   char getSexo();
   std::string getLogin();
   std::string getSenha();
-  std::vector<Perfil> getPerfilList();
+  std::vector<TipoPerfil> getPerfilList();
 
   // Setters
   void
@@ -45,10 +45,10 @@ public:
   void setSexo(char sexo);
   void setLogin(std::string login);
   void setSenha(std::string senha);
-  void setPerfilList(std::vector<Perfil> perfilList);
+  void setPerfilList(std::vector<TipoPerfil> perfilList);
 
   // Outros
-  void addPerfil(Perfil perfil);
+  void addPerfil(TipoPerfil perfil);
 
   // Conversion
   static Usuario *fromDatabase(PGresult *res, int row);

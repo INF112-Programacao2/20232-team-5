@@ -1,6 +1,7 @@
 #include "controller_cadastro_pendente.h"
 #include "cad_pendente.h"
 #include "database_error.h"
+#include "enums.h"
 
 ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade) {}
 
@@ -15,9 +16,9 @@ std::string ControllerCadastroPendente::getTipoStr(CadPendente *cad)
 {
   switch (cad->getTipo())
   {
-  case 'C':
+  case TipoPerfil::Cliente:
     return "Cliente";
-  case 'P':
+  case TipoPerfil::Professor:
     return "Professor";
   default:
     return "Administrador";
@@ -53,7 +54,7 @@ RetornoController ControllerCadastroPendente::listaTodos()
 
       std::cout << "CHAVE: " << cadPendente.getChaveCad() << " | NOME: " << cadPendente.getNome() << " | TIPO: " << tipo;
       // Procura a modalidade para printar o nome, caso seja cliente
-      if (cadPendente.getTipo() == 'C')
+      if (cadPendente.getTipo() == TipoPerfil::Cliente)
         std::cout << " | MODALIDADE: " << getNomeCategoria(&cadPendente, listaModalidade);
 
       std::cout << std::endl;
@@ -92,7 +93,7 @@ RetornoController ControllerCadastroPendente::verDetalhes()
       completaDados(cad);
     // Recupera a lista de modalidades (pra mostrar o nome) se for cliente
     std::vector<Modalidade> listaModalidade;
-    if (cad->getTipo() == 'C')
+    if (cad->getTipo() == TipoPerfil::Cliente)
     {
       listaModalidade = _dataModalidade->buscaListaModalidade();
     }
@@ -107,7 +108,7 @@ RetornoController ControllerCadastroPendente::verDetalhes()
       std::cout << "Interno (Usuário Existente)" << std::endl;
     std::cout << "TIPO DE PERFIL: " << getTipoStr(cad) << std::endl;
     // Procura a modalidade para printar o nome, caso seja cliente
-    if (cad->getTipo() == 'C')
+    if (cad->getTipo() == TipoPerfil::Cliente)
       std::cout << " | MODALIDADE: " << getNomeCategoria(cad, listaModalidade);
     std::cout << "APELIDO: " << cad->getApelido() << std::endl;
     std::cout << "DATA DE NASC.: " << cad->getDtNascimento() << std::endl;

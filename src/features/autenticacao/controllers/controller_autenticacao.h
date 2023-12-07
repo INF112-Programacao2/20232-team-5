@@ -8,7 +8,6 @@
 #include "menu_cliente.h"
 #include "menu_professor.h"
 #include "menu_administrador.h"
-#include "perfil.h"
 
 // Classe responsável por controlar as operações de autenticação
 
@@ -22,6 +21,7 @@ private:
   MenuProfessor *_menuProfessor;
   MenuAdministrador *_menuAdministrador;
   int escolhaPerfil();
+  std::string getTipoStr(TipoPerfil tipo);
 
 public:
   ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador);

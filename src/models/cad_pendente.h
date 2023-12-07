@@ -2,12 +2,7 @@
 #define INF112_CAD_PENDENTE_H
 #include <string>
 #include "usuario.h"
-
-enum TipoCadastro
-{
-  Externo = 'E',
-  Interno = 'I'
-};
+#include "enums.h"
 
 class CadPendente
 {

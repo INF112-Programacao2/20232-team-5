@@ -1,24 +1,31 @@
 #include "controller_usuario.h"
 #include <vector>
-#include "perfil.h"
+#include "enums.h"
 #include <exception>
 
 ControllerUsuario::ControllerUsuario(Session *session, DataUsuario *dataUsuario) : _session(session), _dataUsuario(dataUsuario) {}
 
+std::string ControllerUsuario::getTipoStr(TipoPerfil tipo)
+{
+  switch (tipo)
+  {
+  case TipoPerfil::Cliente:
+    return "Cliente";
+  case TipoPerfil::Professor:
+    return "Professor";
+  default:
+    return "Administrador";
+  }
+}
+
 int ControllerUsuario::escolhaPerfil()
 {
   std::cout << "Em qual perfil você deseja entrar?" << std::endl;
-  std::vector<Perfil> perfilList = _session->getUsuario()->getPerfilList();
+  std::vector<TipoPerfil> perfilList = _session->getUsuario()->getPerfilList();
   int perfil;
   for (int i = 0; i < perfilList.size(); i++)
   {
-    std::cout << i + 1 << " - ";
-    if (perfilList[i].getTipo() == 'C')
-      std::cout << "Cliente";
-    else if (perfilList[i].getTipo() == 'P')
-      std::cout << "Professor";
-    else
-      std::cout << "Administrador";
+    std::cout << i + 1 << " - " << getTipoStr(perfilList[i]);
     if (i == _session->getCurrentPerfil())
       std::cout << " [ATUAL]";
     std::cout << std::endl;

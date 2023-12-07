@@ -4,8 +4,8 @@
 #include <string>
 #include "cad_pendente.h"
 #include "usuario.h"
-#include "perfil.h"
 #include "database.h"
+#include "enums.h"
 
 class DataAutenticacao
 {
@@ -16,7 +16,7 @@ public:
   DataAutenticacao(Database *database);
   void inscreveCadastroPendente(CadPendente *cad);
   Usuario *buscaUsuario(std::string login);
-  std::vector<Perfil> buscaPerfis(int chaveUsu);
+  std::vector<TipoPerfil> buscaPerfis(int chaveUsu);
   bool existeLogin(std::string login);
 };
 

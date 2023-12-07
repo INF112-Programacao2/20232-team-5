@@ -21,8 +21,6 @@ set(sources
   base/session.cpp
   models/usuario.h
   models/usuario.cpp
-  models/perfil.h
-  models/perfil.cpp
   models/aluno.h
   models/aluno.cpp
   models/modalidade.h
@@ -33,6 +31,7 @@ set(sources
   models/graduacao.cpp
   models/turma.h
   models/turma.cpp
+  models/enums.h
   initializers/main_initializer.h
   initializers/main_initializer.cpp
   menus/menu_inicial.h

@@ -52,7 +52,7 @@ std::string Usuario::getSenha()
   return _senha;
 }
 
-std::vector<Perfil> Usuario::getPerfilList()
+std::vector<TipoPerfil> Usuario::getPerfilList()
 {
   return _perfilList;
 }
@@ -103,12 +103,12 @@ void Usuario::setSenha(std::string senha)
   _senha = senha;
 }
 
-void Usuario::setPerfilList(std::vector<Perfil> perfilList)
+void Usuario::setPerfilList(std::vector<TipoPerfil> perfilList)
 {
   _perfilList = perfilList;
 }
 
-void Usuario::addPerfil(Perfil perfil)
+void Usuario::addPerfil(TipoPerfil perfil)
 {
   _perfilList.push_back(perfil);
 }

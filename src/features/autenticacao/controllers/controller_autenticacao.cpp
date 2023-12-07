@@ -4,10 +4,24 @@
 #include "cad_pendente.h"
 #include "exception"
 #include "database_error.h"
+#include "enums.h"
 
 // Classe responsável por controlar as operações de autenticação
 
 ControllerAutenticacao::ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador) : _session(session), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _menuCliente(menuCliente), _menuProfessor(menuProfessor), _menuAdministrador(menuAdministrador) {}
+
+std::string ControllerAutenticacao::getTipoStr(TipoPerfil tipo)
+{
+  switch (tipo)
+  {
+  case TipoPerfil::Cliente:
+    return "Cliente";
+  case TipoPerfil::Professor:
+    return "Professor";
+  default:
+    return "Administrador";
+  }
+}
 
 bool ControllerAutenticacao::checaExisteLogin(std::string login)
 {
@@ -51,16 +65,16 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   rg = readLine();
 
   std::cout << "Digite o sexo (M/F): ";
-  sexo = readVal<char>(
+  sexo = std::toupper(readVal<char>(
       [&](char sexo)
       {
-        if (sexo != 'M' && sexo != 'F')
+        if (std::tolower(sexo) != 'm' && std::tolower(sexo) != 'f')
         {
           std::cout << "Opção inválida!" << std::endl;
           return false;
         }
         return true;
-      });
+      }));
 
   std::cout << "Digite o login: ";
   login = readVal<std::string>(
@@ -75,7 +89,7 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   tipo = readVal<char>(
       [&](char tipo)
       {
-        if (tipo != 'C' && tipo != 'P')
+        if (tipo != TipoPerfil::Cliente && tipo != TipoPerfil::Professor)
         {
           std::cout << "Opção inválida!" << std::endl;
           return false;
@@ -83,7 +97,7 @@ RetornoController ControllerAutenticacao::realizaCadastro()
         return true;
       });
 
-  if (tipo == 'C')
+  if (tipo == TipoPerfil::Cliente)
   {
     finalizarTela();
     int opcaoMod, chaveMod;
@@ -136,19 +150,10 @@ RetornoController ControllerAutenticacao::realizaCadastro()
 int ControllerAutenticacao::escolhaPerfil()
 {
   std::cout << "Em qual perfil você deseja entrar?" << std::endl;
-  std::vector<Perfil> perfilList = _session->getUsuario()->getPerfilList();
+  std::vector<TipoPerfil> perfilList = _session->getUsuario()->getPerfilList();
   int perfil;
   for (int i = 0; i < perfilList.size(); i++)
-  {
-    std::cout << i + 1 << " - ";
-    if (perfilList[i].getTipo() == 'C')
-      std::cout << "Cliente";
-    else if (perfilList[i].getTipo() == 'P')
-      std::cout << "Professor";
-    else
-      std::cout << "Administrador";
-    std::cout << std::endl;
-  }
+    std::cout << i + 1 << " - " << getTipoStr(perfilList[i]) << std::endl;
   std::cout << "Sua escolha: ";
   perfil = readVal<int>(
       [&](int option)
@@ -194,7 +199,7 @@ RetornoController ControllerAutenticacao::realizaLogin()
     std::cout << "Bem-vindo, " << usuario->getNome() << "!" << std::endl;
 
     // Busca lista de perfis do usuário
-    std::vector<Perfil> perfilList = _dataAutenticacao->buscaPerfis(usuario->getChaveUsu());
+    std::vector<TipoPerfil> perfilList = _dataAutenticacao->buscaPerfis(usuario->getChaveUsu());
     usuario->setPerfilList(perfilList);
     // Salva usuário na sessão
     _session->setUsuario(usuario);
@@ -213,9 +218,9 @@ RetornoController ControllerAutenticacao::realizaLogin()
     finalizarTela();
     do
     {
-      if (perfilList[_session->getCurrentPerfil()].getTipo() == 'C')
+      if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Cliente)
         retorno = _menuCliente->executar();
-      else if (perfilList[_session->getCurrentPerfil()].getTipo() == 'P')
+      else if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Professor)
         retorno = _menuProfessor->executar();
       else
         retorno = _menuAdministrador->executar();

@@ -13,6 +13,7 @@ private:
   Session *_session;
   DataUsuario *_dataUsuario;
   int escolhaPerfil();
+  std::string getTipoStr(TipoPerfil tipo);
 
 public:
   ControllerUsuario(Session *session, DataUsuario *dataUsuario);

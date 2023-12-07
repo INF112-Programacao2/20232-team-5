@@ -13,6 +13,7 @@ public:
   DataCadastroPendente(Database *database);
   std::vector<CadPendente> buscaListaCadastroPendente();
   CadPendente *buscaByChave(int chaveCad);
+  void deletaCadastro(int chaveCad);
 };
 
 #endif

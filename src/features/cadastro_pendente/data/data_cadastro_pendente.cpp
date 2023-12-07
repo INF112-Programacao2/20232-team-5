@@ -17,10 +17,7 @@ std::vector<CadPendente> DataCadastroPendente::buscaListaCadastroPendente()
     std::vector<CadPendente> listaCadPendente;
 
     for (int i = 0; i < PQntuples(query); i++)
-    {
-        // std::cout << PQgetvalue(res, i, 1) << std::endl;
         listaCadPendente.push_back(CadPendente::fromDatabase(query, i));
-    }
 
     PQclear(query);
     return listaCadPendente;
@@ -29,12 +26,19 @@ std::vector<CadPendente> DataCadastroPendente::buscaListaCadastroPendente()
 CadPendente *DataCadastroPendente::buscaByChave(int chaveCad)
 {
     std::string query = "SELECT * FROM \"CADPENDENTE\" WHERE \"CHAVECAD\" = $1";
-    std::vector<std::string> params = {
-        std::to_string(chaveCad)};
+    std::vector<std::string> params = {std::to_string(chaveCad)};
     PGresult *res = _database->executar(query, params);
     CadPendente *c = nullptr;
     if (PQntuples(res))
         c = CadPendente::fromDatabaseToPtr(res, 0);
     PQclear(res);
     return c;
+}
+
+void DataCadastroPendente::deletaCadastro(int chaveCad)
+{
+    std::string query = "DELETE FROM \"CADPENDENTE\" WHERE \"CHAVECAD\" = $1";
+    std::vector<std::string> params = {std::to_string(chaveCad)};
+    PGresult *res = _database->executar(query, params);
+    PQclear(res);
 }

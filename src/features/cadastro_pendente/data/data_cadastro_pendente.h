@@ -12,6 +12,7 @@ private:
 public:
   DataCadastroPendente(Database *database);
   std::vector<CadPendente> buscaListaCadastroPendente();
+  CadPendente *buscaByChave(int chaveCad);
 };
 
 #endif

@@ -17,6 +17,7 @@ private:
 public:
   ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade);
   RetornoController listaTodos();
+  RetornoController verDetalhes();
 };
 
 #endif

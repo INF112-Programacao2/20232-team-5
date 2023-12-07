@@ -194,3 +194,26 @@ CadPendente CadPendente::fromDatabase(PGresult *res, int row)
       static_cast<TipoCadastro>(
           Database::value(res, row, "TIPOCADASTRO")[0]));
 }
+
+CadPendente *CadPendente::fromDatabaseToPtr(PGresult *res, int row)
+{
+  char sexo = Database::value(res, row, "SEXO") == nullstr ? nullchar : Database::value(res, row, "SEXO")[0];
+  int chaveMod = Database::value(res, row, "CHAVEMOD") == nullstr ? nullnum : std::stoi(Database::value(res, row, "CHAVEMOD"));
+  int chaveUsu = Database::value(res, row, "CHAVEUSU") == nullstr ? nullnum : std::stoi(Database::value(res, row, "CHAVEUSU"));
+
+  return new CadPendente(
+      std::stoi(Database::value(res, row, "CHAVECAD")),
+      Database::value(res, row, "NOME"),
+      Database::value(res, row, "APELIDO"),
+      Database::value(res, row, "DTNASCIMENTO"),
+      Database::value(res, row, "CPF"),
+      Database::value(res, row, "RG"),
+      sexo,
+      Database::value(res, row, "LOGIN"),
+      Database::value(res, row, "SENHA"),
+      Database::value(res, row, "TIPO")[0],
+      chaveMod,
+      chaveUsu,
+      static_cast<TipoCadastro>(
+          Database::value(res, row, "TIPOCADASTRO")[0]));
+}

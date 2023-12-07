@@ -8,5 +8,6 @@ MenuCadastroPendente::MenuCadastroPendente(std::string title, ControllerCadastro
 void MenuCadastroPendente::inicializarOpcoes()
 {
   _opcaoList.push_back(OpcaoMenu("Listar Todos", std::bind(&ControllerCadastroPendente::listaTodos, _controllerCadastroPendente)));
+  _opcaoList.push_back(OpcaoMenu("Ver Detalhes", std::bind(&ControllerCadastroPendente::verDetalhes, _controllerCadastroPendente)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

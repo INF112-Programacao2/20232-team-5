@@ -132,7 +132,7 @@ Usuario *Usuario::fromDatabase(PGresult *res, int row)
 Usuario *Usuario::fromCadPendente(CadPendente *cad)
 {
   return new Usuario(
-      nullnum,
+      cad->getChaveUsu(),
       cad->getNome(),
       cad->getApelido(),
       cad->getDtNascimento(),

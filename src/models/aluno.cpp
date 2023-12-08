@@ -41,7 +41,7 @@ Aluno *Aluno::fromUsuario(Usuario *usuario)
 {
   return new Aluno(
       nullnum,
-      nullnum,
+      usuario->getChaveUsu(),
       usuario->getNome(),
       usuario->getApelido(),
       usuario->getDtNascimento(),

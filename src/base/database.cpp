@@ -44,7 +44,9 @@ PGresult *Database::executar(std::string &query)
 
   if (PQresultStatus(result) != PGRES_TUPLES_OK && PQresultStatus(result) != PGRES_COMMAND_OK)
   {
-    std::string errorMsg = PQresultErrorMessage(result);
+    std::string errorMsg = "";
+    if (PQresultErrorMessage(result))
+      errorMsg = PQresultErrorMessage(result);
     PQclear(result);
     throw DatabaseError(errorMsg);
   }
@@ -69,7 +71,9 @@ PGresult *Database::executar(std::string &query, std::vector<std::string> &param
 
   if (PQresultStatus(result) != PGRES_TUPLES_OK && PQresultStatus(result) != PGRES_COMMAND_OK)
   {
-    std::string errorMsg = PQresultErrorMessage(result);
+    std::string errorMsg = "";
+    if (PQresultErrorMessage(result))
+      errorMsg = PQresultErrorMessage(result);
     PQclear(result);
     throw DatabaseError(errorMsg);
   }

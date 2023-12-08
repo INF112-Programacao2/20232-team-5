@@ -12,7 +12,7 @@ public:
   DataUsuario(Database *database);
   void salvarSenha(int chaveUsu, std::string senha);
   Usuario *buscaUsuarioByChave(int chaveUsu);
-  void criaUsuario(Usuario *usuario);
+  int criaUsuario(Usuario *usuario);
 };
 
 #endif

@@ -111,7 +111,7 @@ RetornoController ControllerCadastroPendente::verDetalhes()
     std::cout << "TIPO DE PERFIL: " << getTipoStr(cad) << std::endl;
     // Procura a modalidade para printar o nome, caso seja cliente
     if (cad->getTipo() == TipoPerfil::Cliente)
-      std::cout << " | MODALIDADE: " << getNomeCategoria(cad, listaModalidade);
+      std::cout << "MODALIDADE: " << getNomeCategoria(cad, listaModalidade) << std::endl;
     std::cout << "APELIDO: " << cad->getApelido() << std::endl;
     std::cout << "DATA DE NASC.: " << cad->getDtNascimento() << std::endl;
     std::cout << "CPF: " << cad->getCpf() << std::endl;
@@ -196,6 +196,7 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
   CadPendente *cad = nullptr;
   Usuario *usu = nullptr;
   Aluno *aluno = nullptr;
+  Graduacao *grad = nullptr;
   try
   {
     // Solicita chave
@@ -225,52 +226,66 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
           return true;
         });
 
-    // Instancia usuário
-    usu = Usuario::fromCadPendente(cad);
-    std::cout << "INSTANCIOU USUÁRIO" << std::endl;
-    bool existePerfil = false;
-    // Se for novo usuário, cria nova instância no banco
-    if (cad->getTipoCadastro() == TipoCadastro::Externo)
-      _dataUsuario->criaUsuario(usu);
-    else
+    if (std::tolower(resp) == 's')
     {
-      // Se não for usuário existente, vê se já possui o tipo de perfil que se quer cadastrar
-      std::vector<TipoPerfil> listaPerfil = _dataAutenticacao->buscaPerfis(cad->getChaveUsu());
-      for (auto perfil : listaPerfil)
-        if (perfil == cad->getTipo())
+
+      // Instancia usuário
+      usu = Usuario::fromCadPendente(cad);
+      bool existePerfil = false;
+      // Se for novo usuário, cria nova instância no banco
+      if (cad->getTipoCadastro() == TipoCadastro::Externo)
+        usu->setChaveUsu(_dataUsuario->criaUsuario(usu));
+      else
+      {
+        // Se não for usuário existente, vê se já possui o tipo de perfil que se quer cadastrar
+        std::vector<TipoPerfil> listaPerfil = _dataAutenticacao->buscaPerfis(usu->getChaveUsu());
+        for (auto perfil : listaPerfil)
+          if (perfil == cad->getTipo())
+          {
+            existePerfil = true;
+            break;
+          }
+      }
+      // Cria perfil se não existe
+      if (!existePerfil)
+        _dataCadastroPendente->criaPerfil(usu->getChaveUsu(), cad->getTipo());
+      // Se for cliente, cria o aluno
+      if (cad->getTipo() == TipoPerfil::Cliente)
+      {
+        // Primeiro busca a graduação inicial da modalidade em questão
+        grad = _dataGraduacao->buscaGraduacaoInicial(cad->getChaveMod());
+        if (!grad)
         {
-          existePerfil = true;
-          break;
+          std::cout << "Modalidade não possui graduação inicial! Não há como inscrever o aluno na modalidade!" << std::endl;
         }
+        else
+        {
+          aluno = Aluno::fromUsuario(usu);
+          aluno->setChaveGrd(grad->getChaveGrd());
+          _dataAluno->criaAluno(aluno);
+        }
+      }
+      _dataCadastroPendente->deletaCadastro(cad->getChaveCad());
+      std::cout << "Cadastros realizados!" << std::endl;
     }
-    if (!existePerfil)
-      _dataCadastroPendente->criaPerfil(cad->getChaveUsu(), cad->getTipo());
-    // Se for cliente, cria o aluno
-    if (cad->getTipo() == TipoPerfil::Cliente)
-    {
-      // Primeiro busca a graduação inicial da modalidade em questão
-      Graduacao grad = _dataGraduacao->buscaGraduacaoInicial(cad->getChaveMod());
-      aluno = Aluno::fromUsuario(usu);
-      aluno->setChaveGrd(grad.getChaveGrd());
-      _dataAluno->criaAluno(aluno);
-    }
-    std::cout << "Cadastros realizados!" << std::endl;
   }
   catch (DatabaseError e)
   {
     std::cout << "Erro no banco!" << std::endl;
     std::cout << e.what() << std::endl;
   }
-  catch (std::exception e)
-  {
-    std::cout << "Ocorreu um erro inesperado!" << std::endl;
-    std::cout << e.what() << std::endl;
-  }
+  // catch (std::exception e)
+  // {
+  //   std::cout << "Ocorreu um erro inesperado!" << std::endl;
+  //   std::cout << e.what() << std::endl;
+  // }
   if (cad)
     delete cad;
   if (usu)
     delete usu;
   if (aluno)
     delete aluno;
+  if (grad)
+    delete grad;
   return RetornoController::Completo;
 }

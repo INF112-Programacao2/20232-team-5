@@ -1,6 +1,7 @@
 #include "data_usuario.h"
 #include <string>
 #include <libpq-fe.h>
+#include "global.h"
 
 DataUsuario::DataUsuario(Database *database)
 {
@@ -31,7 +32,21 @@ Usuario *DataUsuario::buscaUsuarioByChave(int chaveUsu)
   return u;
 }
 
-void DataUsuario::criaUsuario(Usuario *usuario)
+int DataUsuario::criaUsuario(Usuario *usuario)
 {
-  // Mock
+  std::string query = "INSERT INTO public.\"USUARIO\" (\"NOME\", \"APELIDO\", \"DTNASCIMENTO\", \"CPF\", \"RG\", \"SEXO\", \"LOGIN\", \"SENHA\") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING \"CHAVEUSU\";";
+  std::vector<std::string> params = {
+      usuario->getNome(),
+      usuario->getApelido(),
+      usuario->getDtNascimento(),
+      usuario->getCpf(),
+      usuario->getRg(),
+      usuario->getSexo() != nullchar ? std::string(1, usuario->getSexo()) : nullstr,
+      usuario->getLogin(),
+      usuario->getSenha()};
+
+  PGresult *res = _database->executar(query, params);
+  int chaveUsu = std::stoi(Database::value(res, 0, "CHAVEUSU"));
+  PQclear(res);
+  return chaveUsu;
 }

@@ -1,4 +1,5 @@
 ﻿#include "graduacao.h"
+#include "database.h"
 
 Graduacao::Graduacao(int chaveGrd, int chaveMod, std::string nome, int ordem, int minAulas)
     : _chaveGrd(chaveGrd), _chaveMod(chaveMod), _nome(nome), ordem(ordem), minAulas(minAulas)
@@ -55,4 +56,13 @@ void Graduacao::setMinAulas(int minAulas)
   this->minAulas = minAulas;
 }
 
-// Path src/features/gradua%C3%A7%C3%A3o/graduacao.cpp
+// Conversion
+Graduacao *Graduacao::fromDatabaseToPtr(PGresult *res, int row)
+{
+  return new Graduacao(
+      std::stoi(Database::value(res, row, "CHAVEGRD")),
+      std::stoi(Database::value(res, row, "CHAVEMOD")),
+      Database::value(res, row, "NOME"),
+      std::stoi(Database::value(res, row, "ORDEM")),
+      std::stoi(Database::value(res, row, "MINAULAS")));
+}

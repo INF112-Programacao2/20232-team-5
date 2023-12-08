@@ -1,6 +1,6 @@
 ﻿#ifndef INF112_GRADUACAO_H
 #define INF112_GRADUACAO_H
-
+#include <libpq-fe.h>
 #include <string>
 
 class Graduacao
@@ -28,6 +28,9 @@ public:
     void setNome(std::string nome);
     void setOrdem(int ordem);
     void setMinAulas(int minAulas);
+
+    // Conversion
+    static Graduacao *fromDatabaseToPtr(PGresult *res, int row);
 };
 
 #endif

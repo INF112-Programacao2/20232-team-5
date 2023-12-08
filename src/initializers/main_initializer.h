@@ -57,6 +57,7 @@ private:
   DataGraduacao *_dataGraduacao;
   DataAluno *_dataAluno;
 
+  void initializeData();
   void initializeAutenticacao();
   void initializeUsuario();
   void initializeCadastroPendente();
@@ -64,6 +65,7 @@ private:
   void initializeTurma();
   void initializeGraduacao();
   void initializeAluno();
+  void destroyData();
   void destroyAutenticacao();
   void destroyUsuario();
   void destroyCadastroPendente();

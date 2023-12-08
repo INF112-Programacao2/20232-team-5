@@ -1,4 +1,5 @@
 #include "aluno.h"
+#include "global.h"
 
 Aluno::Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas)
     : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha),
@@ -34,4 +35,21 @@ void Aluno::setChaveGrd(int chaveGrd)
 void Aluno::setNumAulas(int numAulas)
 {
   _numAulas = numAulas;
+}
+
+Aluno *Aluno::fromUsuario(Usuario *usuario)
+{
+  return new Aluno(
+      nullnum,
+      nullnum,
+      usuario->getNome(),
+      usuario->getApelido(),
+      usuario->getDtNascimento(),
+      usuario->getCpf(),
+      usuario->getRg(),
+      usuario->getSexo(),
+      usuario->getLogin(),
+      usuario->getSenha(),
+      nullnum,
+      0);
 }

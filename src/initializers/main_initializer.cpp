@@ -15,8 +15,9 @@ MainInitializer::~MainInitializer()
   delete _menuCadastros;
   destroyGraduacao();
   destroyTurma();
-  destroyModalidade();
   destroyCadastroPendente();
+  destroyAluno();
+  destroyModalidade();
   destroyUsuario();
   delete _session;
 }
@@ -29,6 +30,7 @@ bool MainInitializer::initialize()
   _session = new Session();
   initializeUsuario();
   initializeModalidade();
+  initializeAluno();
   initializeCadastroPendente();
   initializeTurma();
   initializeGraduacao();
@@ -57,7 +59,7 @@ void MainInitializer::initializeUsuario()
 void MainInitializer::initializeCadastroPendente()
 {
   _dataCadastroPendente = new DataCadastroPendente(_database);
-  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade);
+  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataGraduacao, _dataAluno);
   _menuCadastroPendente = new MenuCadastroPendente("Cadastros Pendentes", _controllerCadastroPendente);
 }
 
@@ -78,6 +80,11 @@ void MainInitializer::initializeGraduacao()
   _dataGraduacao = new DataGraduacao(_database);
   _controllerGraduacao = new ControllerGraduacao(_session, _dataGraduacao);
   _menuOpcoesGraduacao = new MenuOpcoesGraduacao("Graduação", _controllerGraduacao);
+}
+
+void MainInitializer::initializeAluno()
+{
+  _dataAluno = new DataAluno(_database);
 }
 
 void MainInitializer::destroyAutenticacao()
@@ -119,7 +126,13 @@ void MainInitializer::destroyGraduacao()
   delete _dataGraduacao;
 }
 
+void MainInitializer::destroyAluno()
+{
+  delete _dataAluno;
+}
+
 void MainInitializer::executar()
 {
-  _menuInicial->executar();
+  _menuCadastroPendente->executar();
+  //_menuInicial->executar();
 }

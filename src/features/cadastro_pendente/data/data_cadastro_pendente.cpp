@@ -42,3 +42,8 @@ void DataCadastroPendente::deletaCadastro(int chaveCad)
     PGresult *res = _database->executar(query, params);
     PQclear(res);
 }
+
+void DataCadastroPendente::criaPerfil(int chaveUsu, char tipo)
+{
+    // Mock
+}

@@ -6,26 +6,28 @@
 class Graduacao
 {
 private:
-    int _chaveGrad;
+    int _chaveGrd;
+    int _chaveMod;
     std::string _nome;
     int ordem;
     int minAulas;
 
 public:
-    Graduacao(int chaveGrad, std::string nome, int ordem, int minAulas);
+    Graduacao(int chaveGrd, int chaveMod, std::string nome, int ordem, int minAulas);
 
     // Getters
-    int getChaveGrad();
+    int getChaveGrd();
+    int getChaveMod();
     std::string getNome();
     int getOrdem();
     int getMinAulas();
 
     // Setters
-    void setChaveGrad(int chaveGrad);
+    void setChaveGrd(int chaveGrd);
+    void setChaveMod(int chaveMod);
     void setNome(std::string nome);
     void setOrdem(int ordem);
     void setMinAulas(int minAulas);
-
 };
 
 #endif

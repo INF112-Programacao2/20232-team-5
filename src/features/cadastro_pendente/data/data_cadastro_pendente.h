@@ -14,6 +14,7 @@ public:
   std::vector<CadPendente> buscaListaCadastroPendente();
   CadPendente *buscaByChave(int chaveCad);
   void deletaCadastro(int chaveCad);
+  void criaPerfil(int chaveUsu, char tipo);
 };
 
 #endif

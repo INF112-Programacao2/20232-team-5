@@ -1,13 +1,18 @@
 ﻿#include "graduacao.h"
 
-Graduacao::Graduacao(int chaveGrad, std::string nome, int ordem, int minAulas)
-    : _chaveGrad(chaveGrad), _nome(nome), ordem(ordem), minAulas(minAulas)
+Graduacao::Graduacao(int chaveGrd, int chaveMod, std::string nome, int ordem, int minAulas)
+    : _chaveGrd(chaveGrd), _chaveMod(chaveMod), _nome(nome), ordem(ordem), minAulas(minAulas)
 {
 }
 
-int Graduacao::getChaveGrad()
+int Graduacao::getChaveGrd()
 {
-  return _chaveGrad;
+  return _chaveGrd;
+}
+
+int Graduacao::getChaveMod()
+{
+  return _chaveMod;
 }
 
 std::string Graduacao::getNome()
@@ -25,9 +30,14 @@ int Graduacao::getMinAulas()
   return minAulas;
 }
 
-void Graduacao::setChaveGrad(int chaveGrad)
+void Graduacao::setChaveGrd(int chaveGrd)
 {
-  _chaveGrad = chaveGrad;
+  _chaveGrd = chaveGrd;
+}
+
+void Graduacao::setChaveMod(int chaveMod)
+{
+  _chaveMod = chaveMod;
 }
 
 void Graduacao::setNome(std::string nome)

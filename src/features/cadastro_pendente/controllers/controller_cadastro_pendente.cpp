@@ -2,8 +2,10 @@
 #include "cad_pendente.h"
 #include "database_error.h"
 #include "enums.h"
+#include "graduacao.h"
+#include "aluno.h"
 
-ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade) {}
+ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataGraduacao(dataGraduacao), _dataAluno(dataAluno) {}
 
 void ControllerCadastroPendente::completaDados(CadPendente *cad)
 {
@@ -190,5 +192,85 @@ RetornoController ControllerCadastroPendente::rejeitaCadastro()
 
 RetornoController ControllerCadastroPendente::aprovaCadastro()
 {
+  int chaveCad;
+  CadPendente *cad = nullptr;
+  Usuario *usu = nullptr;
+  Aluno *aluno = nullptr;
+  try
+  {
+    // Solicita chave
+    std::cout
+        << "Informe a chave do cadastro: ";
+    chaveCad = readVal<int>();
+    cad = _dataCadastroPendente->buscaByChave(chaveCad);
+    if (!cad)
+    {
+      std::cout << "Cadastro não encontrado!" << std::endl;
+      return RetornoController::Completo;
+    }
+    // Completa dados caso seja cadastro interno
+    if (cad->getTipoCadastro() == TipoCadastro::Interno)
+      completaDados(cad);
+    std::string tipo = getTipoStr(cad);
+    // Confirma rejeição
+    std::cout << "Cadastrado identificado: " << std::endl;
+    std::cout << "CHAVE: " << cad->getChaveCad() << " | NOME: " << cad->getNome() << " | TIPO: " << tipo << std::endl;
+    std::cout << "Confirmar a aprovação (S/N)?" << std::endl;
+    std::cout << "Sua resposta: ";
+    char resp = readVal<char>(
+        [&](char val)
+        {
+          if (std::tolower(val) != 's' && std::tolower(val) != 'n')
+            return false;
+          return true;
+        });
+
+    // Instancia usuário
+    usu = Usuario::fromCadPendente(cad);
+    std::cout << "INSTANCIOU USUÁRIO" << std::endl;
+    bool existePerfil = false;
+    // Se for novo usuário, cria nova instância no banco
+    if (cad->getTipoCadastro() == TipoCadastro::Externo)
+      _dataUsuario->criaUsuario(usu);
+    else
+    {
+      // Se não for usuário existente, vê se já possui o tipo de perfil que se quer cadastrar
+      std::vector<TipoPerfil> listaPerfil = _dataAutenticacao->buscaPerfis(cad->getChaveUsu());
+      for (auto perfil : listaPerfil)
+        if (perfil == cad->getTipo())
+        {
+          existePerfil = true;
+          break;
+        }
+    }
+    if (!existePerfil)
+      _dataCadastroPendente->criaPerfil(cad->getChaveUsu(), cad->getTipo());
+    // Se for cliente, cria o aluno
+    if (cad->getTipo() == TipoPerfil::Cliente)
+    {
+      // Primeiro busca a graduação inicial da modalidade em questão
+      Graduacao grad = _dataGraduacao->buscaGraduacaoInicial(cad->getChaveMod());
+      aluno = Aluno::fromUsuario(usu);
+      aluno->setChaveGrd(grad.getChaveGrd());
+      _dataAluno->criaAluno(aluno);
+    }
+    std::cout << "Cadastros realizados!" << std::endl;
+  }
+  catch (DatabaseError e)
+  {
+    std::cout << "Erro no banco!" << std::endl;
+    std::cout << e.what() << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cout << "Ocorreu um erro inesperado!" << std::endl;
+    std::cout << e.what() << std::endl;
+  }
+  if (cad)
+    delete cad;
+  if (usu)
+    delete usu;
+  if (aluno)
+    delete aluno;
   return RetornoController::Completo;
 }

@@ -22,6 +22,8 @@
 #include "data_cadastro_pendente.h"
 #include "data_turma.h"
 #include "data_graduacao.h"
+#include "data_autenticacao.h"
+#include "data_aluno.h"
 
 class MainInitializer
 {
@@ -53,6 +55,7 @@ private:
   DataCadastroPendente *_dataCadastroPendente;
   DataTurma *_dataTurma;
   DataGraduacao *_dataGraduacao;
+  DataAluno *_dataAluno;
 
   void initializeAutenticacao();
   void initializeUsuario();
@@ -60,12 +63,14 @@ private:
   void initializeModalidade();
   void initializeTurma();
   void initializeGraduacao();
+  void initializeAluno();
   void destroyAutenticacao();
   void destroyUsuario();
   void destroyCadastroPendente();
   void destroyModalidade();
   void destroyTurma();
   void destroyGraduacao();
+  void destroyAluno();
 
 public:
   MainInitializer();

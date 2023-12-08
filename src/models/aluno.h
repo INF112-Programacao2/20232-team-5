@@ -23,6 +23,9 @@ public:
   void setChaveAlu(int chaveAlu);
   void setChaveGrd(int chaveGrd);
   void setNumAulas(int numAulas);
+
+  // Conversion
+  static Aluno *fromUsuario(Usuario *usuario);
 };
 
 #endif

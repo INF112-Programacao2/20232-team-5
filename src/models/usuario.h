@@ -5,6 +5,8 @@
 #include <libpq-fe.h>
 #include "enums.h"
 
+class CadPendente;
+
 class Usuario
 {
 private:
@@ -52,6 +54,7 @@ public:
 
   // Conversion
   static Usuario *fromDatabase(PGresult *res, int row);
+  static Usuario *fromCadPendente(CadPendente *cad);
 };
 
 #endif

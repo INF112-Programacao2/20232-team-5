@@ -1,5 +1,7 @@
 #include "usuario.h"
 #include "database.h"
+#include "global.h"
+#include "cad_pendente.h"
 
 // Construtor
 Usuario::Usuario(int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha) : _chaveUsu(chaveUsu), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha)
@@ -125,4 +127,18 @@ Usuario *Usuario::fromDatabase(PGresult *res, int row)
       Database::value(res, row, "SEXO")[0],
       Database::value(res, row, "LOGIN"),
       Database::value(res, row, "SENHA"));
+}
+
+Usuario *Usuario::fromCadPendente(CadPendente *cad)
+{
+  return new Usuario(
+      nullnum,
+      cad->getNome(),
+      cad->getApelido(),
+      cad->getDtNascimento(),
+      cad->getCpf(),
+      cad->getRg(),
+      cad->getSexo(),
+      cad->getLogin(),
+      cad->getSenha());
 }

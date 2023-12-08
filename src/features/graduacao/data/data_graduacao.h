@@ -11,6 +11,7 @@ private:
 public:
   DataGraduacao(Database *database);
   void cadastraGraduacao(Graduacao *graduacao);
+  Graduacao buscaGraduacaoInicial(int chaveMod);
 };
 
 #endif

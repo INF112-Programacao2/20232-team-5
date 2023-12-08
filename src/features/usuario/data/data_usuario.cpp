@@ -30,3 +30,8 @@ Usuario *DataUsuario::buscaUsuarioByChave(int chaveUsu)
   PQclear(res);
   return u;
 }
+
+void DataUsuario::criaUsuario(Usuario *usuario)
+{
+  // Mock
+}

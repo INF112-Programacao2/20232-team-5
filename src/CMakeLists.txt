@@ -74,6 +74,8 @@ set(sources
   features/graduacao/menus/menu_opcoes_graduacao.cpp
   features/turma/menus/menu_opcoes_turma.h
   features/turma/menus/menu_opcoes_turma.cpp
+  features/aluno/data/data_aluno.h
+  features/aluno/data/data_aluno.cpp
 )
 
 set (dirs
@@ -97,6 +99,7 @@ set (dirs
   features/turma/controllers
   features/turma/data
   features/turma/menus
+  features/aluno/data
 )
 
 find_package(PostgreSQL REQUIRED)

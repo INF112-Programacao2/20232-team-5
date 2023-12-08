@@ -1,6 +1,7 @@
 ﻿#include "controller_graduacao.h"
 #include <iostream>
 #include "graduacao.h"
+#include "global.h"
 
 ControllerGraduacao::ControllerGraduacao(Session *session, DataGraduacao *dataGraduacao)
     : _session(session), _dataGraduacao(dataGraduacao)
@@ -44,7 +45,7 @@ RetornoController ControllerGraduacao::realizaCadastro()
       });
 
   // Cria a graduação
-  Graduacao *graduacao = new Graduacao(0, nome, ordem, minAulas);
+  Graduacao *graduacao = new Graduacao(nullnum, nullnum, nome, ordem, minAulas);
 
   // Salva a graduação
   _dataGraduacao->cadastraGraduacao(graduacao);

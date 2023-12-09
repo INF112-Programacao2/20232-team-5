@@ -18,6 +18,12 @@ public:
 
     // Realiza o cadastro de uma nova modalidade
     RetornoController realizaCadastro();
+    // edita uma modalidade
+    RetornoController realizaEdicao();
+    // remove uma modalidade
+    RetornoController realizaRemocao();
+    // lista as modalidades
+    RetornoController realizaListagem();
 };
 
 #endif

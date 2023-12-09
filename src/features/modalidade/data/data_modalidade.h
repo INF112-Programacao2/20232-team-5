@@ -14,6 +14,10 @@ public:
   //cadastrar modalidade
   void cadastraModalidade(Modalidade *modalidade);
   std::vector<Modalidade> buscaListaModalidade();
+  //editar modalidade
+  void editaModalidade(Modalidade *modalidade);
+  //excluir modalidade
+  void excluiModalidade(Modalidade *modalidade);
 };
 
 #endif

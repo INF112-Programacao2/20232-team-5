@@ -51,3 +51,57 @@ std::vector<Modalidade> DataModalidade::buscaListaModalidade()
   PQclear(res);
   return listaModalidade;
 }
+
+//editar modalidade
+void DataModalidade::editaModalidade(Modalidade *modalidade)
+{
+  std::string query = "UPDATE public.\"MODALIDADE\" "
+                      "SET \"NOME\"=$1 "
+                      "WHERE \"CHAVEMOD\"=$2";
+
+  std::vector<std::string> params = {
+      modalidade->getNome(),
+      std::to_string(modalidade->getChaveMod()),
+  };
+
+  try
+  {
+    PGresult *res = _database->executar(query, params);
+    PQclear(res);
+  }
+  catch (DatabaseError e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
+}
+
+//excluir modalidade
+void DataModalidade::excluiModalidade(Modalidade *modalidade)
+{
+  std::string query = "DELETE FROM public.\"MODALIDADE\" "
+                      "WHERE \"CHAVEMOD\"=$1";
+
+  std::vector<std::string> params = {
+      std::to_string(modalidade->getChaveMod()),
+  };
+
+  try
+  {
+    PGresult *res = _database->executar(query, params);
+    PQclear(res);
+  }
+  catch (DatabaseError e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
+}

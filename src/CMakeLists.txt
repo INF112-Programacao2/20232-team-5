@@ -17,6 +17,8 @@ set(sources
   base/menu.cpp
   base/opcao_menu.h
   base/opcao_menu.cpp
+  base/controller.h
+  base/controller.cpp
   base/session.h
   base/session.cpp
   models/usuario.h
@@ -50,8 +52,12 @@ set(sources
   features/autenticacao/data/data_autenticacao.cpp
   features/usuario/menus/menu_opcoes_usuario.h
   features/usuario/menus/menu_opcoes_usuario.cpp
-  features/usuario/controllers/controller_usuario.h
-  features/usuario/controllers/controller_usuario.cpp
+  features/usuario/menus/menu_editar_usuario.h
+  features/usuario/menus/menu_editar_usuario.cpp
+  features/usuario/controllers/controller_opcoes_usuario.h
+  features/usuario/controllers/controller_opcoes_usuario.cpp
+  features/usuario/controllers/controller_editar_usuario.h
+  features/usuario/controllers/controller_editar_usuario.cpp
   features/usuario/data/data_usuario.h
   features/usuario/data/data_usuario.cpp
   features/cadastro_pendente/menus/menu_cadastro_pendente.h

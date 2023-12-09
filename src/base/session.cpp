@@ -22,6 +22,11 @@ int Session::getCurrentPerfil()
   return _currentPerfil;
 }
 
+Usuario *Session::getSelectedUsuario()
+{
+  return _selectedUsuario;
+}
+
 void Session::setUsuario(Usuario *usuario)
 {
   _usuario = usuario;
@@ -30,4 +35,9 @@ void Session::setUsuario(Usuario *usuario)
 void Session::setCurrentPerfil(int currentPerfil)
 {
   _currentPerfil = currentPerfil;
+}
+
+void Session::setSelectedUsuario(Usuario *selectedUsuario)
+{
+  _selectedUsuario = selectedUsuario;
 }

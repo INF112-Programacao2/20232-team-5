@@ -63,8 +63,10 @@ void MainInitializer::initializeAutenticacao()
 
 void MainInitializer::initializeUsuario()
 {
-  _controllerUsuario = new ControllerUsuario(_session, _dataUsuario);
-  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _controllerUsuario);
+  _controllerEditarUsuario = new ControllerEditarUsuario(_session, _dataUsuario);
+  _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
+  _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario);
+  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario);
 }
 
 void MainInitializer::initializeCadastroPendente()
@@ -114,7 +116,9 @@ void MainInitializer::destroyAutenticacao()
 void MainInitializer::destroyUsuario()
 {
   delete _menuOpcoesUsuario;
-  delete _controllerUsuario;
+  delete _controllerOpcoesUsuario;
+  delete _menuEditarUsuario;
+  delete _controllerEditarUsuario;
 }
 
 void MainInitializer::destroyCadastroPendente()

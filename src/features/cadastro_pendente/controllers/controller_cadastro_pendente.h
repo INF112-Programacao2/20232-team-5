@@ -10,8 +10,9 @@
 #include "data_aluno.h"
 #include <vector>
 #include "modalidade.h"
+#include "controller.h"
 
-class ControllerCadastroPendente
+class ControllerCadastroPendente : public Controller
 {
 private:
   Session *_session;

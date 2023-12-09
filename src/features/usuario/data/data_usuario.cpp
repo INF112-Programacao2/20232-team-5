@@ -50,3 +50,63 @@ int DataUsuario::criaUsuario(Usuario *usuario)
   PQclear(res);
   return chaveUsu;
 }
+
+void DataUsuario::editaNome(int chaveUsu, std::string nome)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"NOME\" = $1;";
+  std::vector<std::string> params = {
+      nome,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataUsuario::editaApelido(int chaveUsu, std::string apelido)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"APELIDO\" = $1;";
+  std::vector<std::string> params = {
+      apelido,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataUsuario::editaDtNascimento(int chaveUsu, std::string dtNascimento)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"DTNASCIMENTO\" = $1;";
+  std::vector<std::string> params = {
+      dtNascimento,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataUsuario::editaCpf(int chaveUsu, std::string cpf)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"CPF\" = $1;";
+  std::vector<std::string> params = {
+      cpf,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataUsuario::editaSexo(int chaveUsu, char sexo)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"SEXO\" = $1;";
+  std::vector<std::string> params = {
+      std::string(1, sexo),
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataUsuario::editaLogin(int chaveUsu, std::string login)
+{
+  std::string query = "UPDATE \"USUARIO\" SET \"LOGIN\" = $1;";
+  std::vector<std::string> params = {
+      login,
+  };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}

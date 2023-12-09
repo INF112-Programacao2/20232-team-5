@@ -11,11 +11,13 @@
 #include "menu_cadastros.h"
 #include "menu_opcoes_turma.h"
 #include "menu_opcoes_graduacao.h"
+#include "menu_opcoes_modalidade.h"
 #include "controller_autenticacao.h"
 #include "controller_usuario.h"
 #include "controller_cadastro_pendente.h"
 #include "controller_turma.h"
 #include "controller_graduacao.h"
+#include "controller_modalidade.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_usuario.h"
@@ -42,12 +44,14 @@ private:
   MenuCadastros *_menuCadastros;
   MenuOpcoesTurma *_menuOpcoesTurma;
   MenuOpcoesGraduacao *_menuOpcoesGraduacao;
+  MenuOpcoesModalidade *_menuOpcoesModalidade;
   // CONTROLLERS
   ControllerAutenticacao *_controllerAutenticacao;
   ControllerUsuario *_controllerUsuario;
   ControllerCadastroPendente *_controllerCadastroPendente;
   ControllerTurma *_controllerTurma;
   ControllerGraduacao *_controllerGraduacao;
+  ControllerModalidade *_controllerModalidade;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;

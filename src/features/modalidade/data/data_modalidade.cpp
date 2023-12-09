@@ -7,6 +7,37 @@ DataModalidade::DataModalidade(Database *database)
   _database = database;
 }
 
+//cadastra modalidade
+void DataModalidade::cadastraModalidade(Modalidade *modalidade)
+{
+  std::string query = "INSERT INTO public.\"MODALIDADE\" "
+                      "(\"CHAVEMOD\", \"NOME\") "
+                      "VALUES ($1, $2)";
+
+  std::vector<std::string> params = {
+      std::to_string(modalidade->getChaveMod()),
+      modalidade->getNome(),
+  };
+
+  try
+  {
+    PGresult *res = _database->executar(query, params);
+    PQclear(res);
+  }
+  catch (DatabaseError e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
+
+}
+
+
+
 // Recupera a lista de modalidades cadastradas
 std::vector<Modalidade> DataModalidade::buscaListaModalidade()
 {

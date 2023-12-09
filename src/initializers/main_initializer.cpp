@@ -36,7 +36,7 @@ bool MainInitializer::initialize()
   initializeCadastroPendente();
   initializeTurma();
   initializeGraduacao();
-  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma);
+  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade);
   _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
   _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
@@ -75,6 +75,8 @@ void MainInitializer::initializeCadastroPendente()
 
 void MainInitializer::initializeModalidade()
 {
+  _controllerModalidade = new ControllerModalidade(_session, _dataModalidade);
+  _menuOpcoesModalidade = new MenuOpcoesModalidade("Modalidades", _controllerModalidade);
 }
 
 void MainInitializer::initializeTurma()
@@ -123,6 +125,8 @@ void MainInitializer::destroyCadastroPendente()
 
 void MainInitializer::destroyModalidade()
 {
+  delete _menuOpcoesModalidade;
+  delete _controllerModalidade;
 }
 
 void MainInitializer::destroyTurma()

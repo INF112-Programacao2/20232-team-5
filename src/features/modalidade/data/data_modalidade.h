@@ -11,6 +11,8 @@ private:
 
 public:
   DataModalidade(Database *database);
+  //cadastrar modalidade
+  void cadastraModalidade(Modalidade *modalidade);
   std::vector<Modalidade> buscaListaModalidade();
 };
 

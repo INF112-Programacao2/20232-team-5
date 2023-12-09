@@ -62,6 +62,10 @@ set(sources
   features/cadastro_pendente/data/data_cadastro_pendente.cpp
   features/modalidade/data/data_modalidade.h
   features/modalidade/data/data_modalidade.cpp
+  features/modalidade/menus/menu_opcoes_modalidade.h
+  features/modalidade/menus/menu_opcoes_modalidade.cpp
+  features/modalidade/controllers/controller_modalidade.h
+  features/modalidade/controllers/controller_modalidade.cpp
   features/graduacao/controllers/controller_graduacao.h
   features/graduacao/controllers/controller_graduacao.cpp
   features/graduacao/data/data_graduacao.h
@@ -93,6 +97,8 @@ set (dirs
   features/cadastro_pendente/controllers
   features/cadastro_pendente/data
   features/modalidade/data
+  features/modalidade/menus
+  features/modalidade/controllers
   features/graduacao/controllers
   features/graduacao/data
   features/graduacao/menus

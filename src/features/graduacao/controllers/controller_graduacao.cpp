@@ -17,6 +17,18 @@ RetornoController ControllerGraduacao::realizaCadastro()
   // Solicitar valores ao usuário
   std::cout << "CADASTRO" << std::endl;
 
+  std::cout << "Digite a chave da modalidade: ";
+  int chaveMod = readVal<int>(
+      [&](int chaveMod)
+      {
+        if (chaveMod < 0)
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
   std::cout << "Digite o nome: ";
   nome = readLine();
 
@@ -45,7 +57,7 @@ RetornoController ControllerGraduacao::realizaCadastro()
       });
 
   // Cria a graduação
-  Graduacao *graduacao = new Graduacao(nullnum, nullnum, nome, ordem, minAulas);
+  Graduacao *graduacao = new Graduacao(nullnum, chaveMod, nome, ordem, minAulas);
 
   // Salva a graduação
   _dataGraduacao->cadastraGraduacao(graduacao);

@@ -18,7 +18,31 @@ DataGraduacao::DataGraduacao(Database *database)
 
 void DataGraduacao::cadastraGraduacao(Graduacao *graduacao)
 {
-  // Mock
+  std::string insertQuery = "INSERT INTO public.\"GRADUACAO\" "
+                            "(\"CHAVEMOD\", \"NOME\", \"ORDEM\", \"MINAULAS\") "
+                            "VALUES ($1, $2, $3, $4)";
+
+  std::vector<std::string> params = {
+      std::to_string(graduacao->getChaveMod()),
+      graduacao->getNome(),
+      std::to_string(graduacao->getOrdem()),
+      std::to_string(graduacao->getMinAulas()),
+  };
+
+  try
+  {
+    PGresult *res = _database->executar(insertQuery, params);
+    PQclear(res);
+  }
+  catch (DatabaseError e)
+  {
+    std::cerr << e.what() << std::endl;
+  }
+  catch (std::exception e)
+  {
+    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
+    std::cerr << e.what() << std::endl;
+  }
 }
 
 Graduacao *DataGraduacao::buscaGraduacaoInicial(int chaveMod)

@@ -1,5 +1,6 @@
 #ifndef INF112_DATA_USUARIO_H
 #define INF112_DATA_USUARIO_H
+#include <vector>
 #include "database.h"
 #include "usuario.h"
 
@@ -19,6 +20,7 @@ public:
   void editaCpf(int chaveUsu, std::string cpf);
   void editaSexo(int chaveUsu, char sexo);
   void editaLogin(int chaveUsu, std::string login);
+  std::vector<Usuario> buscaListaUsuario();
 };
 
 #endif

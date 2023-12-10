@@ -53,7 +53,8 @@ public:
   void addPerfil(TipoPerfil perfil);
 
   // Conversion
-  static Usuario *fromDatabase(PGresult *res, int row);
+  static Usuario *fromDatabaseToPtr(PGresult *res, int row);
+  static Usuario fromDatabase(PGresult *res, int row);
   static Usuario *fromCadPendente(CadPendente *cad);
 };
 

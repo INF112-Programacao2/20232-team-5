@@ -115,9 +115,23 @@ void Usuario::addPerfil(TipoPerfil perfil)
   _perfilList.push_back(perfil);
 }
 
-Usuario *Usuario::fromDatabase(PGresult *res, int row)
+Usuario *Usuario::fromDatabaseToPtr(PGresult *res, int row)
 {
   return new Usuario(
+      std::stoi(Database::value(res, row, "CHAVEUSU")),
+      Database::value(res, row, "NOME"),
+      Database::value(res, row, "APELIDO"),
+      Database::value(res, row, "DTNASCIMENTO"),
+      Database::value(res, row, "CPF"),
+      Database::value(res, row, "RG"),
+      Database::value(res, row, "SEXO")[0],
+      Database::value(res, row, "LOGIN"),
+      Database::value(res, row, "SENHA"));
+}
+
+Usuario Usuario::fromDatabase(PGresult *res, int row)
+{
+  return Usuario(
       std::stoi(Database::value(res, row, "CHAVEUSU")),
       Database::value(res, row, "NOME"),
       Database::value(res, row, "APELIDO"),

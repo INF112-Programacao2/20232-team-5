@@ -54,10 +54,14 @@ set(sources
   features/usuario/menus/menu_opcoes_usuario.cpp
   features/usuario/menus/menu_editar_usuario.h
   features/usuario/menus/menu_editar_usuario.cpp
+  features/usuario/menus/menu_usuario.h
+  features/usuario/menus/menu_usuario.cpp
   features/usuario/controllers/controller_opcoes_usuario.h
   features/usuario/controllers/controller_opcoes_usuario.cpp
   features/usuario/controllers/controller_editar_usuario.h
   features/usuario/controllers/controller_editar_usuario.cpp
+  features/usuario/controllers/controller_usuario.h
+  features/usuario/controllers/controller_usuario.cpp
   features/usuario/data/data_usuario.h
   features/usuario/data/data_usuario.cpp
   features/cadastro_pendente/menus/menu_cadastro_pendente.h
@@ -86,6 +90,8 @@ set(sources
   features/turma/menus/menu_opcoes_turma.cpp
   features/aluno/data/data_aluno.h
   features/aluno/data/data_aluno.cpp
+  features/perfil/menus/menu_perfil.h
+  features/perfil/menus/menu_perfil.cpp
   features/perfil/data/data_perfil.h
   features/perfil/data/data_perfil.cpp
   features/pagamento/data/data_pagamento.h
@@ -116,6 +122,7 @@ set (dirs
   features/turma/data
   features/turma/menus
   features/aluno/data
+  features/perfil/menus
   features/perfil/data
   features/pagamento/data
 )

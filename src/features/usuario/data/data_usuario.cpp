@@ -27,7 +27,7 @@ Usuario *DataUsuario::buscaUsuarioByChave(int chaveUsu)
   PGresult *res = _database->executar(query, params);
   Usuario *u = nullptr;
   if (PQntuples(res))
-    u = Usuario::fromDatabase(res, 0);
+    u = Usuario::fromDatabaseToPtr(res, 0);
   PQclear(res);
   return u;
 }
@@ -115,4 +115,16 @@ void DataUsuario::editaLogin(int chaveUsu, std::string login)
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
+}
+
+std::vector<Usuario> DataUsuario::buscaListaUsuario()
+{
+  std::string query = "SELECT * FROM \"USUARIO\"";
+
+  PGresult *res = _database->executar(query);
+  std::vector<Usuario> listaUsuario;
+  for (int i = 0; i < PQntuples(res); i++)
+    listaUsuario.push_back(Usuario::fromDatabase(res, i));
+  PQclear(res);
+  return listaUsuario;
 }

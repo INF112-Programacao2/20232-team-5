@@ -36,7 +36,7 @@ bool MainInitializer::initialize()
   initializeCadastroPendente();
   initializeTurma();
   initializeGraduacao();
-  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade);
+  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
   _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
   _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
@@ -68,7 +68,9 @@ void MainInitializer::initializeUsuario()
   _controllerEditarUsuario = new ControllerEditarUsuario(_session, _dataUsuario);
   _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
   _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil, _dataPagamento);
+  _controllerUsuario = new ControllerUsuario(_session, _dataUsuario, _controllerOpcoesUsuario, _menuEditarUsuario);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario);
+  _menuUsuario = new MenuUsuario("Usuários", _controllerUsuario);
 }
 
 void MainInitializer::initializeCadastroPendente()
@@ -119,9 +121,11 @@ void MainInitializer::destroyAutenticacao()
 
 void MainInitializer::destroyUsuario()
 {
+  delete _menuUsuario;
   delete _menuOpcoesUsuario;
-  delete _controllerOpcoesUsuario;
   delete _menuEditarUsuario;
+  delete _controllerUsuario;
+  delete _controllerOpcoesUsuario;
   delete _controllerEditarUsuario;
 }
 
@@ -155,7 +159,7 @@ void MainInitializer::destroyAluno()
 
 void MainInitializer::executar()
 {
-  // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
-  // _menuOpcoesUsuario->executar();
-  _menuInicial->executar();
+  _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  _menuUsuario->executar();
+  //_menuInicial->executar();
 }

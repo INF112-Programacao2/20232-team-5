@@ -43,7 +43,7 @@ Usuario *DataAutenticacao::buscaUsuario(std::string login)
   PGresult *res = _database->executar(query, params);
   Usuario *u = nullptr;
   if (PQntuples(res))
-    u = Usuario::fromDatabase(res, 0);
+    u = Usuario::fromDatabaseToPtr(res, 0);
   PQclear(res);
   return u;
 }

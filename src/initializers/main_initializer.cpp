@@ -151,5 +151,7 @@ void MainInitializer::destroyAluno()
 
 void MainInitializer::executar()
 {
+  // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  // _menuOpcoesUsuario->executar();
   _menuInicial->executar();
 }

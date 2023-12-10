@@ -95,20 +95,49 @@ void DataModalidade::editaModalidade(Modalidade *modalidade)
   }
 }
 
-// excluir modalidade
+// excluir as graduações e sua modalidade se não houver alunos
 void DataModalidade::excluiModalidade(Modalidade *modalidade)
 {
-  std::string query = "DELETE FROM public.\"MODALIDADE\" "
-                      "WHERE \"CHAVEMOD\"=$1";
+  std::string queryCheckAlunos = "SELECT COUNT(*) FROM \"ALUNO\" WHERE \"CHAVEGRD\" IN (SELECT \"CHAVEGRD\" FROM \"GRADUACAO\" WHERE \"CHAVEMOD\" = $1)";
+  std::vector<std::string> paramsCheckAlunos = {std::to_string(modalidade->getChaveMod())};
 
-  std::vector<std::string> params = {
-      std::to_string(modalidade->getChaveMod()),
-  };
+  PGresult *resCheckAlunos = _database->executar(queryCheckAlunos, paramsCheckAlunos);
+  int numAlunos = std::stoi(PQgetvalue(resCheckAlunos, 0, 0));
+  PQclear(resCheckAlunos);
+
+  if (numAlunos == 0)
+  {
+    std::string queryDeleteGraduacoes = "DELETE FROM \"GRADUACAO\" WHERE \"CHAVEMOD\" = $1";
+    std::vector<std::string> paramsDeleteGraduacoes = {std::to_string(modalidade->getChaveMod())};
+
+    try
+    {
+      PGresult *resDeleteGraduacoes = _database->executar(queryDeleteGraduacoes, paramsDeleteGraduacoes);
+      PQclear(resDeleteGraduacoes);
+    }
+    catch (DatabaseError e)
+    {
+      std::cerr << e.what() << std::endl;
+      return;
+    }
+    catch (std::exception e)
+    {
+      std::cerr << "Ocorreu um erro inesperado!" << std::endl;
+      std::cerr << e.what() << std::endl;
+      return;
+    }
+  }else{
+    std::cerr << "Não foi possível excluir a modalidade, pois existem alunos matriculados nela!" << std::endl;
+    return;
+  }
+
+  std::string queryDeleteModalidade = "DELETE FROM \"MODALIDADE\" WHERE \"CHAVEMOD\" = $1";
+  std::vector<std::string> paramsDeleteModalidade = {std::to_string(modalidade->getChaveMod())};
 
   try
   {
-    PGresult *res = _database->executar(query, params);
-    PQclear(res);
+    PGresult *resDeleteModalidade = _database->executar(queryDeleteModalidade, paramsDeleteModalidade);
+    PQclear(resDeleteModalidade);
   }
   catch (DatabaseError e)
   {
@@ -120,3 +149,4 @@ void DataModalidade::excluiModalidade(Modalidade *modalidade)
     std::cerr << e.what() << std::endl;
   }
 }
+

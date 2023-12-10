@@ -3,6 +3,7 @@
 #include "global.h"
 #include "session.h"
 #include <vector>
+#include "controller.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_perfil.h"
@@ -12,7 +13,7 @@
 
 // Classe responsável por controlar as operações de autenticação
 
-class ControllerAutenticacao
+class ControllerAutenticacao : public Controller
 {
 private:
   Session *_session;

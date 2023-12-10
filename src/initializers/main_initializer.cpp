@@ -55,6 +55,7 @@ void MainInitializer::initializeData()
   _dataGraduacao = new DataGraduacao(_database);
   _dataAluno = new DataAluno(_database);
   _dataPerfil = new DataPerfil(_database);
+  _dataPagamento = new DataPagamento(_database);
 }
 
 void MainInitializer::initializeAutenticacao()
@@ -66,13 +67,13 @@ void MainInitializer::initializeUsuario()
 {
   _controllerEditarUsuario = new ControllerEditarUsuario(_session, _dataUsuario);
   _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
-  _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil);
+  _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil, _dataPagamento);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario);
 }
 
 void MainInitializer::initializeCadastroPendente()
 {
-  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataGraduacao, _dataAluno, _dataPerfil);
+  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataGraduacao, _dataAluno, _dataPerfil, _dataPagamento);
   _menuCadastroPendente = new MenuCadastroPendente("Cadastros Pendentes", _controllerCadastroPendente);
 }
 
@@ -107,6 +108,8 @@ void MainInitializer::destroyData()
   delete _dataTurma;
   delete _dataGraduacao;
   delete _dataAluno;
+  delete _dataPerfil;
+  delete _dataPagamento;
 }
 
 void MainInitializer::destroyAutenticacao()

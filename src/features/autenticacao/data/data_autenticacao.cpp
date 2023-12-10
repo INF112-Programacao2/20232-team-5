@@ -25,7 +25,7 @@ void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
       cad->getSenha(),
       cad->getTipo() != nullchar ? std::string(1, cad->getTipo()) : nullstr,
       cad->getChaveMod() != nullnum ? std::to_string(cad->getChaveMod()) : nullstr,
-      cad->getChaveUsu() != nullchar ? std::to_string(cad->getChaveUsu()) : nullstr,
+      cad->getChaveUsu() != nullnum ? std::to_string(cad->getChaveUsu()) : nullstr,
       std::string(1, cad->getTipoCadastro()),
   };
 

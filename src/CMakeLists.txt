@@ -88,6 +88,8 @@ set(sources
   features/aluno/data/data_aluno.cpp
   features/perfil/data/data_perfil.h
   features/perfil/data/data_perfil.cpp
+  features/pagamento/data/data_pagamento.h
+  features/pagamento/data/data_pagamento.cpp
 )
 
 set (dirs
@@ -115,6 +117,7 @@ set (dirs
   features/turma/menus
   features/aluno/data
   features/perfil/data
+  features/pagamento/data
 )
 
 find_package(PostgreSQL REQUIRED)

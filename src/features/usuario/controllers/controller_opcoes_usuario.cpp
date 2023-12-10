@@ -5,7 +5,7 @@
 #include "modalidade.h"
 #include "cad_pendente.h"
 
-ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil) : _session(session), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil) {}
+ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil, DataPagamento *dataPagamento) : _session(session), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil), _dataPagamento(dataPagamento) {}
 
 std::string ControllerOpcoesUsuario::getTipoStr(TipoPerfil tipo)
 {
@@ -99,18 +99,23 @@ RetornoController ControllerOpcoesUsuario::trocaSenha()
 
 RetornoController ControllerOpcoesUsuario::verDados()
 {
-  Usuario *usuario = _session->getUsuario();
-  std::cout << "DADOS DO USUÁRIO" << std::endl;
-  std::cout << "CHAVE: " << usuario->getChaveUsu() << std::endl;
-  std::cout << "NOME: " << usuario->getNome() << std::endl;
-  std::cout << "APELIDO: " << usuario->getApelido() << std::endl;
-  std::cout << "DATA DE NASC.: " << usuario->getDtNascimento() << std::endl;
-  std::cout << "CPF: " << usuario->getCpf() << std::endl;
-  std::cout << "RG: " << usuario->getRg() << std::endl;
-  std::cout << "SEXO: " << (usuario->getSexo() == 'M' ? "Masculino" : "Feminino") << std::endl;
-  std::cout << "LOGIN: " << usuario->getLogin() << std::endl;
-  hold();
-  return RetornoController::Completo;
+  return handleExecution(
+      [&]
+      {
+        Usuario *usuario = _session->getSelectedUsuario();
+        double valor = _dataPagamento->buscaValorMensalidade(usuario->getChaveUsu());
+        std::cout
+            << "DADOS DO USUÁRIO" << std::endl;
+        std::cout << "CHAVE: " << usuario->getChaveUsu() << std::endl;
+        std::cout << "NOME: " << usuario->getNome() << std::endl;
+        std::cout << "APELIDO: " << usuario->getApelido() << std::endl;
+        std::cout << "DATA DE NASC.: " << usuario->getDtNascimento() << std::endl;
+        std::cout << "CPF: " << usuario->getCpf() << std::endl;
+        std::cout << "SEXO: " << (usuario->getSexo() == 'M' ? "Masculino" : "Feminino") << std::endl;
+        std::cout << "LOGIN: " << usuario->getLogin() << std::endl;
+        std::cout << "VALOR MENSALIDADE: " << valor << std::endl;
+        hold();
+      });
 }
 
 RetornoController ControllerOpcoesUsuario::novoCadastro()

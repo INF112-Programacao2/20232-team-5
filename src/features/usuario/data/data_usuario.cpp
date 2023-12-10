@@ -53,9 +53,10 @@ int DataUsuario::criaUsuario(Usuario *usuario)
 
 void DataUsuario::editaNome(int chaveUsu, std::string nome)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"NOME\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"NOME\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       nome,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
@@ -63,9 +64,10 @@ void DataUsuario::editaNome(int chaveUsu, std::string nome)
 
 void DataUsuario::editaApelido(int chaveUsu, std::string apelido)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"APELIDO\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"APELIDO\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       apelido,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
@@ -73,9 +75,10 @@ void DataUsuario::editaApelido(int chaveUsu, std::string apelido)
 
 void DataUsuario::editaDtNascimento(int chaveUsu, std::string dtNascimento)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"DTNASCIMENTO\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"DTNASCIMENTO\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       dtNascimento,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
@@ -83,9 +86,10 @@ void DataUsuario::editaDtNascimento(int chaveUsu, std::string dtNascimento)
 
 void DataUsuario::editaCpf(int chaveUsu, std::string cpf)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"CPF\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"CPF\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       cpf,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
@@ -93,9 +97,10 @@ void DataUsuario::editaCpf(int chaveUsu, std::string cpf)
 
 void DataUsuario::editaSexo(int chaveUsu, char sexo)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"SEXO\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"SEXO\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       std::string(1, sexo),
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);
@@ -103,9 +108,10 @@ void DataUsuario::editaSexo(int chaveUsu, char sexo)
 
 void DataUsuario::editaLogin(int chaveUsu, std::string login)
 {
-  std::string query = "UPDATE \"USUARIO\" SET \"LOGIN\" = $1;";
+  std::string query = "UPDATE \"USUARIO\" SET \"LOGIN\" = $1 WHERE \"CHAVEUSU\" = $2;";
   std::vector<std::string> params = {
       login,
+      std::to_string(chaveUsu),
   };
   PGresult *res = _database->executar(query, params);
   PQclear(res);

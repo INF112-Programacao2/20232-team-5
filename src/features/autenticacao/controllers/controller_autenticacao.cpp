@@ -46,102 +46,92 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   char tipo;
   CadPendente *cad;
 
-  // Solicitar valores ao usuário
-  std::cout << "CADASTRO" << std::endl;
-
-  std::cout << "Digite o nome: ";
-  nome = readLine();
-
-  std::cout << "Digite o apelido: ";
-  apelido = readLine();
-
-  std::cout << "Digite a data de nascimento: ";
-  dtNascimento = readLine();
-
-  std::cout << "Digite o CPF: ";
-  cpf = readLine();
-
-  std::cout << "Digite o RG: ";
-  rg = readLine();
-
-  std::cout << "Digite o sexo (M/F): ";
-  sexo = std::toupper(readVal<char>(
-      [&](char sexo)
+  handleExecution(
+      [&]
       {
-        if (std::tolower(sexo) != 'm' && std::tolower(sexo) != 'f')
+        // Solicitar valores ao usuário
+        std::cout << "CADASTRO" << std::endl;
+
+        std::cout << "Digite o nome: ";
+        nome = readLine();
+
+        std::cout << "Digite o apelido: ";
+        apelido = readLine();
+
+        std::cout << "Digite a data de nascimento: ";
+        dtNascimento = readLine();
+
+        std::cout << "Digite o CPF: ";
+        cpf = readLine();
+
+        std::cout << "Digite o RG: ";
+        rg = readLine();
+
+        std::cout << "Digite o sexo (M/F): ";
+        sexo = std::toupper(readVal<char>(
+            [&](char sexo)
+            {
+              if (std::tolower(sexo) != 'm' && std::tolower(sexo) != 'f')
+              {
+                std::cout << "Opção inválida!" << std::endl;
+                return false;
+              }
+              return true;
+            }));
+
+        std::cout << "Digite o login: ";
+        login = readVal<std::string>(
+            [&](std::string val)
+            { return checaExisteLogin(val); });
+
+        std::cout << "Digite a senha: ";
+        senha = readLine();
+
+        std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)?" << std::endl;
+        std::cout << "Sua escolha: ";
+        tipo = readVal<char>(
+            [&](char tipo)
+            {
+              if (tipo != TipoPerfil::Cliente && tipo != TipoPerfil::Professor)
+              {
+                std::cout << "Opção inválida!" << std::endl;
+                return false;
+              }
+              return true;
+            });
+
+        if (tipo == TipoPerfil::Cliente)
         {
-          std::cout << "Opção inválida!" << std::endl;
-          return false;
+          finalizarTela();
+          int opcaoMod, chaveMod;
+          std::vector<Modalidade>
+              modalidadeList = _dataModalidade->buscaListaModalidade();
+          std::cout << "Seleção de modalidade: " << std::endl;
+          for (int i = 0; i < modalidadeList.size(); i++)
+            std::cout << i + 1 << " - " << modalidadeList[i].getNome() << std::endl;
+          std::cout << "Sua escolha: ";
+          opcaoMod = readVal<int>(
+              [&](int opcao)
+              {
+                if (opcao < 1 || opcao > modalidadeList.size())
+                {
+                  std::cout << "Opção inválida!" << std::endl;
+                  return false;
+                }
+                return true;
+              });
+          chaveMod = modalidadeList[opcaoMod - 1].getChaveMod();
+          // Cria aluno
+          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo, chaveMod);
         }
-        return true;
-      }));
-
-  std::cout << "Digite o login: ";
-  login = readVal<std::string>(
-      [&](std::string val)
-      { return checaExisteLogin(val); });
-
-  std::cout << "Digite a senha: ";
-  senha = readLine();
-
-  std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)?" << std::endl;
-  std::cout << "Sua escolha: ";
-  tipo = readVal<char>(
-      [&](char tipo)
-      {
-        if (tipo != TipoPerfil::Cliente && tipo != TipoPerfil::Professor)
+        else
         {
-          std::cout << "Opção inválida!" << std::endl;
-          return false;
+          // Cria professor
+          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo);
         }
-        return true;
+        _dataAutenticacao->inscreveCadastroPendente(cad);
+        std::cout << "Cadastro submetido para aprovação do administrador!" << std::endl;
       });
-
-  if (tipo == TipoPerfil::Cliente)
-  {
-    finalizarTela();
-    int opcaoMod, chaveMod;
-    std::vector<Modalidade>
-        modalidadeList = _dataModalidade->buscaListaModalidade();
-    std::cout << "Seleção de modalidade: " << std::endl;
-    for (int i = 0; i < modalidadeList.size(); i++)
-      std::cout << i + 1 << " - " << modalidadeList[i].getNome() << std::endl;
-    std::cout << "Sua escolha: ";
-    opcaoMod = readVal<int>(
-        [&](int opcao)
-        {
-          if (opcao < 1 || opcao > modalidadeList.size())
-          {
-            std::cout << "Opção inválida!" << std::endl;
-            return false;
-          }
-          return true;
-        });
-    chaveMod = modalidadeList[opcaoMod - 1].getChaveMod();
-    // Cria aluno
-    cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo, chaveMod);
-  }
-  else
-  {
-    // Cria professor
-    cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo);
-  }
-
-  try
-  {
-    _dataAutenticacao->inscreveCadastroPendente(cad);
-    std::cout << "Cadastro submetido para aprovação do administrador!" << std::endl;
-  }
-  catch (DatabaseError e)
-  {
-    std::cout << "Erro do banco!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cout << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
 
   if (cad)
     delete cad;
@@ -175,69 +165,59 @@ RetornoController ControllerAutenticacao::realizaLogin()
   RetornoController retorno;
   std::string login;
   std::string senha;
-  try
-  {
-    std::cout << "Digite o login: ";
-    login = readLine();
+  return handleExecution(
+      [&]
+      {
+        std::cout << "Digite o login: ";
+        login = readLine();
 
-    std::cout << "Digite a senha: ";
-    senha = readLine();
+        std::cout << "Digite a senha: ";
+        senha = readLine();
 
-    // Procura por usuário com esse login
-    Usuario *usuario = _dataAutenticacao->buscaUsuario(login);
-    if (!usuario)
-    {
-      std::cout << "Usuário não encontrado!" << std::endl;
-      return RetornoController::Completo;
-    }
-    // Verifica se senhas batem
-    if (usuario->getSenha() != senha)
-    {
-      std::cout << "Senha incorreta!" << std::endl;
-      return RetornoController::Completo;
-    }
+        // Procura por usuário com esse login
+        Usuario *usuario = _dataAutenticacao->buscaUsuario(login);
+        if (!usuario)
+        {
+          std::cout << "Usuário não encontrado!" << std::endl;
+          return RetornoController::Completo;
+        }
+        // Verifica se senhas batem
+        if (usuario->getSenha() != senha)
+        {
+          std::cout << "Senha incorreta!" << std::endl;
+          return RetornoController::Completo;
+        }
 
-    std::cout << "Bem-vindo, " << usuario->getNome() << "!" << std::endl;
+        std::cout << "Bem-vindo, " << usuario->getNome() << "!" << std::endl;
 
-    // Busca lista de perfis do usuário
-    std::vector<TipoPerfil> perfilList = _dataPerfil->buscaPerfis(usuario->getChaveUsu());
-    usuario->setPerfilList(perfilList);
-    // Salva usuário na sessão
-    _session->setUsuario(usuario);
+        // Busca lista de perfis do usuário
+        std::vector<TipoPerfil> perfilList = _dataPerfil->buscaPerfis(usuario->getChaveUsu());
+        usuario->setPerfilList(perfilList);
+        // Salva usuário na sessão
+        _session->setUsuario(usuario);
 
-    int currentPerfil = 0;
-    // Se possui mais de um perfil, pergunta em qual quer entrar
-    if (perfilList.size() > 1)
-    {
-      finalizarTela();
-      currentPerfil = escolhaPerfil();
-    }
-    // Salva perfil na sessão
-    _session->setCurrentPerfil(currentPerfil);
+        int currentPerfil = 0;
+        // Se possui mais de um perfil, pergunta em qual quer entrar
+        if (perfilList.size() > 1)
+        {
+          finalizarTela();
+          currentPerfil = escolhaPerfil();
+        }
+        // Salva perfil na sessão
+        _session->setCurrentPerfil(currentPerfil);
 
-    // Redireciona para o menu apropriado
-    finalizarTela();
-    do
-    {
-      if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Cliente)
-        retorno = _menuCliente->executar();
-      else if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Professor)
-        retorno = _menuProfessor->executar();
-      else
-        retorno = _menuAdministrador->executar();
-    } while (retorno == RetornoController::AlternaPerfil);
-    if (retorno == RetornoController::Sair)
-      return retorno;
-  }
-  catch (DatabaseError e)
-  {
-    std::cout << "Erro do banco!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cout << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
-  return RetornoController::Completo;
+        // Redireciona para o menu apropriado
+        finalizarTela();
+        do
+        {
+          if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Cliente)
+            retorno = _menuCliente->executar();
+          else if (perfilList[_session->getCurrentPerfil()] == TipoPerfil::Professor)
+            retorno = _menuProfessor->executar();
+          else
+            retorno = _menuAdministrador->executar();
+        } while (retorno == RetornoController::AlternaPerfil);
+        if (retorno == RetornoController::Sair)
+          return retorno;
+      });
 }

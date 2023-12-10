@@ -8,6 +8,7 @@
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_perfil.h"
+#include "data_pagamento.h"
 
 // Classe responsável por controlar as operações de autenticação
 
@@ -19,11 +20,13 @@ private:
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
   DataPerfil *_dataPerfil;
+  DataPagamento *_dataPagamento;
+
   int escolhaPerfil();
   std::string getTipoStr(TipoPerfil tipo);
 
 public:
-  ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil);
+  ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil, DataPagamento *dataPagamento);
   RetornoController alternaPerfil();
   RetornoController trocaSenha();
   RetornoController verDados();

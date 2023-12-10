@@ -11,12 +11,16 @@ private:
 
 public:
   DataModalidade(Database *database);
-  //cadastrar modalidade
+  // cadastrar modalidade
   void cadastraModalidade(Modalidade *modalidade);
+  // Busca lista de modalidades do sistema
   std::vector<Modalidade> buscaListaModalidade();
-  //editar modalidade
-  void editaModalidade(Modalidade *modalidade);
-  //excluir modalidade
+  // Busca lista de modalidades disponíveis (não cadastradas) para um usuário
+  std::vector<Modalidade> buscaListaModalidadesDisponiveis(int chaveUsu);
+  // editar modalidade
+  void
+  editaModalidade(Modalidade *modalidade);
+  // excluir modalidade
   void excluiModalidade(Modalidade *modalidade);
 };
 

@@ -2,8 +2,10 @@
 #include <vector>
 #include "enums.h"
 #include <exception>
+#include "modalidade.h"
+#include "cad_pendente.h"
 
-ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario) : _session(session), _dataUsuario(dataUsuario) {}
+ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil) : _session(session), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil) {}
 
 std::string ControllerOpcoesUsuario::getTipoStr(TipoPerfil tipo)
 {
@@ -113,6 +115,67 @@ RetornoController ControllerOpcoesUsuario::verDados()
 
 RetornoController ControllerOpcoesUsuario::novoCadastro()
 {
+  CadPendente *cad = nullptr;
+  char tipo;
+  handleExecution(
+      [&]
+      {
+        std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)?" << std::endl;
+        std::cout << "Sua escolha: ";
+        tipo = readVal<char>(
+            [&](char tipo)
+            {
+              if (tipo != TipoPerfil::Cliente && tipo != TipoPerfil::Professor)
+              {
+                std::cout << "Opção inválida!" << std::endl;
+                return false;
+              }
+              return true;
+            });
 
+        if (tipo == TipoPerfil::Cliente)
+        {
+          finalizarTela();
+          int opcaoMod, chaveMod;
+          std::vector<Modalidade>
+              modalidadeList = _dataModalidade->buscaListaModalidadesDisponiveis(_session->getSelectedUsuario()->getChaveUsu());
+          if (!modalidadeList.size())
+          {
+            std::cout << "Não há mais modalidades disponíveis!" << std::endl;
+            return;
+          }
+          std::cout << "Seleção de modalidade: " << std::endl;
+          for (int i = 0; i < modalidadeList.size(); i++)
+            std::cout << i + 1 << " - " << modalidadeList[i].getNome() << std::endl;
+          std::cout << "Sua escolha: ";
+          opcaoMod = readVal<int>(
+              [&](int opcao)
+              {
+                if (opcao < 1 || opcao > modalidadeList.size())
+                {
+                  std::cout << "Opção inválida!" << std::endl;
+                  return false;
+                }
+                return true;
+              });
+          chaveMod = modalidadeList[opcaoMod - 1].getChaveMod();
+          // Cria aluno
+          cad = new CadPendente(nullnum, _session->getSelectedUsuario()->getChaveUsu(), tipo, chaveMod);
+        }
+        else
+        {
+          if (_dataPerfil->checaTemPerfil(_session->getSelectedUsuario()->getChaveUsu(), static_cast<TipoPerfil>(tipo)))
+          {
+            std::cout << "Você já possui esse perfil cadastrado!" << std::endl;
+            return;
+          }
+          // Cria professor
+          cad = new CadPendente(nullnum, _session->getSelectedUsuario()->getChaveUsu(), tipo);
+        }
+        _dataAutenticacao->inscreveCadastroPendente(cad);
+        std::cout << "Cadastro submetido para aprovação do administrador!" << std::endl;
+      });
+  if (cad)
+    delete cad;
   return RetornoController::Completo;
 }

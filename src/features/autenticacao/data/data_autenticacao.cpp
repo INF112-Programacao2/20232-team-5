@@ -48,20 +48,6 @@ Usuario *DataAutenticacao::buscaUsuario(std::string login)
   return u;
 }
 
-// Busca pelos perfis do usuário
-std::vector<TipoPerfil> DataAutenticacao::buscaPerfis(int chaveUsu)
-{
-  std::string query = "SELECT * FROM \"PERFIL\" WHERE \"CHAVEUSU\" = $1";
-  std::vector<std::string> params = {std::to_string(chaveUsu)};
-  PGresult *res = _database->executar(query, params);
-  std::vector<TipoPerfil> listaPerfil;
-  for (int i = 0; i < PQntuples(res); i++)
-    listaPerfil.push_back(
-        static_cast<TipoPerfil>(Database::value(res, i, "TIPO")[0]));
-  PQclear(res);
-  return listaPerfil;
-}
-
 // Verifica se login já está cadastrado no banco
 bool DataAutenticacao::existeLogin(std::string login)
 {

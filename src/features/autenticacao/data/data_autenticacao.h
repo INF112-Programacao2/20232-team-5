@@ -16,7 +16,6 @@ public:
   DataAutenticacao(Database *database);
   void inscreveCadastroPendente(CadPendente *cad);
   Usuario *buscaUsuario(std::string login);
-  std::vector<TipoPerfil> buscaPerfis(int chaveUsu);
   bool existeLogin(std::string login);
 };
 

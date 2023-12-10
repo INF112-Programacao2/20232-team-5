@@ -8,7 +8,7 @@
 
 // Classe responsável por controlar as operações de autenticação
 
-ControllerAutenticacao::ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador) : _session(session), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _menuCliente(menuCliente), _menuProfessor(menuProfessor), _menuAdministrador(menuAdministrador) {}
+ControllerAutenticacao::ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador, DataPerfil *dataPerfil) : _session(session), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil), _menuCliente(menuCliente), _menuProfessor(menuProfessor), _menuAdministrador(menuAdministrador) {}
 
 std::string ControllerAutenticacao::getTipoStr(TipoPerfil tipo)
 {
@@ -143,7 +143,8 @@ RetornoController ControllerAutenticacao::realizaCadastro()
     std::cerr << e.what() << std::endl;
   }
 
-  delete cad;
+  if (cad)
+    delete cad;
   return RetornoController::Completo;
 }
 
@@ -199,7 +200,7 @@ RetornoController ControllerAutenticacao::realizaLogin()
     std::cout << "Bem-vindo, " << usuario->getNome() << "!" << std::endl;
 
     // Busca lista de perfis do usuário
-    std::vector<TipoPerfil> perfilList = _dataAutenticacao->buscaPerfis(usuario->getChaveUsu());
+    std::vector<TipoPerfil> perfilList = _dataPerfil->buscaPerfis(usuario->getChaveUsu());
     usuario->setPerfilList(perfilList);
     // Salva usuário na sessão
     _session->setUsuario(usuario);

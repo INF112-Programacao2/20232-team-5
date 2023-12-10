@@ -5,7 +5,7 @@
 #include "graduacao.h"
 #include "aluno.h"
 
-ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataGraduacao(dataGraduacao), _dataAluno(dataAluno) {}
+ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno, DataPerfil *dataPerfil) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataGraduacao(dataGraduacao), _dataAluno(dataAluno), _dataPerfil(dataPerfil) {}
 
 void ControllerCadastroPendente::completaDados(CadPendente *cad)
 {
@@ -211,7 +211,7 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
           else
           {
             // Se não for usuário existente, vê se já possui o tipo de perfil que se quer cadastrar
-            std::vector<TipoPerfil> listaPerfil = _dataAutenticacao->buscaPerfis(usu->getChaveUsu());
+            std::vector<TipoPerfil> listaPerfil = _dataPerfil->buscaPerfis(usu->getChaveUsu());
             for (auto perfil : listaPerfil)
               if (perfil == cad->getTipo())
               {

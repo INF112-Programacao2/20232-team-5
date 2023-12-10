@@ -28,6 +28,7 @@
 #include "data_graduacao.h"
 #include "data_autenticacao.h"
 #include "data_aluno.h"
+#include "data_perfil.h"
 
 class MainInitializer
 {
@@ -64,6 +65,7 @@ private:
   DataTurma *_dataTurma;
   DataGraduacao *_dataGraduacao;
   DataAluno *_dataAluno;
+  DataPerfil *_dataPerfil;
 
   void initializeData();
   void initializeAutenticacao();

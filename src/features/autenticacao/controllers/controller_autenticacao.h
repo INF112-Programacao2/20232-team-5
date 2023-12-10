@@ -5,6 +5,7 @@
 #include <vector>
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
+#include "data_perfil.h"
 #include "menu_cliente.h"
 #include "menu_professor.h"
 #include "menu_administrador.h"
@@ -17,6 +18,7 @@ private:
   Session *_session;
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
+  DataPerfil *_dataPerfil;
   MenuCliente *_menuCliente;
   MenuProfessor *_menuProfessor;
   MenuAdministrador *_menuAdministrador;
@@ -24,7 +26,7 @@ private:
   std::string getTipoStr(TipoPerfil tipo);
 
 public:
-  ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador);
+  ControllerAutenticacao(Session *session, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, MenuCliente *menuCliente, MenuProfessor *menuProfessor, MenuAdministrador *menuAdministrador, DataPerfil *dataPerfil);
   RetornoController realizaCadastro();
   RetornoController realizaLogin();
   bool checaExisteLogin(std::string login);

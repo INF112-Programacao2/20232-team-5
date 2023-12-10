@@ -7,7 +7,7 @@ DataModalidade::DataModalidade(Database *database)
   _database = database;
 }
 
-//cadastra modalidade
+// cadastra modalidade
 void DataModalidade::cadastraModalidade(Modalidade *modalidade)
 {
   std::string query = "INSERT INTO public.\"MODALIDADE\" "
@@ -33,15 +33,13 @@ void DataModalidade::cadastraModalidade(Modalidade *modalidade)
     std::cerr << "Ocorreu um erro inesperado!" << std::endl;
     std::cerr << e.what() << std::endl;
   }
-
 }
-
-
 
 // Recupera a lista de modalidades cadastradas
 std::vector<Modalidade> DataModalidade::buscaListaModalidade()
 {
   std::string query = "SELECT * FROM \"MODALIDADE\"";
+
   PGresult *res = _database->executar(query);
   std::vector<Modalidade> listaModalidade;
 
@@ -52,7 +50,24 @@ std::vector<Modalidade> DataModalidade::buscaListaModalidade()
   return listaModalidade;
 }
 
-//editar modalidade
+// Busca lista de modalidades disponíveis (não cadastradas) para um usuário
+std::vector<Modalidade> DataModalidade::buscaListaModalidadesDisponiveis(int chaveUsu)
+{
+  std::string query = "SELECT * FROM \"MODALIDADE\" m INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEMOD\" = m.\"CHAVEMOD\" WHERE m.\"CHAVEMOD\" NOT IN (SELECT m.\"CHAVEMOD\" FROM \"USUARIO\" u INNER JOIN \"ALUNO\" a ON a.\"CHAVEUSU\" = U.\"CHAVEUSU\" INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" INNER JOIN \"MODALIDADE\" m ON m.\"CHAVEMOD\" = g.\"CHAVEMOD\" WHERE u.\"CHAVEUSU\" = $1) AND m.\"CHAVEMOD\" NOT IN (SELECT \"CHAVEMOD\" FROM \"CADPENDENTE\" WHERE \"CHAVEUSU\" = $1);";
+
+  std::vector<std::string> params = {std::to_string(chaveUsu)};
+
+  PGresult *res = _database->executar(query, params);
+  std::vector<Modalidade> listaModalidade;
+
+  for (int i = 0; i < PQntuples(res); i++)
+    listaModalidade.push_back(Modalidade::fromDatabase(res, i));
+
+  PQclear(res);
+  return listaModalidade;
+}
+
+// editar modalidade
 void DataModalidade::editaModalidade(Modalidade *modalidade)
 {
   std::string query = "UPDATE public.\"MODALIDADE\" "
@@ -80,7 +95,7 @@ void DataModalidade::editaModalidade(Modalidade *modalidade)
   }
 }
 
-//excluir modalidade
+// excluir modalidade
 void DataModalidade::excluiModalidade(Modalidade *modalidade)
 {
   std::string query = "DELETE FROM public.\"MODALIDADE\" "

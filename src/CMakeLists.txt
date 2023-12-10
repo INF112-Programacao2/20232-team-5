@@ -92,6 +92,8 @@ set(sources
   features/aluno/data/data_aluno.cpp
   features/perfil/menus/menu_perfil.h
   features/perfil/menus/menu_perfil.cpp
+  features/perfil/controllers/controller_perfil.h
+  features/perfil/controllers/controller_perfil.cpp
   features/perfil/data/data_perfil.h
   features/perfil/data/data_perfil.cpp
   features/pagamento/data/data_pagamento.h
@@ -123,6 +125,7 @@ set (dirs
   features/turma/menus
   features/aluno/data
   features/perfil/menus
+  features/perfil/controllers
   features/perfil/data
   features/pagamento/data
 )

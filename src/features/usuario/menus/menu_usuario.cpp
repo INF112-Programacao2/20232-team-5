@@ -10,5 +10,6 @@ void MenuUsuario::inicializarOpcoes()
   _opcaoList.push_back(OpcaoMenu("Listar Todos", std::bind(&ControllerUsuario::listaTodos, _controllerUsuario)));
   _opcaoList.push_back(OpcaoMenu("Ver Dados", std::bind(&ControllerUsuario::verDados, _controllerUsuario)));
   _opcaoList.push_back(OpcaoMenu("Editar Dados", std::bind(&ControllerUsuario::editarDados, _controllerUsuario)));
+  _opcaoList.push_back(OpcaoMenu("Ver Perfis", std::bind(&ControllerUsuario::verPerfis, _controllerUsuario)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

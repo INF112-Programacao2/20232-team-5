@@ -2,7 +2,7 @@
 #include <vector>
 #include "usuario.h"
 
-ControllerUsuario::ControllerUsuario(Session *session, DataUsuario *dataUsuario, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario) : _session(session), _dataUsuario(dataUsuario), _controllerOpcoesUsuario(controllerOpcoesUsuario), _menuEditarUsuario(menuEditarUsuario) {}
+ControllerUsuario::ControllerUsuario(Session *session, DataUsuario *dataUsuario, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario, MenuPerfil *menuPerfil) : _session(session), _dataUsuario(dataUsuario), _controllerOpcoesUsuario(controllerOpcoesUsuario), _menuEditarUsuario(menuEditarUsuario), _menuPerfil(menuPerfil) {}
 
 RetornoController ControllerUsuario::listaTodos()
 {
@@ -64,6 +64,30 @@ RetornoController ControllerUsuario::editarDados()
         }
         _session->setSelectedUsuario(usu);
         _menuEditarUsuario->executar();
+      });
+  if (usu)
+    delete usu;
+  return RetornoController::Completo;
+}
+
+RetornoController ControllerUsuario::verPerfis()
+{
+  int chaveUsu;
+  Usuario *usu;
+  handleExecution(
+      [&]
+      {
+        std::cout << "Informe a chave do usuário: ";
+        chaveUsu = readVal<int>();
+        usu = _dataUsuario->buscaUsuarioByChave(chaveUsu);
+        if (!usu)
+        {
+          std::cout << "Usuário não encontrado!" << std::endl;
+          return;
+        }
+        _session->setSelectedUsuario(usu);
+        finalizarTela();
+        _menuPerfil->executar();
       });
   if (usu)
     delete usu;

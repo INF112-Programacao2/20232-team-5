@@ -19,6 +19,7 @@ MainInitializer::~MainInitializer()
   destroyAluno();
   destroyModalidade();
   destroyUsuario();
+  destroyPerfil();
   destroyData();
   delete _session;
 }
@@ -30,6 +31,7 @@ bool MainInitializer::initialize()
     return false;
   _session = new Session();
   initializeData();
+  initializePerfil();
   initializeUsuario();
   initializeModalidade();
   initializeAluno();
@@ -68,7 +70,7 @@ void MainInitializer::initializeUsuario()
   _controllerEditarUsuario = new ControllerEditarUsuario(_session, _dataUsuario);
   _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
   _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil, _dataPagamento);
-  _controllerUsuario = new ControllerUsuario(_session, _dataUsuario, _controllerOpcoesUsuario, _menuEditarUsuario);
+  _controllerUsuario = new ControllerUsuario(_session, _dataUsuario, _controllerOpcoesUsuario, _menuEditarUsuario, _menuPerfil);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario);
   _menuUsuario = new MenuUsuario("Usuários", _controllerUsuario);
 }
@@ -99,6 +101,12 @@ void MainInitializer::initializeGraduacao()
 
 void MainInitializer::initializeAluno()
 {
+}
+
+void MainInitializer::initializePerfil()
+{
+  _controllerPerfil = new ControllerPerfil(_session, _dataPerfil);
+  _menuPerfil = new MenuPerfil("Perfis do Usuário", _controllerPerfil);
 }
 
 void MainInitializer::destroyData()
@@ -157,9 +165,15 @@ void MainInitializer::destroyAluno()
 {
 }
 
+void MainInitializer::destroyPerfil()
+{
+  delete _menuPerfil;
+  delete _controllerPerfil;
+}
+
 void MainInitializer::executar()
 {
-  _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
-  _menuUsuario->executar();
-  //_menuInicial->executar();
+  // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  // _menuUsuario->executar();
+  _menuInicial->executar();
 }

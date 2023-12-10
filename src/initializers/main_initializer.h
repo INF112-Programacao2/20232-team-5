@@ -14,6 +14,7 @@
 #include "menu_opcoes_modalidade.h"
 #include "menu_editar_usuario.h"
 #include "menu_usuario.h"
+#include "menu_perfil.h"
 #include "controller_autenticacao.h"
 #include "controller_opcoes_usuario.h"
 #include "controller_cadastro_pendente.h"
@@ -22,6 +23,7 @@
 #include "controller_modalidade.h"
 #include "controller_editar_usuario.h"
 #include "controller_usuario.h"
+#include "controller_perfil.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_usuario.h"
@@ -53,6 +55,7 @@ private:
   MenuOpcoesModalidade *_menuOpcoesModalidade;
   MenuEditarUsuario *_menuEditarUsuario;
   MenuUsuario *_menuUsuario;
+  MenuPerfil *_menuPerfil;
   // CONTROLLERS
   ControllerAutenticacao *_controllerAutenticacao;
   ControllerOpcoesUsuario *_controllerOpcoesUsuario;
@@ -62,6 +65,7 @@ private:
   ControllerModalidade *_controllerModalidade;
   ControllerEditarUsuario *_controllerEditarUsuario;
   ControllerUsuario *_controllerUsuario;
+  ControllerPerfil *_controllerPerfil;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
@@ -81,6 +85,7 @@ private:
   void initializeTurma();
   void initializeGraduacao();
   void initializeAluno();
+  void initializePerfil();
   void destroyData();
   void destroyAutenticacao();
   void destroyUsuario();
@@ -89,6 +94,7 @@ private:
   void destroyTurma();
   void destroyGraduacao();
   void destroyAluno();
+  void destroyPerfil();
 
 public:
   MainInitializer();

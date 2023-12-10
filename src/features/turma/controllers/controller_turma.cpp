@@ -91,7 +91,7 @@ RetornoController ControllerTurma::realizaCadastro()
     std::cout << "Digite os dias da semana: ";
     _diasSemana = readLine();
 
-    Turma *turma = new Turma(NULL, _chaveUsu, _chaveMod, _hrInicio, _hrFim, _diasSemana);
+    Turma *turma = new Turma(nullnum, _chaveUsu, _chaveMod, _hrInicio, _hrFim, _diasSemana);
 
     _dataTurma->cadastraTurma(turma);
 
@@ -216,4 +216,3 @@ RetornoController ControllerTurma::realizaPresenca()
 
     return RetornoController::Completo;
 }
-

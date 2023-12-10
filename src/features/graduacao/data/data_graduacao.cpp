@@ -18,9 +18,7 @@ DataGraduacao::DataGraduacao(Database *database)
 
 void DataGraduacao::cadastraGraduacao(Graduacao *graduacao)
 {
-  std::string insertQuery = "INSERT INTO public.\"GRADUACAO\" "
-                            "(\"CHAVEMOD\", \"NOME\", \"ORDEM\", \"MINAULAS\") "
-                            "VALUES ($1, $2, $3, $4)";
+  std::string insertQuery = "INSERT INTO \"GRADUACAO\" (\"CHAVEMOD\", \"NOME\", \"ORDEM\", \"MINAULAS\") VALUES ($1, $2, $3, $4)";
 
   std::vector<std::string> params = {
       std::to_string(graduacao->getChaveMod()),

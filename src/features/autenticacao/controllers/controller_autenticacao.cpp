@@ -165,7 +165,7 @@ RetornoController ControllerAutenticacao::realizaLogin()
   RetornoController retorno;
   std::string login;
   std::string senha;
-  return handleExecution(
+  handleExecution(
       [&]
       {
         std::cout << "Digite o login: ";
@@ -217,7 +217,8 @@ RetornoController ControllerAutenticacao::realizaLogin()
           else
             retorno = _menuAdministrador->executar();
         } while (retorno == RetornoController::AlternaPerfil);
-        if (retorno == RetornoController::Sair)
-          return retorno;
       });
+  if (retorno == RetornoController::Sair)
+    return retorno;
+  return RetornoController::Completo;
 }

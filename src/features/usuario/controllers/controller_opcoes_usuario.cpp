@@ -103,7 +103,7 @@ RetornoController ControllerOpcoesUsuario::verDados()
       [&]
       {
         Usuario *usuario = _session->getSelectedUsuario();
-        double valor = _dataPagamento->buscaValorMensalidade(usuario->getChaveUsu());
+        bool temPerfilCliente = _dataPerfil->checaTemPerfil(usuario->getChaveUsu(), TipoPerfil::Cliente);
         std::cout
             << "DADOS DO USUÁRIO" << std::endl;
         std::cout << "CHAVE: " << usuario->getChaveUsu() << std::endl;
@@ -113,7 +113,11 @@ RetornoController ControllerOpcoesUsuario::verDados()
         std::cout << "CPF: " << usuario->getCpf() << std::endl;
         std::cout << "SEXO: " << (usuario->getSexo() == 'M' ? "Masculino" : "Feminino") << std::endl;
         std::cout << "LOGIN: " << usuario->getLogin() << std::endl;
-        std::cout << "VALOR MENSALIDADE: " << valor << std::endl;
+        if (temPerfilCliente)
+        {
+          double valor = _dataPagamento->buscaValorMensalidade(usuario->getChaveUsu());
+          std::cout << "VALOR MENSALIDADE: " << valor << std::endl;
+        }
         hold();
       });
 }

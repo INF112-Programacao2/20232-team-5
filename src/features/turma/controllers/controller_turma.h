@@ -17,6 +17,14 @@ public:
 
     // Realiza o cadastro de uma nova turma
     RetornoController realizaCadastro();
+    // edita uma turma
+    RetornoController realizaEdicao();
+    // remove uma turma
+    RetornoController realizaRemocao();
+    // lista as turmas
+    RetornoController realizaListagem();
+    // lista as turmas
+    RetornoController realizaPresenca();
 };
 
 #endif

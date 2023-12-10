@@ -12,6 +12,10 @@ private:
 public:
   DataTurma(Database *database);
   void cadastraTurma(Turma *turma);
+  void editarTurma(Turma *turma);
+  void excluirTurma(int chaveTurma);
+  void listarTurmas();
+  void presencaTurma(int chaveTurma);
 };
 
 #endif

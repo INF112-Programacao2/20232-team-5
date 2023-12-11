@@ -22,6 +22,7 @@ public:
 
   // Conversion
   static Modalidade fromDatabase(PGresult *res, int row);
+  static Modalidade* fromDatabaseToPtr(PGresult *res, int row);
 };
 
 #endif

@@ -26,14 +26,46 @@ std::string Turma::getHrInicio()
   return _hrInicio;
 }
 
+int Turma::HoraEmMinutos(std::string hora)
+{
+  int horas = std::stoi(hora.substr(0, hora.find(":")));
+  int minutos = std::stoi(hora.substr(hora.find(":") + 1));
+  return horas * 60 + minutos;
+}
+
+int Turma::getHrInicioTime()
+{
+  return HoraEmMinutos(_hrInicio);
+}
+
 std::string Turma::getHrFim()
 {
   return _hrFim;
 }
 
+int Turma::getHrFimTime()
+{
+  return HoraEmMinutos(_hrFim);
+}
+
 std::string Turma::getDiasSemana()
 {
   return _diasSemana;
+}
+
+std::vector<int> Turma::getListaDiasSemana()
+{
+  std::vector<int> listaDiasSemana; // "2,4,6" -> [2, 4, 6] Segunda, Quarta e Sexta
+  std::string diasSemana = _diasSemana;
+
+  while (diasSemana.find(",") != std::string::npos)
+  {
+    listaDiasSemana.push_back(std::stoi(diasSemana.substr(0, diasSemana.find(","))));
+    diasSemana = diasSemana.substr(diasSemana.find(",") + 1);
+  }
+  listaDiasSemana.push_back(std::stoi(diasSemana)); 
+
+  return listaDiasSemana;
 }
 
 void Turma::setChaveTur(int chaveTur)
@@ -64,4 +96,16 @@ void Turma::setHrFim(std::string hrFim)
 void Turma::setDiasSemana(std::string diasSemana)
 {
   _diasSemana = diasSemana;
+}
+
+Turma *Turma::fromDatabase(PGresult *res, int row)
+{
+  int chaveTur = std::stoi(PQgetvalue(res, row, 0));
+  int chaveUsu = std::stoi(PQgetvalue(res, row, 1));
+  int chaveMod = std::stoi(PQgetvalue(res, row, 2));
+  std::string hrInicio = PQgetvalue(res, row, 3);
+  std::string hrFim = PQgetvalue(res, row, 4);
+  std::string diasSemana = PQgetvalue(res, row, 5);
+
+  return new Turma(chaveTur, chaveUsu, chaveMod, hrInicio, hrFim, diasSemana);
 }

@@ -67,6 +67,28 @@ std::vector<Modalidade> DataModalidade::buscaListaModalidadesDisponiveis(int cha
   return listaModalidade;
 }
 
+// Busca lista de modalidades cadastradas para um usuário
+std::vector<Modalidade *> DataModalidade::buscaListaModalidadesUsuario(int chaveUsu)
+{
+  std::string query = "SELECT M.\"CHAVEMOD\", M.\"NOME\" "
+                      "FROM \"MODALIDADE\" M "
+                      "LEFT JOIN \"GRADUACAO\" G ON G.\"CHAVEMOD\" = M.\"CHAVEMOD\" "
+                      "LEFT JOIN \"ALUNO\" A ON A.\"CHAVEGRD\" = G.\"CHAVEGRD\" "
+                      "WHERE A.\"CHAVEALU\" = $1";
+
+  std::vector<std::string> params = {std::to_string(chaveUsu)};
+
+  PGresult *res = _database->executar(query, params);
+  std::vector<Modalidade*> listaModalidade;
+
+  for (int i = 0; i < PQntuples(res); i++)
+    listaModalidade.push_back(Modalidade::fromDatabaseToPtr(res, i));
+
+  PQclear(res);
+  return listaModalidade;
+}
+
+
 // editar modalidade
 void DataModalidade::editaModalidade(Modalidade *modalidade)
 {

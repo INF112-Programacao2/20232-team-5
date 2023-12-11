@@ -10,7 +10,10 @@ private:
 
 public:
   DataGraduacao(Database *database);
+  void editarGraduacao(Graduacao *graduacao);
+  void excluirGraduacao(Graduacao *graduacao);
   void cadastraGraduacao(Graduacao *graduacao);
+  void listarGraduacao();
   Graduacao *buscaGraduacaoInicial(int chaveMod);
 };
 

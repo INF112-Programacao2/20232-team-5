@@ -2,6 +2,8 @@
 #define INF112_TURMA_H
 
 #include <string>
+#include <vector>
+#include <libpq-fe.h>
 
 class Turma
 {
@@ -13,6 +15,8 @@ private:
   std::string _hrFim;
   std::string _diasSemana;
 
+  int HoraEmMinutos(std::string hora);
+
 public:
   Turma(int chaveTur, int chaveUsu, int chaveMod, std::string hrInicio, std::string hrFim, std::string diasSemana);
 
@@ -21,8 +25,13 @@ public:
   int getChaveUsu();
   int getChaveMod();
   std::string getHrInicio();
+  // hora inicio em minutos
+  int getHrInicioTime();
   std::string getHrFim();
+  // hora fim em minutos
+  int getHrFimTime();
   std::string getDiasSemana();
+  std::vector<int> getListaDiasSemana();
 
   // Setters
   void setChaveTur(int chaveTur);
@@ -31,6 +40,9 @@ public:
   void setHrInicio(std::string hrInicio);
   void setHrFim(std::string hrFim);
   void setDiasSemana(std::string diasSemana);
+
+  // Métodos
+  static Turma *fromDatabase(PGresult *res, int row);
 };
 
 #endif

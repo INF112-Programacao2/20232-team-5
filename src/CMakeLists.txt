@@ -98,6 +98,10 @@ set(sources
   features/perfil/data/data_perfil.cpp
   features/pagamento/data/data_pagamento.h
   features/pagamento/data/data_pagamento.cpp
+  features/presenca/controllers/controller_registrar_presenca.h
+  features/presenca/controllers/controller_registrar_presenca.cpp
+  features/presenca/data/data_presenca.h
+  features/presenca/data/data_presenca.cpp
 )
 
 set (dirs
@@ -128,6 +132,9 @@ set (dirs
   features/perfil/controllers
   features/perfil/data
   features/pagamento/data
+  features/presenca/controllers
+  features/presenca/data
+  features/presenca/menus
 )
 
 find_package(PostgreSQL REQUIRED)

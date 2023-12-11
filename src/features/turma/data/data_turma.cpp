@@ -39,6 +39,22 @@ void DataTurma::cadastraTurma(Turma *turma)
   }
 }
 
+std::vector<Turma*> DataTurma::buscaTurmasModalidade(int chaveMod)
+{
+  std::string query = "SELECT * FROM \"TURMA\" WHERE \"CHAVEMOD\" = $1";
+
+  std::vector<std::string> params = {std::to_string(chaveMod)};
+
+  PGresult *res = _database->executar(query, params);
+  std::vector<Turma*> listaTurma;
+
+  for (int i = 0; i < PQntuples(res); i++)
+    listaTurma.push_back(Turma::fromDatabase(res, i));
+
+  PQclear(res);
+  return listaTurma;
+}
+
 void DataTurma::editarTurma(Turma *turma)
 {
   std::string updateQuery = "UPDATE public.\"TURMA\" "

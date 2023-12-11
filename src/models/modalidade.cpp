@@ -29,5 +29,10 @@ void Modalidade::setNome(std::string nome)
 
 Modalidade Modalidade::fromDatabase(PGresult *res, int row)
 {
-  return Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
+  return  Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
+}
+
+Modalidade* Modalidade::fromDatabaseToPtr(PGresult *res, int row)
+{
+  return new Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
 }

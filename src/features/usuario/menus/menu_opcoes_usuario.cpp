@@ -3,7 +3,8 @@
 #include "global.h"
 #include "controller_autenticacao.h"
 
-MenuOpcoesUsuario::MenuOpcoesUsuario(std::string title, Session *session, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario) : Menu(title), _session(session), _controllerOpcoesUsuario(controllerOpcoesUsuario), _menuEditarUsuario(menuEditarUsuario)
+MenuOpcoesUsuario::MenuOpcoesUsuario(std::string title, Session *session, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario, ControllerRegistrarPresenca *controllerRegistrarPresenca) : 
+  Menu(title), _session(session), _controllerOpcoesUsuario(controllerOpcoesUsuario), _menuEditarUsuario(menuEditarUsuario), _controllerRegistrarPresenca(controllerRegistrarPresenca)
 {
   inicializarOpcoes();
 }

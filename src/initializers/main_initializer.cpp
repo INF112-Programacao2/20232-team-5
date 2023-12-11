@@ -38,8 +38,9 @@ bool MainInitializer::initialize()
   initializeCadastroPendente();
   initializeTurma();
   initializeGraduacao();
+  initializePresenca();
   _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
-  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario);
+  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
   _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
   initializeAutenticacao();
@@ -58,6 +59,7 @@ void MainInitializer::initializeData()
   _dataAluno = new DataAluno(_database);
   _dataPerfil = new DataPerfil(_database);
   _dataPagamento = new DataPagamento(_database);
+  _dataPresenca = new DataPresenca(_database);
 }
 
 void MainInitializer::initializeAutenticacao()
@@ -71,7 +73,7 @@ void MainInitializer::initializeUsuario()
   _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
   _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil, _dataPagamento);
   _controllerUsuario = new ControllerUsuario(_session, _dataUsuario, _controllerOpcoesUsuario, _menuEditarUsuario, _menuPerfil);
-  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario);
+  _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario, _controllerRegistrarPresenca);
   _menuUsuario = new MenuUsuario("Usuários", _controllerUsuario);
 }
 
@@ -109,6 +111,11 @@ void MainInitializer::initializePerfil()
   _menuPerfil = new MenuPerfil("Perfis do Usuário", _controllerPerfil);
 }
 
+void MainInitializer::initializePresenca()
+{
+  _controllerRegistrarPresenca = new ControllerRegistrarPresenca(_session, _dataPresenca, _dataModalidade, _dataUsuario, _dataPerfil, _dataTurma);
+}
+
 void MainInitializer::destroyData()
 {
   delete _dataAutenticacao;
@@ -120,6 +127,7 @@ void MainInitializer::destroyData()
   delete _dataAluno;
   delete _dataPerfil;
   delete _dataPagamento;
+  delete _dataPresenca;
 }
 
 void MainInitializer::destroyAutenticacao()
@@ -169,6 +177,11 @@ void MainInitializer::destroyPerfil()
 {
   delete _menuPerfil;
   delete _controllerPerfil;
+}
+
+void MainInitializer::destroyPresenca()
+{
+  delete _controllerRegistrarPresenca;
 }
 
 void MainInitializer::executar()

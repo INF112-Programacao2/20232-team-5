@@ -24,6 +24,7 @@
 #include "controller_editar_usuario.h"
 #include "controller_usuario.h"
 #include "controller_perfil.h"
+#include "controller_registrar_presenca.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_usuario.h"
@@ -34,6 +35,7 @@
 #include "data_aluno.h"
 #include "data_perfil.h"
 #include "data_pagamento.h"
+#include "data_presenca.h"
 
 class MainInitializer
 {
@@ -66,6 +68,7 @@ private:
   ControllerEditarUsuario *_controllerEditarUsuario;
   ControllerUsuario *_controllerUsuario;
   ControllerPerfil *_controllerPerfil;
+  ControllerRegistrarPresenca *_controllerRegistrarPresenca;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
@@ -76,6 +79,7 @@ private:
   DataAluno *_dataAluno;
   DataPerfil *_dataPerfil;
   DataPagamento *_dataPagamento;
+  DataPresenca *_dataPresenca;
 
   void initializeData();
   void initializeAutenticacao();
@@ -86,6 +90,7 @@ private:
   void initializeGraduacao();
   void initializeAluno();
   void initializePerfil();
+  void initializePresenca();
   void destroyData();
   void destroyAutenticacao();
   void destroyUsuario();
@@ -95,6 +100,7 @@ private:
   void destroyGraduacao();
   void destroyAluno();
   void destroyPerfil();
+  void destroyPresenca();
 
 public:
   MainInitializer();

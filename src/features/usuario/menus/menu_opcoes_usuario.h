@@ -5,6 +5,7 @@
 #include "session.h"
 #include "controller_opcoes_usuario.h"
 #include "menu_editar_usuario.h"
+#include "controller_registrar_presenca.h"
 
 class MenuOpcoesUsuario : public Menu
 {
@@ -12,10 +13,12 @@ protected:
   Session *_session;
   ControllerOpcoesUsuario *_controllerOpcoesUsuario;
   MenuEditarUsuario *_menuEditarUsuario;
+  ControllerRegistrarPresenca *_controllerRegistrarPresenca;
+  
   virtual void inicializarOpcoes();
 
 public:
-  MenuOpcoesUsuario(std::string title, Session *_session, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario);
+  MenuOpcoesUsuario(std::string title, Session *_session, ControllerOpcoesUsuario *controllerOpcoesUsuario, MenuEditarUsuario *menuEditarUsuario, ControllerRegistrarPresenca *controllerRegistrarPresenca);
   RetornoController executar() override;
 };
 

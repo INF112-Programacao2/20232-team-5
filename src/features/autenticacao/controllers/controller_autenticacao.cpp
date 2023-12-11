@@ -38,7 +38,7 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   std::string apelido;
   std::string dtNascimento;
   std::string cpf;
-  std::string rg;
+  std::string rg = nullstr;
   char sexo;
   std::string nome;
   std::string login;
@@ -63,9 +63,6 @@ RetornoController ControllerAutenticacao::realizaCadastro()
 
         std::cout << "Digite o CPF: ";
         cpf = readLine();
-
-        std::cout << "Digite o RG: ";
-        rg = readLine();
 
         std::cout << "Digite o sexo (M/F): ";
         sexo = std::toupper(readVal<char>(

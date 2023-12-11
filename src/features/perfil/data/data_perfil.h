@@ -12,7 +12,8 @@ public:
   DataPerfil(Database *database);
   std::vector<TipoPerfil> buscaPerfis(int chaveUsu);
   bool checaTemPerfil(int chaveUsu, TipoPerfil tipo);
-  void criaPerfil(int chaveUsu, char tipo);
+  void criaPerfil(int chaveUsu, TipoPerfil tipo);
+  void removePerfil(int chaveUsu, TipoPerfil tipo);
 };
 
 #endif

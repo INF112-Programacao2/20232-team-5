@@ -85,6 +85,7 @@ RetornoController ControllerUsuario::verPerfis()
           std::cout << "Usuário não encontrado!" << std::endl;
           return;
         }
+        std::cout << "Usuário encontrado: " << usu->getNome() << std::endl;
         _session->setSelectedUsuario(usu);
         finalizarTela();
         _menuPerfil->executar();

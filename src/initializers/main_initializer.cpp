@@ -174,6 +174,7 @@ void MainInitializer::destroyPerfil()
 void MainInitializer::executar()
 {
   // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  // _session->setCurrentPerfil(0);
   // _menuUsuario->executar();
   _menuInicial->executar();
 }

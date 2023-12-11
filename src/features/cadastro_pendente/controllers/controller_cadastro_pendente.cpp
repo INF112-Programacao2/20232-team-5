@@ -106,7 +106,6 @@ RetornoController ControllerCadastroPendente::verDetalhes()
         std::cout << "APELIDO: " << cad->getApelido() << std::endl;
         std::cout << "DATA DE NASC.: " << cad->getDtNascimento() << std::endl;
         std::cout << "CPF: " << cad->getCpf() << std::endl;
-        std::cout << "RG: " << cad->getRg() << std::endl;
         std::cout << "SEXO: " << (cad->getSexo() == 'M' ? "Masculino" : "Feminino") << std::endl;
         std::cout << "LOGIN: " << cad->getLogin() << std::endl;
         hold();
@@ -247,7 +246,7 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
           }
           // Cria perfil se não existe
           if (!existePerfil)
-            _dataPerfil->criaPerfil(usu->getChaveUsu(), cad->getTipo());
+            _dataPerfil->criaPerfil(usu->getChaveUsu(), static_cast<TipoPerfil>(cad->getTipo()));
           // Se for cliente, cria o aluno
           if (cad->getTipo() == TipoPerfil::Cliente)
           {

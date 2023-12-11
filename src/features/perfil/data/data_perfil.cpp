@@ -31,9 +31,20 @@ bool DataPerfil::checaTemPerfil(int chaveUsu, TipoPerfil tipo)
   return has;
 }
 
-void DataPerfil::criaPerfil(int chaveUsu, char tipo)
+void DataPerfil::criaPerfil(int chaveUsu, TipoPerfil tipo)
 {
   std::string query = "INSERT INTO public.\"PERFIL\"(\"CHAVEUSU\", \"TIPO\") VALUES($1, $2);";
+  std::vector<std::string> params = {
+      std::to_string(chaveUsu),
+      std::string(1, tipo)};
+
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
+}
+
+void DataPerfil::removePerfil(int chaveUsu, TipoPerfil tipo)
+{
+  std::string query = "DELETE FROM \"PERFIL\" WHERE \"CHAVEUSU\" = $1 AND \"TIPO\" = $2;";
   std::vector<std::string> params = {
       std::to_string(chaveUsu),
       std::string(1, tipo)};

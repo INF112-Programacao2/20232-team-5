@@ -17,6 +17,12 @@ public:
 
     // Realiza o cadastro de uma nova graduação
     RetornoController realizaCadastro();
+    // edita uma graduação
+    RetornoController realizaEdicao();
+    // remove uma graduação
+    RetornoController realizaRemocao();
+    // lista as graduações
+    RetornoController realizaListagem();
 };
 
 #endif

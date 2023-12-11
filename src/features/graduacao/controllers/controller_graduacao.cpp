@@ -65,4 +65,102 @@ RetornoController ControllerGraduacao::realizaCadastro()
   return RetornoController::Completo;
 }
 
-// Path src/features/autenticacao/controllers/controller_autenticacao.cpp
+// listar as graduações cadastradas no sistema
+
+RetornoController ControllerGraduacao::realizaListagem()
+{
+  std::cout << "LISTAGEM" << std::endl;
+
+  // Lista as graduações
+  _dataGraduacao->listarGraduacao();
+
+  return RetornoController::Completo;
+}
+
+
+//editar uma graduação buscando pela chaveGdr cadastrada no sistema
+
+RetornoController ControllerGraduacao::realizaEdicao()
+{
+  std::string nome;
+  int ordem;
+  int minAulas;
+
+  // Solicitar valores ao usuário
+  std::cout << "EDIÇÃO" << std::endl;
+
+  std::cout << "Digite a chave da graduação: ";
+  int chaveGdr = readVal<int>(
+      [&](int chaveGdr)
+      {
+        if (chaveGdr < 0)
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
+  std::cout << "Digite o nome: ";
+  nome = readLine();
+
+  std::cout << "Digite a ordem: ";
+  ordem = readVal<int>(
+      [&](int ordem)
+      {
+        if (ordem < 0)
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
+  std::cout << "Digite o número mínimo de aulas: ";
+  minAulas = readVal<int>(
+      [&](int minAulas)
+      {
+        if (minAulas < 0)
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
+  // Cria a graduação
+  Graduacao *graduacao = new Graduacao(chaveGdr, nullnum, nome, ordem, minAulas);
+
+  // Salva a graduação
+  _dataGraduacao->editarGraduacao(graduacao);
+
+  return RetornoController::Completo;
+}
+
+// excluir uma graduação buscando pela chaveGdr cadastrada no sistema
+
+RetornoController ControllerGraduacao::realizaRemocao()
+{
+  std::cout << "EXCLUSÃO" << std::endl;
+
+  std::cout << "Digite a chave da graduação: ";
+  int chaveGdr = readVal<int>(
+      [&](int chaveGdr)
+      {
+        if (chaveGdr < 0)
+        {
+          std::cout << "Opção inválida!" << std::endl;
+          return false;
+        }
+        return true;
+      });
+
+  // Cria a graduação
+  Graduacao *graduacao = new Graduacao(chaveGdr, nullnum, nullstr, nullnum, nullnum);
+
+  // Salva a graduação
+  _dataGraduacao->excluirGraduacao(graduacao);
+
+  return RetornoController::Completo;
+}
+

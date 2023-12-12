@@ -118,7 +118,7 @@ void MainInitializer::initializePerfil()
 
 void MainInitializer::initializePresenca()
 {
-  _controllerRegistrarPresenca = new ControllerRegistrarPresenca(_session, _dataPresenca, _dataModalidade, _dataTurma);
+  _controllerRegistrarPresenca = new ControllerRegistrarPresenca(_session, _dataPresenca, _dataModalidade, _dataTurma, _dataAluno);
 }
 
 void MainInitializer::destroyData()

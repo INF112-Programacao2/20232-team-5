@@ -1,29 +1,30 @@
 #include "controller_registrar_presenca.h"
 #include <ctime>
 
-ControllerRegistrarPresenca::ControllerRegistrarPresenca(Session *session, DataPresenca *dataPresenca, DataModalidade *dataModalidade, DataTurma *dataTurma)
+ControllerRegistrarPresenca::ControllerRegistrarPresenca(Session *session, DataPresenca *dataPresenca, DataModalidade *dataModalidade, DataTurma *dataTurma, DataAluno *dataAluno)
 {
     _session = session;
     _dataPresenca = dataPresenca;
     _dataModalidade = dataModalidade;
     _dataTurma = dataTurma;
+    _dataAluno = dataAluno;
 }
 
-std::vector<Turma*> ControllerRegistrarPresenca::ListarTurmasUsuario(int idUsuario)
+std::vector<Turma *> ControllerRegistrarPresenca::ListarTurmasUsuario(int idUsuario)
 {
     std::cout << "Listando turmas do usuário " << idUsuario << std::endl;
     std::vector<Modalidade *> modalidades = _dataModalidade->buscaListaModalidadesUsuario(idUsuario);
     std::vector<Turma *> turmas;
 
-    for(int i = 0; i < modalidades.size(); i++)
+    for (int i = 0; i < modalidades.size(); i++)
         turmas = _dataTurma->buscaTurmasModalidade(modalidades[i]->getChaveMod());
 
     std::time_t t = std::time(nullptr);
-    std::tm* now = std::localtime(&t);
+    std::tm *now = std::localtime(&t);
     int hoje = now->tm_wday + 1;
 
     // Remove as turmas que não tem aula hoje
-    for(int i = 0; i < turmas.size(); i++)
+    for (int i = 0; i < turmas.size(); i++)
     {
         if (turmas[i]->getDiasSemana().find(std::to_string(hoje)) == std::string::npos)
         {
@@ -39,14 +40,14 @@ std::vector<Turma*> ControllerRegistrarPresenca::ListarTurmasUsuario(int idUsuar
     return turmas;
 }
 
-std::vector<Turma*> ControllerRegistrarPresenca::ListarTurmasUsuarioLogado()
+std::vector<Turma *> ControllerRegistrarPresenca::ListarTurmasUsuarioLogado()
 {
-    return ListarTurmasUsuario(_session->getUsuario()->getChaveUsu());     
+    return ListarTurmasUsuario(_session->getUsuario()->getChaveUsu());
 }
 
 RetornoController ControllerRegistrarPresenca::registrarPresencaUsuarioLogado()
 {
-    std::vector<Turma*> turmas = ListarTurmasUsuarioLogado();
+    std::vector<Turma *> turmas = ListarTurmasUsuarioLogado();
 
     if (turmas.size() == 0)
     {
@@ -56,10 +57,10 @@ RetornoController ControllerRegistrarPresenca::registrarPresencaUsuarioLogado()
 
     int opt = 1;
     std::cout << "Aulas disponíveis hoje:" << std::endl;
-    for(int i = 0; i < turmas.size(); i++)
+    for (int i = 0; i < turmas.size(); i++)
     {
         // descobrir a hora atual
-        std::time_t HoraAtual = std::time(nullptr); 
+        std::time_t HoraAtual = std::time(nullptr);
 
         // Se a hora atual estiver entre a hora de início e fim da aula + 1 hora, recomenda a aula
         if (HoraAtual >= turmas[i]->getHrInicioTime() && HoraAtual <= turmas[i]->getHrFimTime() + 3600)
@@ -70,7 +71,7 @@ RetornoController ControllerRegistrarPresenca::registrarPresencaUsuarioLogado()
         {
             std::cout << opt << ". " << turmas[i]->getHrInicio() << " - " << turmas[i]->getHrFim() << std::endl;
         }
-    
+
         opt++;
     }
 
@@ -79,9 +80,11 @@ RetornoController ControllerRegistrarPresenca::registrarPresencaUsuarioLogado()
         std::cout << "Digite o número da turma que deseja registrar presença: ";
         std::cin >> opt;
     }
-    
-    _dataPresenca->RegistrarPresenca(turmas[opt - 1]->getChaveTur(), _session->getUsuario()->getChaveUsu());
+
+    Aluno *aluno = _dataAluno->buscaAlunoByUsuario(_session->getUsuario()->getChaveUsu(), turmas[opt - 1]->getChaveMod());
+    _dataPresenca->RegistrarPresenca(turmas[opt - 1]->getChaveTur(), aluno->getChaveAlu());
 
     std::cout << "Presença registrada com sucesso!" << std::endl;
+    delete aluno;
     return RetornoController::Completo;
 }

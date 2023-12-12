@@ -28,21 +28,17 @@ void DataTurma::cadastraTurma(Turma *turma)
 
 std::vector<Turma *> DataTurma::buscaTurmasModalidade(int chaveMod)
 {
-  std::string query = "SELECT T.\"CHAVETUR\", T.\"CHAVEUSU\", T.\"CHAVEMOD\", T.\"HRINICIO\", T.\"HRFIM\", T.\"DIASSEMANA\" " 
+  std::string query = "SELECT T.\"CHAVETUR\", T.\"CHAVEUSU\", T.\"CHAVEMOD\", T.\"HRINICIO\", T.\"HRFIM\", T.\"DIASSEMANA\" "
                       "FROM \"TURMA\" T WHERE T.\"CHAVEMOD\" = $1";
-  
+
   std::vector<std::string> params = {std::to_string(chaveMod)};
   PGresult *res;
 
-<<<<<<< HEAD
-  PGresult *res = _database->executar(query, params);
-  std::vector<Turma *> listaTurma;
-=======
   res = _database->executar(query, params);
->>>>>>> 27b175708447d0ac674d83f59bc0eb83ea98e30b
 
-  std::vector<Turma*> listaTurmas;
-  for (int i = 0; i < PQntuples(res); i++){
+  std::vector<Turma *> listaTurmas;
+  for (int i = 0; i < PQntuples(res); i++)
+  {
     Turma *turma = Turma::fromDatabaseToPtr(res, i);
     listaTurmas.push_back(turma);
   }

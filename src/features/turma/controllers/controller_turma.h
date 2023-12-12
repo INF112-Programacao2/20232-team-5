@@ -1,12 +1,12 @@
 ﻿#ifndef INF112_CONTROLLER_TURMA_H
 #define INF112_CONTROLLER_TURMA_H
-
+#include "controller.h"
 #include "global.h"
 #include "session.h"
 #include "data_turma.h"
 
 // Classe responsável por controlar as operações de turma
-class ControllerTurma
+class ControllerTurma: public Controller
 {
 private:
     Session *_session;

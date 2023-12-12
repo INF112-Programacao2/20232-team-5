@@ -22,31 +22,18 @@ void DataTurma::cadastraTurma(Turma *turma)
       turma->getHrFim(),
       turma->getDiasSemana(),
   };
-
-  try
-  {
-    PGresult *res = _database->executar(insertQuery, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(insertQuery, params);
+  PQclear(res);
 }
 
-std::vector<Turma*> DataTurma::buscaTurmasModalidade(int chaveMod)
+std::vector<Turma *> DataTurma::buscaTurmasModalidade(int chaveMod)
 {
   std::string query = "SELECT * FROM \"TURMA\" WHERE \"CHAVEMOD\" = $1";
 
   std::vector<std::string> params = {std::to_string(chaveMod)};
 
   PGresult *res = _database->executar(query, params);
-  std::vector<Turma*> listaTurma;
+  std::vector<Turma *> listaTurma;
 
   for (int i = 0; i < PQntuples(res); i++)
     listaTurma.push_back(Turma::fromDatabase(res, i));
@@ -70,20 +57,8 @@ void DataTurma::editarTurma(Turma *turma)
       std::to_string(turma->getChaveTur()),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(updateQuery, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(updateQuery, params);
+  PQclear(res);
 }
 
 void DataTurma::excluirTurma(int chaveTurma)
@@ -95,20 +70,8 @@ void DataTurma::excluirTurma(int chaveTurma)
       std::to_string(chaveTurma),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(deleteQuery, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(deleteQuery, params);
+  PQclear(res);
 }
 
 void DataTurma::listarTurmas()
@@ -116,41 +79,29 @@ void DataTurma::listarTurmas()
   std::string selectQuery = "SELECT \"CHAVETUR\", \"CHAVEUSU\", \"CHAVEMOD\", \"HRINICIO\", \"HRFIM\", \"DIASSEMANA\" "
                             "FROM public.\"TURMA\"";
 
-  try
+  PGresult *res = _database->executar(selectQuery);
+  int numTurmas = PQntuples(res);
+
+  if (numTurmas == 0)
   {
-    PGresult *res = _database->executar(selectQuery);
-    int numTurmas = PQntuples(res);
-
-    if (numTurmas == 0)
-    {
-      std::cout << "Nenhuma turma cadastrada!" << std::endl;
-      PQclear(res);
-      return;
-    }
-
-    std::cout << "Turmas cadastradas:" << std::endl;
-    for (int i = 0; i < numTurmas; i++)
-    {
-      std::cout << "Chave: " << PQgetvalue(res, i, 0) << std::endl;
-      std::cout << "Chave do usuário: " << PQgetvalue(res, i, 1) << std::endl;
-      std::cout << "Chave da modalidade: " << PQgetvalue(res, i, 2) << std::endl;
-      std::cout << "Horário de início: " << PQgetvalue(res, i, 3) << std::endl;
-      std::cout << "Horário de fim: " << PQgetvalue(res, i, 4) << std::endl;
-      std::cout << "Dias da semana: " << PQgetvalue(res, i, 5) << std::endl;
-      std::cout << std::endl;
-    }
-
+    std::cout << "Nenhuma turma cadastrada!" << std::endl;
     PQclear(res);
+    return;
   }
-  catch (DatabaseError e)
+
+  std::cout << "Turmas cadastradas:" << std::endl;
+  for (int i = 0; i < numTurmas; i++)
   {
-    std::cerr << e.what() << std::endl;
+    std::cout << "Chave: " << PQgetvalue(res, i, 0) << std::endl;
+    std::cout << "Chave do usuário: " << PQgetvalue(res, i, 1) << std::endl;
+    std::cout << "Chave da modalidade: " << PQgetvalue(res, i, 2) << std::endl;
+    std::cout << "Horário de início: " << PQgetvalue(res, i, 3) << std::endl;
+    std::cout << "Horário de fim: " << PQgetvalue(res, i, 4) << std::endl;
+    std::cout << "Dias da semana: " << PQgetvalue(res, i, 5) << std::endl;
+    std::cout << std::endl;
   }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+
+  PQclear(res);
 }
 
 void DataTurma::presencaTurma(int chaveTurma)
@@ -166,36 +117,24 @@ void DataTurma::presencaTurma(int chaveTurma)
       std::to_string(chaveTurma),
   };
 
-  try
+  PGresult *res = _database->executar(selectQuery, params);
+  int numAlunos = PQntuples(res);
+
+  if (numAlunos == 0)
   {
-    PGresult *res = _database->executar(selectQuery, params);
-    int numAlunos = PQntuples(res);
-
-    if (numAlunos == 0)
-    {
-      std::cout << "Nenhum aluno cadastrado!" << std::endl;
-      PQclear(res);
-      return;
-    }
-
-    std::cout << "Alunos cadastrados:" << std::endl;
-    for (int i = 0; i < numAlunos; i++)
-    {
-      std::cout << "Chave do usuário: " << PQgetvalue(res, i, 0) << std::endl;
-      std::cout << "Nome: " << PQgetvalue(res, i, 1) << std::endl;
-      std::cout << "Presença: " << PQgetvalue(res, i, 2) << std::endl;
-      std::cout << std::endl;
-    }
-
+    std::cout << "Nenhum aluno cadastrado!" << std::endl;
     PQclear(res);
+    return;
   }
-  catch (DatabaseError e)
+
+  std::cout << "Alunos cadastrados:" << std::endl;
+  for (int i = 0; i < numAlunos; i++)
   {
-    std::cerr << e.what() << std::endl;
+    std::cout << "Chave do usuário: " << PQgetvalue(res, i, 0) << std::endl;
+    std::cout << "Nome: " << PQgetvalue(res, i, 1) << std::endl;
+    std::cout << "Presença: " << PQgetvalue(res, i, 2) << std::endl;
+    std::cout << std::endl;
   }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+
+  PQclear(res);
 }

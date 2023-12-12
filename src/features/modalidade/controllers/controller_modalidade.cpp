@@ -10,112 +10,135 @@ ControllerModalidade::ControllerModalidade(Session *session, DataModalidade *dat
 
 RetornoController ControllerModalidade::realizaCadastro()
 {
-    std::string nome;
-    int chaveMod;
-
-    // Solicitar valores ao usuário
-    std::cout << "CADASTRO" << std::endl;
-
-    std::cout << "Digite a chave da modalidade: ";
-    chaveMod = readVal<int>(
-        [&](int chaveMod)
+    Modalidade *modalidade;
+    handleExecution(
+        [&]()
         {
-            if (chaveMod < 0)
-            {
-                std::cout << "Opção inválida!" << std::endl;
-                return false;
-            }
-            return true;
+            std::string nome;
+            int chaveMod;
+
+            // Solicitar valores ao usuário
+            std::cout << "CADASTRO" << std::endl;
+
+            std::cout << "Digite a chave da modalidade: ";
+            chaveMod = readVal<int>(
+                [&](int chaveMod)
+                {
+                    if (chaveMod < 0)
+                    {
+                        std::cout << "Opção inválida!" << std::endl;
+                        return false;
+                    }
+                    return true;
+                });
+
+            std::cout << "Digite o nome: ";
+            nome = readLine();
+
+            // Cria a modalidade
+            modalidade = new Modalidade(chaveMod, nome);
+
+            // salva a modalidade
+            _dataModalidade->cadastraModalidade(modalidade);
+            std::cout << "Modalidade cadastrada com sucesso!" << std::endl;
         });
-
-    std::cout << "Digite o nome: ";
-    nome = readLine();
-
-    // Cria a modalidade
-    Modalidade *modalidade = new Modalidade(chaveMod, nome);
-
-    // salva a modalidade
-    _dataModalidade->cadastraModalidade(modalidade);
-
+    if (modalidade)
+        delete modalidade;
     return RetornoController::Completo;
-
 }
 
 RetornoController ControllerModalidade::realizaEdicao()
 {
-    std::string nome;
-    int chaveMod;
-
-    // Solicitar valores ao usuário
-    std::cout << "EDIÇÃO" << std::endl;
-
-    std::cout << "Digite a chave da modalidade: ";
-    chaveMod = readVal<int>(
-        [&](int chaveMod)
+    Modalidade *modalidade;
+    handleExecution(
+        [&]()
         {
-            if (chaveMod < 0)
-            {
-                std::cout << "Opção inválida!" << std::endl;
-                return false;
-            }
-            return true;
+            std::string nome;
+            int chaveMod;
+
+            // Solicitar valores ao usuário
+            std::cout << "EDIÇÃO" << std::endl;
+
+            std::cout << "Digite a chave da modalidade: ";
+            chaveMod = readVal<int>(
+                [&](int chaveMod)
+                {
+                    if (chaveMod < 0)
+                    {
+                        std::cout << "Opção inválida!" << std::endl;
+                        return false;
+                    }
+                    return true;
+                });
+
+            std::cout << "Digite o nome: ";
+            nome = readLine();
+
+            // Cria a modalidade
+            Modalidade *modalidade = new Modalidade(chaveMod, nome);
+
+            // salva a modalidade
+            _dataModalidade->editaModalidade(modalidade);
+            std::cout << "Modalidade editada com sucesso!" << std::endl;
         });
-
-    std::cout << "Digite o nome: ";
-    nome = readLine();
-
-    // Cria a modalidade
-    Modalidade *modalidade = new Modalidade(chaveMod, nome);
-
-    // salva a modalidade
-    _dataModalidade->editaModalidade(modalidade);
-
+    if (modalidade)
+        delete modalidade;
     return RetornoController::Completo;
 }
 
 RetornoController ControllerModalidade::realizaRemocao()
 {
-    std::string nome;
-    int chaveMod;
-
-    // Solicitar valores ao usuário
-    std::cout << "REMOÇÃO" << std::endl;
-
-    std::cout << "Digite a chave da modalidade: ";
-    chaveMod = readVal<int>(
-        [&](int chaveMod)
+    Modalidade *modalidade;
+    handleExecution(
+        [&]()
         {
-            if (chaveMod < 0)
-            {
-                std::cout << "Opção inválida!" << std::endl;
-                return false;
-            }
-            return true;
+            std::string nome;
+            int chaveMod;
+
+            // Solicitar valores ao usuário
+            std::cout << "REMOÇÃO" << std::endl;
+
+            std::cout << "Digite a chave da modalidade: ";
+            chaveMod = readVal<int>(
+                [&](int chaveMod)
+                {
+                    if (chaveMod < 0)
+                    {
+                        std::cout << "Opção inválida!" << std::endl;
+                        return false;
+                    }
+                    return true;
+                });
+
+            std::cout << "Digite o nome: ";
+            nome = readLine();
+
+            // Instancia a modalidade
+            Modalidade *modalidade = new Modalidade(chaveMod, nome);
+
+            // exclui a modalidade
+            _dataModalidade->excluiModalidade(modalidade);
+            std::cout << "Modalidade deletada com sucesso!" << std::endl;
         });
-
-    std::cout << "Digite o nome: ";
-    nome = readLine();
-
-    // Cria a modalidade
-    Modalidade *modalidade = new Modalidade(chaveMod, nome);
-
-    // salva a modalidade
-    _dataModalidade->excluiModalidade(modalidade);
-
+    if (modalidade)
+        delete modalidade;
     return RetornoController::Completo;
 }
 
 RetornoController ControllerModalidade::realizaListagem()
 {
-    std::vector<Modalidade> listaModalidade = _dataModalidade->buscaListaModalidade();
+    return handleExecution(
+        [&]()
+        {
+            std::vector<Modalidade> listaModalidade = _dataModalidade->buscaListaModalidade();
 
-    std::cout << "LISTAGEM" << std::endl;
+            std::cout << "LISTAGEM" << std::endl;
 
-    for (Modalidade modalidade : listaModalidade)
-    {
-        std::cout << "Chave: " << modalidade.getChaveMod() << std::endl;
-        std::cout << "Nome: " << modalidade.getNome() << std::endl;
-    }
-
-    return RetornoController::Completo;
+            for (Modalidade modalidade : listaModalidade)
+            {
+                std::cout << "Chave: " << modalidade.getChaveMod() << std::endl;
+                std::cout << "Nome: " << modalidade.getNome() << std::endl;
+            }
+            hold();
+        });
 }

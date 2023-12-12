@@ -1,19 +1,18 @@
 ﻿#ifndef INF112_CONTROLLER_MODALIDADE_H
 #define INF112_CONTROLLER_MODALIDADE_H
-
+#include "controller.h"
 #include "global.h"
 #include "session.h"
 #include "data_modalidade.h"
 
 // Classe responsável por controlar as operações de modalidade
-class ControllerModalidade
+class ControllerModalidade: public Controller
 {
 private:
     Session *_session;
     DataModalidade *_dataModalidade;
 
 public:
-
     ControllerModalidade(Session *session, DataModalidade *dataModalidade);
 
     // Realiza o cadastro de uma nova modalidade

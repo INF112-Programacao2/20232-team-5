@@ -37,11 +37,13 @@ RetornoController ControllerDadosAluno::mostraDados()
             });
         modalidade--;
         aluno = _dataAluno->buscaAlunoByUsuario(_session->getUsuario()->getChaveUsu(), listaModalidade[modalidade]->getChaveMod());
-        if (!aluno) {
+        if (!aluno)
+        {
           std::cout << "Dados do aluno não localizados!" << std::endl;
         }
         graduacao = _dataGraduacao->buscaGraduacaoAluno(aluno->getChaveAlu());
 
+        finalizarTela();
         std::cout << "DADOS DO ALUNO" << std::endl;
         std::cout << "NOME: " << aluno->getNome() << std::endl;
         std::cout << "MODALIDADE: " << listaModalidade[modalidade]->getNome() << std::endl;
@@ -51,7 +53,9 @@ RetornoController ControllerDadosAluno::mostraDados()
       });
   for (auto modalidade : listaModalidade)
     delete modalidade;
-  if (aluno) delete aluno;
-  if (graduacao) delete graduacao;
+  if (aluno)
+    delete aluno;
+  if (graduacao)
+    delete graduacao;
   return RetornoController::Completo;
 }

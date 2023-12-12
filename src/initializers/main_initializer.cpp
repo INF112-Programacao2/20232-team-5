@@ -39,10 +39,10 @@ bool MainInitializer::initialize()
   initializeTurma();
   initializeGraduacao();
   initializePresenca();
-  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
+  _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade);
   _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca, _controllerDadosAluno);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario, _controllerEscolheModalidade);
-  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros, _controllerEscolheModalidade);
+  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros, _controllerEscolheModalidade, _menuUsuario);
   initializeAutenticacao();
   _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
   return true;

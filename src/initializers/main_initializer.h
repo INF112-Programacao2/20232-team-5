@@ -30,6 +30,7 @@
 #include "controller_escolhe_modalidade.h"
 #include "controller_aluno.h"
 #include "controller_acesso_aluno.h"
+#include "controller_dados_aluno.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_usuario.h"
@@ -39,7 +40,6 @@
 #include "data_autenticacao.h"
 #include "data_aluno.h"
 #include "data_perfil.h"
-#include "data_pagamento.h"
 #include "data_presenca.h"
 
 class MainInitializer
@@ -79,6 +79,7 @@ private:
   ControllerEscolheModalidade *_controllerEscolheModalidade;
   ControllerAluno *_controllerAluno;
   ControllerAcessoAluno *_controllerAcessoAluno;
+  ControllerDadosAluno *_controllerDadosAluno;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;
@@ -88,7 +89,6 @@ private:
   DataGraduacao *_dataGraduacao;
   DataAluno *_dataAluno;
   DataPerfil *_dataPerfil;
-  DataPagamento *_dataPagamento;
   DataPresenca *_dataPresenca;
 
   void initializeData();

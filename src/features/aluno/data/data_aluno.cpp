@@ -58,6 +58,23 @@ Aluno *DataAluno::buscaAluno(int chaveAlu, int chaveMod)
   return aluno;
 }
 
+// Busca aluno por chave do usuário e da graduação
+Aluno *DataAluno::buscaAlunoByUsuario(int chaveUsu, int chaveMod)
+{
+  std::string query = "SELECT * FROM \"ALUNO\" a INNER JOIN \"USUARIO\" u ON a.\"CHAVEUSU\" = u.\"CHAVEUSU\" INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" WHERE u.\"CHAVEUSU\" = $1 AND \"CHAVEMOD\" = $2;";
+  std::vector<std::string> params = {
+      std::to_string(chaveUsu),
+      std::to_string(chaveMod),
+  };
+
+  PGresult *res = _database->executar(query, params);
+  Aluno *aluno = nullptr;
+  if (PQntuples(res))
+    aluno = Aluno::fromDatabaseToPtr(res, 0);
+  PQclear(res);
+  return aluno;
+}
+
 void DataAluno::realizaGraduacao(int chaveAlu, int chaveGrd)
 {
   std::string query = "UPDATE \"ALUNO\" SET \"CHAVEGRD\" = $1, \"NUMAULAS\" = 0 WHERE \"CHAVEALU\" = $2";

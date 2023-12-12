@@ -12,7 +12,6 @@
 #include "data_graduacao.h"
 #include "data_aluno.h"
 #include "data_perfil.h"
-#include "data_pagamento.h"
 
 class ControllerCadastroPendente : public Controller
 {
@@ -25,13 +24,12 @@ private:
   DataGraduacao *_dataGraduacao;
   DataAluno *_dataAluno;
   DataPerfil *_dataPerfil;
-  DataPagamento *_dataPagamento;
   void completaDados(CadPendente *cad);
   std::string getTipoStr(CadPendente *cad);
   std::string getNomeCategoria(CadPendente *cad, std::vector<Modalidade> listaModalidade);
 
 public:
-  ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno, DataPerfil *dataPerfil, DataPagamento *dataPagamento);
+  ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno, DataPerfil *dataPerfil);
   RetornoController listaTodos();
   RetornoController verDetalhes();
   RetornoController rejeitaCadastro();

@@ -5,7 +5,7 @@
 #include "graduacao.h"
 #include "aluno.h"
 
-ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno, DataPerfil *dataPerfil, DataPagamento *dataPagamento) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataGraduacao(dataGraduacao), _dataAluno(dataAluno), _dataPerfil(dataPerfil), _dataPagamento(dataPagamento) {}
+ControllerCadastroPendente::ControllerCadastroPendente(Session *session, DataCadastroPendente *dataCadastroPendente, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataGraduacao *dataGraduacao, DataAluno *dataAluno, DataPerfil *dataPerfil) : _session(session), _dataCadastroPendente(dataCadastroPendente), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataGraduacao(dataGraduacao), _dataAluno(dataAluno), _dataPerfil(dataPerfil) {}
 
 void ControllerCadastroPendente::completaDados(CadPendente *cad)
 {
@@ -169,7 +169,6 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
   Aluno *aluno = nullptr;
   Graduacao *grad = nullptr;
   bool cadastraMensalidade = false;
-  double valor;
   handleExecution(
       [&]
       {
@@ -190,29 +189,6 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
         // Mostra dados
         std::cout << "Cadastrado identificado: " << std::endl;
         std::cout << "CHAVE: " << cad->getChaveCad() << " | NOME: " << cad->getNome() << " | TIPO: " << tipo << std::endl;
-        // Determina se deve ou não gerar uma nova mensalidade
-        if (cad->getTipo() == TipoPerfil::Cliente)
-        {
-          if (cad->getTipoCadastro() == TipoCadastro::Interno)
-            cadastraMensalidade = !_dataPagamento->checaExisteMensalidade(cad->getChaveUsu());
-          else
-            cadastraMensalidade = true;
-        }
-        // Lê valor da mensalidade
-        if (cadastraMensalidade)
-        {
-          std::cout << "Informe o valor da mensalidade: ";
-          valor = readVal<double>(
-              [&](double valor)
-              {
-                if (valor < 0 || valor > 10000)
-                {
-                  std::cout << "Apenas valores de 0 a 10.000 são aceitos!" << std::endl;
-                  return false;
-                }
-                return true;
-              });
-        }
         // Confirma a aprovação
         std::cout << "Confirmar a aprovação (S/N)?" << std::endl;
         std::cout << "Sua resposta: ";
@@ -262,9 +238,6 @@ RetornoController ControllerCadastroPendente::aprovaCadastro()
               aluno = Aluno::fromUsuario(usu);
               aluno->setChaveGrd(grad->getChaveGrd());
               _dataAluno->criaAluno(aluno);
-              // Cria a mensalidade
-              if (cadastraMensalidade)
-                _dataPagamento->criaMensalidade(usu->getChaveUsu(), valor);
             }
           }
           _dataCadastroPendente->deletaCadastro(cad->getChaveCad());

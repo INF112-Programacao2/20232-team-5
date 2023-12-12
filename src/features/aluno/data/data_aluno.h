@@ -16,6 +16,8 @@ public:
   std::vector<Aluno> buscaListaAlunosAptos(int chaveMod);
   // Busca aluno por chave do aluno e da graduação
   Aluno *buscaAluno(int chaveAlu, int chaveMod);
+  // Busca aluno por chave do usuário e da graduação
+  Aluno *buscaAlunoByUsuario(int chaveUsu, int chaveMod);
   void realizaGraduacao(int chaveAlu, int chaveGrd);
 };
 

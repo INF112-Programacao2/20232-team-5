@@ -74,7 +74,7 @@ std::vector<Modalidade *> DataModalidade::buscaListaModalidadesUsuario(int chave
                       "FROM \"MODALIDADE\" M "
                       "LEFT JOIN \"GRADUACAO\" G ON G.\"CHAVEMOD\" = M.\"CHAVEMOD\" "
                       "LEFT JOIN \"ALUNO\" A ON A.\"CHAVEGRD\" = G.\"CHAVEGRD\" "
-                      "WHERE A.\"CHAVEALU\" = $1";
+                      "WHERE A.\"CHAVEUSU\" = $1";
 
   std::vector<std::string> params = {std::to_string(chaveUsu)};
 

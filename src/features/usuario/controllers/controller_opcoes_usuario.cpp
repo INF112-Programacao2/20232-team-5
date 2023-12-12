@@ -5,7 +5,7 @@
 #include "modalidade.h"
 #include "cad_pendente.h"
 
-ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil, DataPagamento *dataPagamento) : _session(session), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil), _dataPagamento(dataPagamento) {}
+ControllerOpcoesUsuario::ControllerOpcoesUsuario(Session *session, DataUsuario *dataUsuario, DataModalidade *dataModalidade, DataAutenticacao *dataAutenticacao, DataPerfil *dataPerfil) : _session(session), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade), _dataAutenticacao(dataAutenticacao), _dataPerfil(dataPerfil) {}
 
 std::string ControllerOpcoesUsuario::getTipoStr(TipoPerfil tipo)
 {
@@ -113,11 +113,6 @@ RetornoController ControllerOpcoesUsuario::verDados()
         std::cout << "CPF: " << usuario->getCpf() << std::endl;
         std::cout << "SEXO: " << (usuario->getSexo() == 'M' ? "Masculino" : "Feminino") << std::endl;
         std::cout << "LOGIN: " << usuario->getLogin() << std::endl;
-        if (temPerfilCliente)
-        {
-          double valor = _dataPagamento->buscaValorMensalidade(usuario->getChaveUsu());
-          std::cout << "VALOR MENSALIDADE: " << valor << std::endl;
-        }
         hold();
       });
 }

@@ -40,7 +40,7 @@ bool MainInitializer::initialize()
   initializeGraduacao();
   initializePresenca();
   _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
-  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca);
+  _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca, _controllerDadosAluno);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario, _controllerEscolheModalidade);
   _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros, _controllerEscolheModalidade);
   initializeAutenticacao();
@@ -58,7 +58,6 @@ void MainInitializer::initializeData()
   _dataGraduacao = new DataGraduacao(_database);
   _dataAluno = new DataAluno(_database);
   _dataPerfil = new DataPerfil(_database);
-  _dataPagamento = new DataPagamento(_database);
   _dataPresenca = new DataPresenca(_database);
 }
 
@@ -71,7 +70,7 @@ void MainInitializer::initializeUsuario()
 {
   _controllerEditarUsuario = new ControllerEditarUsuario(_session, _dataUsuario);
   _menuEditarUsuario = new MenuEditarUsuario("Editar Dados", _controllerEditarUsuario);
-  _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil, _dataPagamento);
+  _controllerOpcoesUsuario = new ControllerOpcoesUsuario(_session, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataPerfil);
   _controllerUsuario = new ControllerUsuario(_session, _dataUsuario, _controllerOpcoesUsuario, _menuEditarUsuario, _menuPerfil);
   _menuOpcoesUsuario = new MenuOpcoesUsuario("Opções do Usuário", _session, _controllerOpcoesUsuario, _menuEditarUsuario, _controllerRegistrarPresenca);
   _menuUsuario = new MenuUsuario("Usuários", _controllerUsuario);
@@ -79,7 +78,7 @@ void MainInitializer::initializeUsuario()
 
 void MainInitializer::initializeCadastroPendente()
 {
-  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataGraduacao, _dataAluno, _dataPerfil, _dataPagamento);
+  _controllerCadastroPendente = new ControllerCadastroPendente(_session, _dataCadastroPendente, _dataUsuario, _dataModalidade, _dataAutenticacao, _dataGraduacao, _dataAluno, _dataPerfil);
   _menuCadastroPendente = new MenuCadastroPendente("Cadastros Pendentes", _controllerCadastroPendente);
 }
 
@@ -108,6 +107,7 @@ void MainInitializer::initializeAluno()
   _controllerAluno = new ControllerAluno(_session, _dataAluno, _dataGraduacao, _menuAcessoAluno);
   _menuAluno = new MenuAluno("Alunos Cadastrados", _session, _controllerAluno);
   _controllerEscolheModalidade = new ControllerEscolheModalidade(_session, _dataModalidade, _menuAluno);
+  _controllerDadosAluno = new ControllerDadosAluno(_session, _dataModalidade, _dataGraduacao, _dataAluno);
 }
 
 void MainInitializer::initializePerfil()
@@ -131,7 +131,6 @@ void MainInitializer::destroyData()
   delete _dataGraduacao;
   delete _dataAluno;
   delete _dataPerfil;
-  delete _dataPagamento;
   delete _dataPresenca;
 }
 
@@ -176,6 +175,7 @@ void MainInitializer::destroyGraduacao()
 
 void MainInitializer::destroyAluno()
 {
+  delete _controllerDadosAluno;
   delete _controllerEscolheModalidade;
   delete _menuAluno;
   delete _controllerAluno;
@@ -196,8 +196,8 @@ void MainInitializer::destroyPresenca()
 
 void MainInitializer::executar()
 {
-  _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
-  _session->setCurrentPerfil(0);
-  _menuProfessor->executar();
-  // _menuInicial->executar();
+  // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  // _session->setCurrentPerfil(0);
+  // _menuAluno->executar();
+  _menuInicial->executar();
 }

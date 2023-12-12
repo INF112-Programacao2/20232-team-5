@@ -98,6 +98,8 @@ set(sources
   features/aluno/controllers/controller_aluno.cpp
   features/aluno/controllers/controller_acesso_aluno.h
   features/aluno/controllers/controller_acesso_aluno.cpp
+  features/aluno/controllers/controller_dados_aluno.h
+  features/aluno/controllers/controller_dados_aluno.cpp
   features/aluno/data/data_aluno.h
   features/aluno/data/data_aluno.cpp
   features/perfil/menus/menu_perfil.h
@@ -106,8 +108,6 @@ set(sources
   features/perfil/controllers/controller_perfil.cpp
   features/perfil/data/data_perfil.h
   features/perfil/data/data_perfil.cpp
-  features/pagamento/data/data_pagamento.h
-  features/pagamento/data/data_pagamento.cpp
   features/presenca/controllers/controller_registrar_presenca.h
   features/presenca/controllers/controller_registrar_presenca.cpp
   features/presenca/data/data_presenca.h
@@ -143,7 +143,6 @@ set (dirs
   features/perfil/menus
   features/perfil/controllers
   features/perfil/data
-  features/pagamento/data
   features/presenca/controllers
   features/presenca/data
   features/presenca/menus

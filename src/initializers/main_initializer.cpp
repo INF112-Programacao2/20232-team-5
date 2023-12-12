@@ -41,7 +41,7 @@ bool MainInitializer::initialize()
   initializePresenca();
   _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
   _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca);
-  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
+  _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario, _controllerEscolheModalidade);
   _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros, _controllerEscolheModalidade);
   initializeAutenticacao();
   _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
@@ -196,8 +196,8 @@ void MainInitializer::destroyPresenca()
 
 void MainInitializer::executar()
 {
-  // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
-  // _session->setCurrentPerfil(0);
-  // _menuAdministrador->executar();
-  _menuInicial->executar();
+  _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
+  _session->setCurrentPerfil(0);
+  _menuProfessor->executar();
+  // _menuInicial->executar();
 }

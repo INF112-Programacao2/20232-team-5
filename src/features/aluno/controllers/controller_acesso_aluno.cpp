@@ -1,4 +1,5 @@
 #include "controller_acesso_aluno.h"
+#include <vector>
 #include "graduacao.h"
 #include "modalidade.h"
 
@@ -48,8 +49,96 @@ RetornoController ControllerAcessoAluno::verDados()
 
 RetornoController ControllerAcessoAluno::graduacao()
 {
+  Aluno *aluno = _session->getSelectedAluno();
+  Graduacao *graduacao = nullptr;
+  char escolha;
   handleExecution(
-      [&]() {
-
+      [&]()
+      {
+        graduacao = _dataGraduacao->buscaGraduacaoAluno(aluno->getChaveAlu());
+        if (!graduacao)
+        {
+          std::cout << "Graduação não pôde ser encontrada!" << std::endl;
+          return;
+        }
+        if (aluno->getNumAulas() < graduacao->getMinAulas())
+        {
+          std::cout << "De acordo com o número de aulas, o aluno não está apto a graduar." << std::endl;
+          std::cout << "Deseja realizar a graduação mesmo assim (S/N)?" << std::endl;
+          std::cout << "Sua escolha: ";
+          escolha = readVal<char>(
+              [&](char val)
+              {
+                val = std::tolower(val);
+                if (val != 's' && val != 'n')
+                {
+                  std::cout << "Opção inválida!" << std::endl;
+                  return false;
+                }
+                return true;
+              });
+          escolha = std::tolower(escolha);
+          if (escolha == 'n')
+            return;
+        }
+        std::vector<Graduacao> listaGraduacao = _dataGraduacao->buscaGraduacoesSeguintes(graduacao);
+        if (!listaGraduacao.size())
+        {
+          std::cout << "Não há mais graduações!" << std::endl;
+          return;
+        }
+        std::cout << "GRADUAÇÃO DO ALUNO" << std::endl;
+        std::cout << "Graduação atual: " << graduacao->getNome() << std::endl;
+        std::cout << "Nº de aulas: " << aluno->getNumAulas() << "/" << graduacao->getMinAulas() << std::endl;
+        std::cout << "Escolha a nova graduação: " << std::endl;
+        bool primeira = true;
+        for (int i = 0; i < listaGraduacao.size(); i++)
+        {
+          std::cout << i + 1 << " - " << listaGraduacao[i].getNome();
+          if (primeira)
+          {
+            primeira = false;
+            std::cout << " [RECOMENDADA]";
+          }
+          std::cout << std::endl;
+        }
+        std::cout << listaGraduacao.size() + 1 << " - Cancelar" << std::endl;
+        std::cout << "Sua escolha: ";
+        int index = readVal<int>(
+            [&](int val)
+            {
+              if (val < 1 || val > listaGraduacao.size() + 1)
+              {
+                std::cout << "Opção inválida!" << std::endl;
+                return false;
+              }
+              return true;
+            });
+        if (index == listaGraduacao.size() + 1)
+          return;
+        index--;
+        std::cout << "Deseja confirmar a passagem do aluno \"" << aluno->getNome() << "\" para a graduação \"" << listaGraduacao[index].getNome() << "\" (S/N)?" << std::endl;
+        std::cout << "O processo é >>irreversível<<!" << std::endl;
+        std::cout << "Sua escolha: ";
+        escolha = readVal<char>(
+            [&](char val)
+            {
+              val = std::tolower(val);
+              if (val != 's' && val != 'n')
+              {
+                std::cout << "Opção inválida!" << std::endl;
+                return false;
+              }
+              return true;
+            });
+        escolha = std::tolower(escolha);
+        if (escolha == 'n')
+          return;
+        _dataAluno->realizaGraduacao(aluno->getChaveAlu(), listaGraduacao[index].getChaveGrd());
+        aluno->setNumAulas(0);
+        std::cout << "Graduação realizada com sucesso!" << std::endl;
       });
+  if (graduacao)
+    delete graduacao;
+  return RetornoController::Completo;
 }

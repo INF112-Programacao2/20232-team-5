@@ -1,5 +1,6 @@
 ﻿#ifndef INF112_DATA_GRADUACAO_H
 #define INF112_DATA_GRADUACAO_H
+#include <vector>
 #include "graduacao.h"
 #include "database.h"
 
@@ -16,6 +17,7 @@ public:
   void listarGraduacao();
   Graduacao *buscaGraduacaoInicial(int chaveMod);
   Graduacao *buscaGraduacaoAluno(int chavAlu);
+  std::vector<Graduacao> buscaGraduacoesSeguintes(Graduacao *gradAtual);
 };
 
 #endif

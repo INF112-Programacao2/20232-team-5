@@ -161,3 +161,18 @@ Graduacao *DataGraduacao::buscaGraduacaoAluno(int chaveAlu)
   PQclear(res);
   return g;
 }
+
+std::vector<Graduacao> DataGraduacao::buscaGraduacoesSeguintes(Graduacao *gradAtual)
+{
+  std::string query = "SELECT * FROM \"GRADUACAO\" WHERE \"CHAVEMOD\" = $1 AND \"ORDEM\" > $2 ORDER BY \"ORDEM\";";
+  std::vector<std::string> params = {
+      std::to_string(gradAtual->getChaveMod()),
+      std::to_string(gradAtual->getOrdem()),
+  };
+  PGresult *res = _database->executar(query, params);
+  std::vector<Graduacao> listaGraduacao;
+  for (int i = 0; i < PQntuples(res); i++)
+    listaGraduacao.push_back(Graduacao::fromDatabase(res, i));
+  PQclear(res);
+  return listaGraduacao;
+}

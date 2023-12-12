@@ -66,3 +66,13 @@ Graduacao *Graduacao::fromDatabaseToPtr(PGresult *res, int row)
       std::stoi(Database::value(res, row, "ORDEM")),
       std::stoi(Database::value(res, row, "MINAULAS")));
 }
+
+Graduacao Graduacao::fromDatabase(PGresult *res, int row)
+{
+  return Graduacao(
+      std::stoi(Database::value(res, row, "CHAVEGRD")),
+      std::stoi(Database::value(res, row, "CHAVEMOD")),
+      Database::value(res, row, "NOME"),
+      std::stoi(Database::value(res, row, "ORDEM")),
+      std::stoi(Database::value(res, row, "MINAULAS")));
+}

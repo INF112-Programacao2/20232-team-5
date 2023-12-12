@@ -64,7 +64,7 @@ RetornoController ControllerAluno::acessoAluno()
         int chaveAlu;
         std::cout << "Informe a chave do aluno: ";
         chaveAlu = readVal<int>();
-        Aluno *aluno = _dataAluno->buscaAluno(chaveAlu);
+        Aluno *aluno = _dataAluno->buscaAluno(chaveAlu, _session->getSelectedModalidade().getChaveMod());
         if (!aluno)
         {
           std::cout << "Aluno não encontrado!" << std::endl;

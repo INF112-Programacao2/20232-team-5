@@ -30,6 +30,7 @@ public:
     void setMinAulas(int minAulas);
 
     // Conversion
+    static Graduacao fromDatabase(PGresult *res, int row);
     static Graduacao *fromDatabaseToPtr(PGresult *res, int row);
 };
 

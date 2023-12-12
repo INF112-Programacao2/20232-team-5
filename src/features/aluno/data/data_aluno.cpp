@@ -41,10 +41,14 @@ std::vector<Aluno> DataAluno::buscaListaAlunosAptos(int chaveMod)
   return listaAluno;
 }
 
-Aluno *DataAluno::buscaAluno(int chaveAlu)
+// Busca aluno por chave do aluno e da graduação
+Aluno *DataAluno::buscaAluno(int chaveAlu, int chaveMod)
 {
-  std::string query = "SELECT * FROM \"ALUNO\" a INNER JOIN \"USUARIO\" u ON a.\"CHAVEUSU\" = u.\"CHAVEUSU\" WHERE \"CHAVEALU\" = $1;";
-  std::vector<std::string> params = {std::to_string(chaveAlu)};
+  std::string query = "SELECT * FROM \"ALUNO\" a INNER JOIN \"USUARIO\" u ON a.\"CHAVEUSU\" = u.\"CHAVEUSU\" INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" WHERE \"CHAVEALU\" = $1 AND \"CHAVEMOD\" = $2;";
+  std::vector<std::string> params = {
+      std::to_string(chaveAlu),
+      std::to_string(chaveMod),
+  };
 
   PGresult *res = _database->executar(query, params);
   Aluno *aluno = nullptr;
@@ -52,4 +56,16 @@ Aluno *DataAluno::buscaAluno(int chaveAlu)
     aluno = Aluno::fromDatabaseToPtr(res, 0);
   PQclear(res);
   return aluno;
+}
+
+void DataAluno::realizaGraduacao(int chaveAlu, int chaveGrd)
+{
+  std::string query = "UPDATE \"ALUNO\" SET \"CHAVEGRD\" = $1, \"NUMAULAS\" = 0 WHERE \"CHAVEALU\" = $2";
+  std::vector<std::string>
+      params = {
+          std::to_string(chaveGrd),
+          std::to_string(chaveAlu),
+      };
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
 }

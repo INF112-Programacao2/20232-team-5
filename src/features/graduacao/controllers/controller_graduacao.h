@@ -1,12 +1,12 @@
 ﻿#ifndef INF112_CONTROLLER_GRADUACAO_H
 #define INF112_CONTROLLER_GRADUACAO_H
-
+#include "controller.h"
 #include "global.h"
 #include "session.h"
 #include "data_graduacao.h"
 
 // Classe responsável por controlar as operações de graduação
-class ControllerGraduacao
+class ControllerGraduacao : public Controller
 {
 private:
     Session *_session;

@@ -98,10 +98,22 @@ void Turma::setDiasSemana(std::string diasSemana)
   _diasSemana = diasSemana;
 }
 
-Turma *Turma::fromDatabase(PGresult *res, int row)
+Turma Turma::fromDatabase(PGresult *res, int row)
 {
   int chaveTur = std::stoi(PQgetvalue(res, row, 0));
   int chaveUsu = std::stoi(PQgetvalue(res, row, 1));
+  int chaveMod = std::stoi(PQgetvalue(res, row, 2));
+  std::string hrInicio = PQgetvalue(res, row, 3);
+  std::string hrFim = PQgetvalue(res, row, 4);
+  std::string diasSemana = PQgetvalue(res, row, 5);
+
+  return Turma(chaveTur, chaveUsu, chaveMod, hrInicio, hrFim, diasSemana);
+}
+
+Turma *Turma::fromDatabaseToPtr(PGresult *res, int row)
+{
+  int chaveTur = std::stoi(PQgetvalue(res, row, 0));
+  int chaveUsu = (PQgetvalue(res, row, 1) == NULL ? -1 : std::stoi(PQgetvalue(res, row, 1)));
   int chaveMod = std::stoi(PQgetvalue(res, row, 2));
   std::string hrInicio = PQgetvalue(res, row, 3);
   std::string hrFim = PQgetvalue(res, row, 4);

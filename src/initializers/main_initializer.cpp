@@ -103,7 +103,7 @@ void MainInitializer::initializeGraduacao()
 
 void MainInitializer::initializeAluno()
 {
-  _controllerAcessoAluno = new ControllerAcessoAluno(_session, _dataAluno);
+  _controllerAcessoAluno = new ControllerAcessoAluno(_session, _dataAluno, _dataGraduacao, _dataModalidade);
   _menuAcessoAluno = new MenuAcessoAluno("Acesso ao Aluno", _session, _controllerAcessoAluno);
   _controllerAluno = new ControllerAluno(_session, _dataAluno, _dataGraduacao, _menuAcessoAluno);
   _menuAluno = new MenuAluno("Alunos Cadastrados", _session, _controllerAluno);

@@ -74,5 +74,6 @@ RetornoController ControllerAluno::acessoAluno()
         finalizarTela();
         _session->setSelectedAluno(aluno);
         _menuAcessoAluno->executar();
+        delete aluno;
       });
 }

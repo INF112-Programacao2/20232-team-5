@@ -18,12 +18,14 @@ public:
   // Busca lista de modalidades disponíveis (não cadastradas) para um usuário
   std::vector<Modalidade> buscaListaModalidadesDisponiveis(int chaveUsu);
   // Busca lista de modalidades cadastradas para um usuário
-  std::vector<Modalidade*> buscaListaModalidadesUsuario(int chaveUsu);
-  
+  std::vector<Modalidade *> buscaListaModalidadesUsuario(int chaveUsu);
+
   // editar modalidade
   void editaModalidade(Modalidade *modalidade);
   // excluir modalidade
   void excluiModalidade(Modalidade *modalidade);
+  // Busca modalidade pela chave
+  Modalidade *buscaModalidade(int chaveMod);
 };
 
 #endif

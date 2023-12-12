@@ -5,15 +5,20 @@
 #include "session.h"
 #include "data_aluno.h"
 #include "data_graduacao.h"
+#include "data_modalidade.h"
 
 class ControllerAcessoAluno : public Controller
 {
 private:
   Session *_session;
   DataAluno *_dataAluno;
+  DataGraduacao *_dataGraduacao;
+  DataModalidade *_dataModalidade;
 
 public:
-  ControllerAcessoAluno(Session *session, DataAluno *dataAluno);
+  ControllerAcessoAluno(Session *session, DataAluno *dataAluno, DataGraduacao *dataGraduacao, DataModalidade *dataModalidade);
+  RetornoController verDados();
+  RetornoController graduacao();
 };
 
 #endif

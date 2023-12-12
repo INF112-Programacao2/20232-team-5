@@ -7,5 +7,6 @@ MenuAcessoAluno::MenuAcessoAluno(std::string title, Session *session, Controller
 
 void MenuAcessoAluno::inicializarOpcoes()
 {
+  _opcaoList.push_back(OpcaoMenu("Ver Dados", std::bind(&ControllerAcessoAluno::verDados, _controllerAcessoAluno)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

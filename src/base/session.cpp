@@ -12,10 +12,6 @@ Session::~Session()
 {
   if (_usuario != nullptr)
     delete _usuario;
-  if (_selectedUsuario != nullptr)
-    delete _selectedUsuario;
-  if (_selectedAluno != nullptr)
-    delete _selectedAluno;
 }
 
 Usuario *Session::getUsuario()

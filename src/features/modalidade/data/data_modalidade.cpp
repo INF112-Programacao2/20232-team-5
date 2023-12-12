@@ -79,7 +79,7 @@ std::vector<Modalidade *> DataModalidade::buscaListaModalidadesUsuario(int chave
   std::vector<std::string> params = {std::to_string(chaveUsu)};
 
   PGresult *res = _database->executar(query, params);
-  std::vector<Modalidade*> listaModalidade;
+  std::vector<Modalidade *> listaModalidade;
 
   for (int i = 0; i < PQntuples(res); i++)
     listaModalidade.push_back(Modalidade::fromDatabaseToPtr(res, i));
@@ -87,7 +87,6 @@ std::vector<Modalidade *> DataModalidade::buscaListaModalidadesUsuario(int chave
   PQclear(res);
   return listaModalidade;
 }
-
 
 // editar modalidade
 void DataModalidade::editaModalidade(Modalidade *modalidade)
@@ -148,7 +147,9 @@ void DataModalidade::excluiModalidade(Modalidade *modalidade)
       std::cerr << e.what() << std::endl;
       return;
     }
-  }else{
+  }
+  else
+  {
     std::cerr << "Não foi possível excluir a modalidade, pois existem alunos matriculados nela!" << std::endl;
     return;
   }
@@ -172,3 +173,16 @@ void DataModalidade::excluiModalidade(Modalidade *modalidade)
   }
 }
 
+// Busca modalidade pela chave
+Modalidade *DataModalidade::buscaModalidade(int chaveMod)
+{
+  std::string query = "SELECT * FROM \"MODALIDADE\" WHERE \"CHAVEMOD\" = $1;";
+  std::vector<std::string> params = {std::to_string(chaveMod)};
+
+  PGresult *res = _database->executar(query, params);
+  Modalidade *modalidade = nullptr;
+  if (PQntuples(res))
+    modalidade = Modalidade::fromDatabaseToPtr(res, 0);
+  PQclear(res);
+  return modalidade;
+}

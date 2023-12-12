@@ -10,6 +10,7 @@ private:
   std::string _nome;
 
 public:
+  Modalidade();
   Modalidade(int chaveMod, std::string nome);
 
   // Getters
@@ -22,7 +23,7 @@ public:
 
   // Conversion
   static Modalidade fromDatabase(PGresult *res, int row);
-  static Modalidade* fromDatabaseToPtr(PGresult *res, int row);
+  static Modalidade *fromDatabaseToPtr(PGresult *res, int row);
 };
 
 #endif

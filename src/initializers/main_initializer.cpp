@@ -42,7 +42,7 @@ bool MainInitializer::initialize()
   _menuCadastros = new MenuCadastros("Cadastros", _session, _menuOpcoesGraduacao, _menuOpcoesTurma, _menuOpcoesModalidade, _menuUsuario);
   _menuCliente = new MenuCliente("Menu Inicial - Cliente", _session, _menuOpcoesUsuario, _controllerRegistrarPresenca);
   _menuProfessor = new MenuProfessor("Menu Inicial - Professor", _session, _menuOpcoesUsuario);
-  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros);
+  _menuAdministrador = new MenuAdministrador("Menu Inicial - Administrador", _session, _menuOpcoesUsuario, _menuCadastroPendente, _menuCadastros, _controllerEscolheModalidade);
   initializeAutenticacao();
   _menuInicial = new MenuInicial("Paiva Team", _controllerAutenticacao);
   return true;
@@ -103,6 +103,9 @@ void MainInitializer::initializeGraduacao()
 
 void MainInitializer::initializeAluno()
 {
+  _controllerAluno = new ControllerAluno(_session, _dataAluno, _dataGraduacao);
+  _menuAluno = new MenuAluno("Alunos Cadastrados", _session, _controllerAluno);
+  _controllerEscolheModalidade = new ControllerEscolheModalidade(_session, _dataModalidade, _menuAluno);
 }
 
 void MainInitializer::initializePerfil()
@@ -171,6 +174,9 @@ void MainInitializer::destroyGraduacao()
 
 void MainInitializer::destroyAluno()
 {
+  delete _controllerEscolheModalidade;
+  delete _menuAluno;
+  delete _controllerAluno;
 }
 
 void MainInitializer::destroyPerfil()
@@ -188,6 +194,6 @@ void MainInitializer::executar()
 {
   // _session->setUsuario(_dataUsuario->buscaUsuarioByChave(1));
   // _session->setCurrentPerfil(0);
-  // _menuUsuario->executar();
+  // _menuAdministrador->executar();
   _menuInicial->executar();
 }

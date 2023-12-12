@@ -2,8 +2,9 @@
 #include "database.h"
 #include "global.h"
 
-Modalidade::Modalidade(int chaveMod, std::string nome)
-    : _chaveMod(chaveMod), _nome(nome)
+Modalidade::Modalidade() {}
+
+Modalidade::Modalidade(int chaveMod, std::string nome) : _chaveMod(chaveMod), _nome(nome)
 {
 }
 
@@ -29,10 +30,10 @@ void Modalidade::setNome(std::string nome)
 
 Modalidade Modalidade::fromDatabase(PGresult *res, int row)
 {
-  return  Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
+  return Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
 }
 
-Modalidade* Modalidade::fromDatabaseToPtr(PGresult *res, int row)
+Modalidade *Modalidade::fromDatabaseToPtr(PGresult *res, int row)
 {
   return new Modalidade(std::stoi(Database::value(res, row, "CHAVEMOD")), Database::value(res, row, "NOME"));
 }

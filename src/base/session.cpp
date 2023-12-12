@@ -27,6 +27,11 @@ Usuario *Session::getSelectedUsuario()
   return _selectedUsuario;
 }
 
+Modalidade Session::getSelectedModalidade()
+{
+  return _selectedModalidade;
+}
+
 void Session::setUsuario(Usuario *usuario)
 {
   _usuario = usuario;
@@ -40,4 +45,9 @@ void Session::setCurrentPerfil(int currentPerfil)
 void Session::setSelectedUsuario(Usuario *selectedUsuario)
 {
   _selectedUsuario = selectedUsuario;
+}
+
+void Session::setSelectedModalidade(Modalidade modalidade)
+{
+  _selectedModalidade = modalidade;
 }

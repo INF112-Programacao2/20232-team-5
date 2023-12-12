@@ -10,6 +10,7 @@ protected:
   std::vector<OpcaoMenu> _opcaoList;
   void exibir();
   virtual void inicializarOpcoes() = 0;
+  void setTitle(std::string title);
 
 private:
   std::string _title;

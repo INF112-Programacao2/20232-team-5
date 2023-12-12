@@ -6,6 +6,7 @@
 #include "menu_opcoes_usuario.h"
 #include "menu_cadastro_pendente.h"
 #include "menu_cadastros.h"
+#include "controller_escolhe_modalidade.h"
 
 class MenuAdministrador : public Menu
 {
@@ -14,10 +15,11 @@ protected:
   MenuOpcoesUsuario *_menuOpcoesUsuario;
   MenuCadastroPendente *_menuCadastroPendente;
   MenuCadastros *_menuCadastros;
+  ControllerEscolheModalidade *_controllerEscolheModalidade;
   virtual void inicializarOpcoes();
 
 public:
-  MenuAdministrador(std::string title, Session *session, MenuOpcoesUsuario *menuOpcoesUsuario, MenuCadastroPendente *menuCadastroPendente, MenuCadastros *menuCadastros);
+  MenuAdministrador(std::string title, Session *session, MenuOpcoesUsuario *menuOpcoesUsuario, MenuCadastroPendente *menuCadastroPendente, MenuCadastros *menuCadastros, ControllerEscolheModalidade *controllerEscolheModalidade);
 };
 
 #endif

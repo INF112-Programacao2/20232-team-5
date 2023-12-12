@@ -88,6 +88,12 @@ set(sources
   features/graduacao/menus/menu_opcoes_graduacao.cpp
   features/turma/menus/menu_opcoes_turma.h
   features/turma/menus/menu_opcoes_turma.cpp
+  features/aluno/menus/menu_aluno.h
+  features/aluno/menus/menu_aluno.cpp
+  features/aluno/controllers/controller_escolhe_modalidade.h
+  features/aluno/controllers/controller_escolhe_modalidade.cpp
+  features/aluno/controllers/controller_aluno.h
+  features/aluno/controllers/controller_aluno.cpp
   features/aluno/data/data_aluno.h
   features/aluno/data/data_aluno.cpp
   features/perfil/menus/menu_perfil.h
@@ -124,9 +130,11 @@ set (dirs
   features/graduacao/controllers
   features/graduacao/data
   features/graduacao/menus
+  features/turma/menus
   features/turma/controllers
   features/turma/data
-  features/turma/menus
+  features/aluno/menus
+  features/aluno/controllers
   features/aluno/data
   features/perfil/menus
   features/perfil/controllers

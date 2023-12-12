@@ -5,6 +5,11 @@ Menu::Menu(std::string title) : _title(title)
 {
 }
 
+void Menu::setTitle(std::string title)
+{
+  _title = title;
+}
+
 RetornoController Menu::executar()
 {
   int escolha;

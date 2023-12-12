@@ -55,7 +55,7 @@ Graduacao *DataGraduacao::buscaGraduacaoInicial(int chaveMod)
   return g;
 }
 
-//editar uma graduação: Modificar nome, ordem ou nº de dias para graduação
+// editar uma graduação: Modificar nome, ordem ou nº de dias para graduação
 void DataGraduacao::editarGraduacao(Graduacao *graduacao)
 {
   std::string updateQuery = "UPDATE \"GRADUACAO\" SET \"NOME\" = $1, \"ORDEM\" = $2, \"MINAULAS\" = $3 WHERE \"CHAVEGRD\" = $4";
@@ -83,7 +83,7 @@ void DataGraduacao::editarGraduacao(Graduacao *graduacao)
   }
 }
 
-//excluir uma graduação: Não é possível caso já haja ao menos 1 aluno com a graduação.
+// excluir uma graduação: Não é possível caso já haja ao menos 1 aluno com a graduação.
 void DataGraduacao::excluirGraduacao(Graduacao *graduacao)
 {
   std::string checkAlunoQuery = "SELECT COUNT(*) FROM \"ALUNO\" WHERE \"CHAVEGRD\" = $1";
@@ -123,7 +123,6 @@ void DataGraduacao::excluirGraduacao(Graduacao *graduacao)
   }
 }
 
-
 // listar as graduações cadastradas no sistema, por modalidade
 void DataGraduacao::listarGraduacao()
 {
@@ -149,4 +148,16 @@ void DataGraduacao::listarGraduacao()
               << std::setw(20) << g->getNome() << " | " << std::setw(10) << g->getOrdem() << " | " << std::setw(10) << g->getMinAulas() << std::endl;
   }
   PQclear(res);
+}
+
+Graduacao *DataGraduacao::buscaGraduacaoAluno(int chaveAlu)
+{
+  std::string query = "SELECT * FROM \"GRADUACAO\" g INNER JOIN \"ALUNO\" a ON a.\"CHAVEGRD\" = g.\"CHAVEGRD\" WHERE \"CHAVEALU\" = $1;";
+  std::vector<std::string> params = {std::to_string(chaveAlu)};
+  PGresult *res = _database->executar(query, params);
+  Graduacao *g = nullptr;
+  if (PQntuples(res))
+    g = Graduacao::fromDatabaseToPtr(res, 0);
+  PQclear(res);
+  return g;
 }

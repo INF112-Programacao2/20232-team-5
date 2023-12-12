@@ -15,6 +15,7 @@ public:
   void cadastraGraduacao(Graduacao *graduacao);
   void listarGraduacao();
   Graduacao *buscaGraduacaoInicial(int chaveMod);
+  Graduacao *buscaGraduacaoAluno(int chavAlu);
 };
 
 #endif

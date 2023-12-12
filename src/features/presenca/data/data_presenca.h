@@ -11,7 +11,7 @@ private:
 
 public:
   DataPresenca(Database *database);
-  void RegistrarPresenca(int chaveTur, int chaveUsu);
+  void RegistrarPresenca(int chaveTur, int chaveAlu);
 };
 
 #endif

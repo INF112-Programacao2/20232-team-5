@@ -5,15 +5,12 @@ DataPresenca::DataPresenca(Database *database)
 {
 }
 
-void DataPresenca::RegistrarPresenca(int chaveTur, int chaveUsu)
+void DataPresenca::RegistrarPresenca(int chaveTur, int chaveAlu)
 {
     std::string query = "INSERT INTO public.\"PRESENCA\"(\"CHAVEALU\", \"CHAVETUR\") "
-                        "VALUES ((select A.\"CHAVEALU\" "
-                                 "from \"VALUNO\" A "
-                                 "left join \"TURMA\" on \"CHAVETUR\" = $1 "
-                                 "where A.\"CHAVEUSU\" = $2), $3)";
+                        "VALUES ($1, $2)";
                                  
-    std::vector<std::string> params = {std::to_string(chaveTur), std::to_string(chaveUsu), std::to_string(chaveTur)};
+    std::vector<std::string> params = {std::to_string(chaveAlu), std::to_string(chaveTur)};
 
     try{
         PGresult *res = _database->executar(query, params);

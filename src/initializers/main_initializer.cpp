@@ -55,7 +55,7 @@ void MainInitializer::initializeData()
   _dataCadastroPendente = new DataCadastroPendente(_database);
   _dataModalidade = new DataModalidade(_database);
   _dataTurma = new DataTurma(_database);
-  _dataGraduacao = new DataGraduacao(_database);
+  _dataGraduacao = new DataGraduacao(_database, _dataModalidade);
   _dataAluno = new DataAluno(_database);
   _dataPerfil = new DataPerfil(_database);
   _dataPresenca = new DataPresenca(_database);

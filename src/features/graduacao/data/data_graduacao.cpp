@@ -1,6 +1,7 @@
 ﻿#include "data_graduacao.h"
 #include <libpq-fe.h>
 #include <bits/stdc++.h>
+#include "modalidade.h"
 
 /*Mock:
     Graduacao(
@@ -11,9 +12,10 @@
       30)
 */
 
-DataGraduacao::DataGraduacao(Database *database)
+DataGraduacao::DataGraduacao(Database *database, DataModalidade *dataModalidade)
 {
   _database = database;
+  _dataModalidade = dataModalidade;
 }
 
 void DataGraduacao::cadastraGraduacao(Graduacao *graduacao)
@@ -135,7 +137,7 @@ void DataGraduacao::listarGraduacao()
     return;
   }
   std::cout << std::setw(10) << "CHAVEGRD"
-            << " | " << std::setw(10) << "CHAVEMOD"
+            << " | " << std::setw(15) << "MODALIDADE"
             << " | "
             << std::setw(20) << "NOME"
             << " | " << std::setw(10) << "ORDEM"
@@ -144,7 +146,8 @@ void DataGraduacao::listarGraduacao()
   for (int i = 0; i < n; i++)
   {
     Graduacao *g = Graduacao::fromDatabaseToPtr(res, i);
-    std::cout << std::setw(10) << g->getChaveGrd() << " | " << std::setw(10) << g->getChaveMod() << " | "
+    Modalidade *m = _dataModalidade->buscaModalidade(g->getChaveMod());
+    std::cout << std::setw(10) << g->getChaveGrd() << " | " << std::setw(15) << m->getNome() << " | "
               << std::setw(20) << g->getNome() << " | " << std::setw(10) << g->getOrdem() << " | " << std::setw(10) << g->getMinAulas() << std::endl;
   }
   PQclear(res);

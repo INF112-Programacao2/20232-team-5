@@ -9,6 +9,7 @@ void MenuAluno::inicializarOpcoes()
 {
   _opcaoList.push_back(OpcaoMenu("Listar todos", std::bind(&ControllerAluno::listaTodos, _controllerAluno)));
   _opcaoList.push_back(OpcaoMenu("Listar aptos a graduar", std::bind(&ControllerAluno::listaAptos, _controllerAluno)));
+  _opcaoList.push_back(OpcaoMenu("Acesso ao aluno", std::bind(&ControllerAluno::acessoAluno, _controllerAluno)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }
 

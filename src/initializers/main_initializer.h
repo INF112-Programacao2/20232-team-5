@@ -16,6 +16,7 @@
 #include "menu_usuario.h"
 #include "menu_perfil.h"
 #include "menu_aluno.h"
+#include "menu_acesso_aluno.h"
 #include "controller_autenticacao.h"
 #include "controller_opcoes_usuario.h"
 #include "controller_cadastro_pendente.h"
@@ -28,6 +29,7 @@
 #include "controller_registrar_presenca.h"
 #include "controller_escolhe_modalidade.h"
 #include "controller_aluno.h"
+#include "controller_acesso_aluno.h"
 #include "data_modalidade.h"
 #include "data_autenticacao.h"
 #include "data_usuario.h"
@@ -62,6 +64,7 @@ private:
   MenuUsuario *_menuUsuario;
   MenuPerfil *_menuPerfil;
   MenuAluno *_menuAluno;
+  MenuAcessoAluno *_menuAcessoAluno;
   // CONTROLLERS
   ControllerAutenticacao *_controllerAutenticacao;
   ControllerOpcoesUsuario *_controllerOpcoesUsuario;
@@ -75,6 +78,7 @@ private:
   ControllerRegistrarPresenca *_controllerRegistrarPresenca;
   ControllerEscolheModalidade *_controllerEscolheModalidade;
   ControllerAluno *_controllerAluno;
+  ControllerAcessoAluno *_controllerAcessoAluno;
   // DATA
   DataModalidade *_dataModalidade;
   DataAutenticacao *_dataAutenticacao;

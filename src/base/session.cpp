@@ -3,6 +3,8 @@
 Session::Session()
 {
   _usuario = nullptr;
+  _selectedUsuario = nullptr;
+  _selectedAluno = nullptr;
   _currentPerfil = 0;
 }
 
@@ -10,6 +12,10 @@ Session::~Session()
 {
   if (_usuario != nullptr)
     delete _usuario;
+  if (_selectedUsuario != nullptr)
+    delete _selectedUsuario;
+  if (_selectedAluno != nullptr)
+    delete _selectedAluno;
 }
 
 Usuario *Session::getUsuario()
@@ -32,6 +38,11 @@ Modalidade Session::getSelectedModalidade()
   return _selectedModalidade;
 }
 
+Aluno *Session::getSelectedAluno()
+{
+  return _selectedAluno;
+}
+
 void Session::setUsuario(Usuario *usuario)
 {
   _usuario = usuario;
@@ -50,4 +61,9 @@ void Session::setSelectedUsuario(Usuario *selectedUsuario)
 void Session::setSelectedModalidade(Modalidade modalidade)
 {
   _selectedModalidade = modalidade;
+}
+
+void Session::setSelectedAluno(Aluno *aluno)
+{
+  _selectedAluno = aluno;
 }

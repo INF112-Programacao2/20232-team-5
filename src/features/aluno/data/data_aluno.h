@@ -13,6 +13,8 @@ public:
   DataAluno(Database *database);
   void criaAluno(Aluno *aluno);
   std::vector<Aluno> buscaListaAlunos(int chaveMod);
+  std::vector<Aluno> buscaListaAlunosAptos(int chaveMod);
+  Aluno *buscaAluno(int chaveAlu);
 };
 
 #endif

@@ -10,6 +10,7 @@ class MenuAluno : public Menu
 protected:
   Session *_session;
   ControllerAluno *_controllerAluno;
+
   virtual void inicializarOpcoes();
 
 public:

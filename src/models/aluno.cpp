@@ -72,3 +72,20 @@ Aluno Aluno::fromDatabase(PGresult *res, int row)
       std::stoi(Database::value(res, row, "CHAVEGRD")),
       std::stoi(Database::value(res, row, "NUMAULAS")));
 }
+
+Aluno *Aluno::fromDatabaseToPtr(PGresult *res, int row)
+{
+  return new Aluno(
+      std::stoi(Database::value(res, row, "CHAVEALU")),
+      std::stoi(Database::value(res, row, "CHAVEUSU")),
+      Database::value(res, row, "NOME"),
+      Database::value(res, row, "APELIDO"),
+      Database::value(res, row, "DTNASCIMENTO"),
+      Database::value(res, row, "CPF"),
+      Database::value(res, row, "RG"),
+      Database::value(res, row, "SEXO")[0],
+      Database::value(res, row, "LOGIN"),
+      Database::value(res, row, "SENHA"),
+      std::stoi(Database::value(res, row, "CHAVEGRD")),
+      std::stoi(Database::value(res, row, "NUMAULAS")));
+}

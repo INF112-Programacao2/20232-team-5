@@ -103,7 +103,9 @@ void MainInitializer::initializeGraduacao()
 
 void MainInitializer::initializeAluno()
 {
-  _controllerAluno = new ControllerAluno(_session, _dataAluno, _dataGraduacao);
+  _controllerAcessoAluno = new ControllerAcessoAluno(_session, _dataAluno);
+  _menuAcessoAluno = new MenuAcessoAluno("Acesso ao Aluno", _session, _controllerAcessoAluno);
+  _controllerAluno = new ControllerAluno(_session, _dataAluno, _dataGraduacao, _menuAcessoAluno);
   _menuAluno = new MenuAluno("Alunos Cadastrados", _session, _controllerAluno);
   _controllerEscolheModalidade = new ControllerEscolheModalidade(_session, _dataModalidade, _menuAluno);
 }
@@ -177,6 +179,8 @@ void MainInitializer::destroyAluno()
   delete _controllerEscolheModalidade;
   delete _menuAluno;
   delete _controllerAluno;
+  delete _menuAcessoAluno;
+  delete _controllerAcessoAluno;
 }
 
 void MainInitializer::destroyPerfil()

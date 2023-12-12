@@ -27,6 +27,7 @@ public:
   // Conversion
   static Aluno *fromUsuario(Usuario *usuario);
   static Aluno fromDatabase(PGresult *res, int row);
+  static Aluno *fromDatabaseToPtr(PGresult *res, int row);
 };
 
 #endif

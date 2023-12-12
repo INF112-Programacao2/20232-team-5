@@ -90,10 +90,14 @@ set(sources
   features/turma/menus/menu_opcoes_turma.cpp
   features/aluno/menus/menu_aluno.h
   features/aluno/menus/menu_aluno.cpp
+  features/aluno/menus/menu_acesso_aluno.h
+  features/aluno/menus/menu_acesso_aluno.cpp
   features/aluno/controllers/controller_escolhe_modalidade.h
   features/aluno/controllers/controller_escolhe_modalidade.cpp
   features/aluno/controllers/controller_aluno.h
   features/aluno/controllers/controller_aluno.cpp
+  features/aluno/controllers/controller_acesso_aluno.h
+  features/aluno/controllers/controller_acesso_aluno.cpp
   features/aluno/data/data_aluno.h
   features/aluno/data/data_aluno.cpp
   features/perfil/menus/menu_perfil.h

@@ -42,7 +42,8 @@ public:
   void setDiasSemana(std::string diasSemana);
 
   // Métodos
-  static Turma *fromDatabase(PGresult *res, int row);
+  static Turma fromDatabase(PGresult *res, int row);
+  static Turma *fromDatabaseToPtr(PGresult *res, int row);
 };
 
 #endif

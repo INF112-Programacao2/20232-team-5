@@ -18,15 +18,13 @@ private:
   Session *_session;
   DataPresenca *_dataPresenca;
   DataModalidade *_dataModalidade;
-  DataUsuario *_dataUsuario;
-  DataPerfil *_dataPerfil;
   DataTurma *_dataTurma;
 
   std::vector<Turma*> ListarTurmasUsuario(int idUsuario);
   std::vector<Turma*> ListarTurmasUsuarioLogado();
 
 public:
-    ControllerRegistrarPresenca(Session *session, DataPresenca *dataPresenca, DataModalidade *dataModalidade, DataUsuario *dataUsuario, DataPerfil *dataPerfil, DataTurma *dataTurma);
+    ControllerRegistrarPresenca(Session *session, DataPresenca *dataPresenca, DataModalidade *dataModalidade, DataTurma *dataTurma);
     RetornoController registrarPresencaUsuarioLogado();
 };
 

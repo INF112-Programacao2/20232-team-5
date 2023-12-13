@@ -4,7 +4,7 @@ Esse projeto é um sistema de gerenciamento para uma academia de Artes Marciais 
 ## Diagrama UML
 ![Diagrama Paiva Team](./img/uml_tp_final.jpeg)
 
-## Instalação e Compilação
+## Instalação
 - Instalação do CMake
 ```
 sudo apt-get -y install cmake
@@ -13,9 +13,13 @@ sudo apt-get -y install cmake
 ```
 cd src
 ```
-- Criar arquivos de build
+- Criar pasta de build
 ```
 mkdir build
+```
+## Execução
+- Configurar
+```
 cd build
 cmake ..
 ```

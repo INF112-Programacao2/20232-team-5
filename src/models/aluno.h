@@ -12,7 +12,7 @@ private:
   int _numAulas;
 
 public:
-  Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas);
+  Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas);
 
   // Getters
   int getChaveAlu();

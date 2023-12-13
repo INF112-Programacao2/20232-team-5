@@ -53,7 +53,7 @@ std::vector<Modalidade> DataModalidade::buscaListaModalidade()
 // Busca lista de modalidades disponíveis (não cadastradas) para um usuário
 std::vector<Modalidade> DataModalidade::buscaListaModalidadesDisponiveis(int chaveUsu)
 {
-  std::string query = "SELECT * FROM \"MODALIDADE\" m INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEMOD\" = m.\"CHAVEMOD\" WHERE m.\"CHAVEMOD\" NOT IN (SELECT m.\"CHAVEMOD\" FROM \"USUARIO\" u INNER JOIN \"ALUNO\" a ON a.\"CHAVEUSU\" = U.\"CHAVEUSU\" INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" INNER JOIN \"MODALIDADE\" m ON m.\"CHAVEMOD\" = g.\"CHAVEMOD\" WHERE u.\"CHAVEUSU\" = $1) AND m.\"CHAVEMOD\" NOT IN (SELECT \"CHAVEMOD\" FROM \"CADPENDENTE\" WHERE \"CHAVEUSU\" = $1);";
+  std::string query = "SELECT m.*FROM \"MODALIDADE\" m INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEMOD\" = m.\"CHAVEMOD\" WHERE m.\"CHAVEMOD\" NOT IN(SELECT m.\"CHAVEMOD\" FROM \"USUARIO\" u INNER JOIN \"ALUNO\" a ON a.\"CHAVEUSU\" = u.\"CHAVEUSU\" INNER JOIN \"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" INNER JOIN \"MODALIDADE\" m ON m.\"CHAVEMOD\" = g.\"CHAVEMOD\" WHERE u.\"CHAVEUSU\" = $1) AND m.\"CHAVEMOD\" NOT IN(SELECT \"CHAVEMOD\" FROM \"CADPENDENTE\" WHERE \"CHAVEUSU\" = $1) GROUP BY m.\"CHAVEMOD\";";
 
   std::vector<std::string> params = {std::to_string(chaveUsu)};
 

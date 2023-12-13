@@ -38,7 +38,6 @@ RetornoController ControllerAutenticacao::realizaCadastro()
   std::string apelido;
   std::string dtNascimento;
   std::string cpf;
-  std::string rg = nullstr;
   char sexo;
   std::string nome;
   std::string login;
@@ -120,12 +119,12 @@ RetornoController ControllerAutenticacao::realizaCadastro()
               });
           chaveMod = modalidadeList[opcaoMod - 1].getChaveMod();
           // Cria aluno
-          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo, chaveMod);
+          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, sexo, login, senha, tipo, chaveMod);
         }
         else
         {
           // Cria professor
-          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha, tipo);
+          cad = new CadPendente(0, nome, apelido, dtNascimento, cpf, sexo, login, senha, tipo);
         }
         _dataAutenticacao->inscreveCadastroPendente(cad);
         std::cout << "Cadastro submetido para aprovação do administrador!" << std::endl;

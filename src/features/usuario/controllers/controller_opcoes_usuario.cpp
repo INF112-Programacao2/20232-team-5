@@ -127,15 +127,17 @@ RetornoController ControllerOpcoesUsuario::novoCadastro()
         std::cout << "Deseja solicitar cadastro como cliente (C) ou professor (P)?" << std::endl;
         std::cout << "Sua escolha: ";
         tipo = readVal<char>(
-            [&](char tipo)
+            [&](char val)
             {
-              if (tipo != TipoPerfil::Cliente && tipo != TipoPerfil::Professor)
+              val = std::toupper(val);
+              if (val != TipoPerfil::Cliente && val != TipoPerfil::Professor)
               {
                 std::cout << "Opção inválida!" << std::endl;
                 return false;
               }
               return true;
             });
+        tipo = std::toupper(tipo);
 
         if (tipo == TipoPerfil::Cliente)
         {

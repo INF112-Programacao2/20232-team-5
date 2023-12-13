@@ -3,8 +3,8 @@
 #include <libpq-fe.h>
 #include "database.h"
 
-Aluno::Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas)
-    : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, rg, sexo, login, senha),
+Aluno::Aluno(int chaveAlu, int chaveUsu, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, int chaveGrd, int numAulas)
+    : Usuario(chaveUsu, nome, apelido, dtNascimento, cpf, sexo, login, senha),
       _chaveAlu(chaveAlu), _chaveGrd(chaveGrd), _numAulas(numAulas)
 {
 }
@@ -48,7 +48,6 @@ Aluno *Aluno::fromUsuario(Usuario *usuario)
       usuario->getApelido(),
       usuario->getDtNascimento(),
       usuario->getCpf(),
-      usuario->getRg(),
       usuario->getSexo(),
       usuario->getLogin(),
       usuario->getSenha(),
@@ -65,7 +64,6 @@ Aluno Aluno::fromDatabase(PGresult *res, int row)
       Database::value(res, row, "APELIDO"),
       Database::value(res, row, "DTNASCIMENTO"),
       Database::value(res, row, "CPF"),
-      Database::value(res, row, "RG"),
       Database::value(res, row, "SEXO")[0],
       Database::value(res, row, "LOGIN"),
       Database::value(res, row, "SENHA"),
@@ -82,7 +80,6 @@ Aluno *Aluno::fromDatabaseToPtr(PGresult *res, int row)
       Database::value(res, row, "APELIDO"),
       Database::value(res, row, "DTNASCIMENTO"),
       Database::value(res, row, "CPF"),
-      Database::value(res, row, "RG"),
       Database::value(res, row, "SEXO")[0],
       Database::value(res, row, "LOGIN"),
       Database::value(res, row, "SENHA"),

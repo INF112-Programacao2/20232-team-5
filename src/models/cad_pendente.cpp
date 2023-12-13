@@ -4,28 +4,28 @@
 #include "global.h"
 
 // Construtor para receber do banco (todos os dados)
-CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(chaveUsu), _tipoCadastro(tipoCadastro) {}
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(chaveUsu), _tipoCadastro(tipoCadastro) {}
 
 // Construtor para cadastro externo de professor (novo usuário)
-CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(nullnum), _chaveUsu(nullnum)
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(nullnum), _chaveUsu(nullnum)
 {
   _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro externo de aluno (novo usuário, necessita informar a modalidade)
-CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _rg(rg), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(nullnum)
+CadPendente::CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nome), _apelido(apelido), _dtNascimento(dtNascimento), _cpf(cpf), _sexo(sexo), _login(login), _senha(senha), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(nullnum)
 {
   _tipoCadastro = TipoCadastro::Externo;
 }
 
 // Construtor para cadastro interno de professor (usuário já existente)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _nome(nullstr), _apelido(nullstr), _dtNascimento(nullstr), _cpf(nullstr), _rg(nullstr), _sexo(nullchar), _login(nullstr), _senha(nullstr), _tipo(tipo), _chaveMod(nullnum), _chaveUsu(chaveUsu)
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo) : _chaveCad(chaveCad), _nome(nullstr), _apelido(nullstr), _dtNascimento(nullstr), _cpf(nullstr), _sexo(nullchar), _login(nullstr), _senha(nullstr), _tipo(tipo), _chaveMod(nullnum), _chaveUsu(chaveUsu)
 {
   _tipoCadastro = TipoCadastro::Interno;
 }
 
 // Construtor para cadastro interno de aluno (usuário já existente, necessita informar a modalidade)
-CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nullstr), _apelido(nullstr), _dtNascimento(nullstr), _cpf(nullstr), _rg(nullstr), _sexo(nullchar), _login(nullstr), _senha(nullstr), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(chaveUsu)
+CadPendente::CadPendente(int chaveCad, int chaveUsu, char tipo, int chaveMod) : _chaveCad(chaveCad), _nome(nullstr), _apelido(nullstr), _dtNascimento(nullstr), _cpf(nullstr), _sexo(nullchar), _login(nullstr), _senha(nullstr), _tipo(tipo), _chaveMod(chaveMod), _chaveUsu(chaveUsu)
 {
   _tipoCadastro = TipoCadastro::Interno;
 }
@@ -53,11 +53,6 @@ std::string CadPendente::getDtNascimento()
 std::string CadPendente::getCpf()
 {
   return _cpf;
-}
-
-std::string CadPendente::getRg()
-{
-  return _rg;
 }
 
 char CadPendente::getSexo()
@@ -120,11 +115,6 @@ void CadPendente::setCpf(std::string cpf)
   _cpf = cpf;
 }
 
-void CadPendente::setRg(std::string rg)
-{
-  _rg = rg;
-}
-
 void CadPendente::setSexo(char sexo)
 {
   _sexo = sexo;
@@ -166,7 +156,6 @@ void CadPendente::setFromUsuario(Usuario *usuario)
   setApelido(usuario->getApelido());
   setDtNascimento(usuario->getDtNascimento());
   setCpf(usuario->getCpf());
-  setRg(usuario->getRg());
   setSexo(usuario->getSexo());
   setLogin(usuario->getLogin());
   setSenha(usuario->getSenha());
@@ -184,7 +173,6 @@ CadPendente CadPendente::fromDatabase(PGresult *res, int row)
       Database::value(res, row, "APELIDO"),
       Database::value(res, row, "DTNASCIMENTO"),
       Database::value(res, row, "CPF"),
-      Database::value(res, row, "RG"),
       sexo,
       Database::value(res, row, "LOGIN"),
       Database::value(res, row, "SENHA"),
@@ -207,7 +195,6 @@ CadPendente *CadPendente::fromDatabaseToPtr(PGresult *res, int row)
       Database::value(res, row, "APELIDO"),
       Database::value(res, row, "DTNASCIMENTO"),
       Database::value(res, row, "CPF"),
-      Database::value(res, row, "RG"),
       sexo,
       Database::value(res, row, "LOGIN"),
       Database::value(res, row, "SENHA"),

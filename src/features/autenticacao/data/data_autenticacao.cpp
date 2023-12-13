@@ -13,13 +13,12 @@ DataAutenticacao::DataAutenticacao(Database *database)
 // Realiza o cadastro de um novo cadPendente (usuário externo)
 void DataAutenticacao::inscreveCadastroPendente(CadPendente *cad)
 {
-  std::string query = "INSERT INTO public.\"CADPENDENTE\" (\"NOME\", \"APELIDO\", \"DTNASCIMENTO\", \"CPF\", \"RG\", \"SEXO\", \"LOGIN\", \"SENHA\", \"TIPO\", \"CHAVEMOD\", \"CHAVEUSU\", \"TIPOCADASTRO\") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+  std::string query = "INSERT INTO public.\"CADPENDENTE\" (\"NOME\", \"APELIDO\", \"DTNASCIMENTO\", \"CPF\", \"SEXO\", \"LOGIN\", \"SENHA\", \"TIPO\", \"CHAVEMOD\", \"CHAVEUSU\", \"TIPOCADASTRO\") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)";
   std::vector<std::string> params = {
       cad->getNome(),
       cad->getApelido(),
       cad->getDtNascimento(),
       cad->getCpf(),
-      cad->getRg(),
       cad->getSexo() != nullchar ? std::string(1, cad->getSexo()) : nullstr,
       cad->getLogin(),
       cad->getSenha(),

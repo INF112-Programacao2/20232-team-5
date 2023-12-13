@@ -12,7 +12,6 @@ private:
   std::string _apelido;
   std::string _dtNascimento;
   std::string _cpf;
-  std::string _rg;
   char _sexo;
   std::string _login;
   std::string _senha;
@@ -23,11 +22,11 @@ private:
 
 public:
   // Construtor para receber do banco (todos os dados)
-  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro);
+  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo, int chaveMod, int chaveUsu, TipoCadastro tipoCadastro);
   // Construtor para cadastro externo de professor (novo usuário)
-  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo);
+  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo);
   // Construtor para cadastro externo de aluno (novo usuário, necessita informar a modalidade)
-  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, std::string rg, char sexo, std::string login, std::string senha, char tipo, int chaveMod);
+  CadPendente(int chaveCad, std::string nome, std::string apelido, std::string dtNascimento, std::string cpf, char sexo, std::string login, std::string senha, char tipo, int chaveMod);
   // Construtor para cadastro interno de professor (usuário já existente)
   CadPendente(int chaveCad, int chaveUsu, char tipo);
   // Construtor para cadastro interno de aluno (usuário já existente, necessita informar a modalidade)
@@ -39,7 +38,6 @@ public:
   std::string getApelido();
   std::string getDtNascimento();
   std::string getCpf();
-  std::string getRg();
   char getSexo();
   std::string getLogin();
   std::string getSenha();
@@ -54,7 +52,6 @@ public:
   void setApelido(std::string apelido);
   void setDtNascimento(std::string dtNascimento);
   void setCpf(std::string cpf);
-  void setRg(std::string rg);
   void setSexo(char sexo);
   void setLogin(std::string login);
   void setSenha(std::string senha);

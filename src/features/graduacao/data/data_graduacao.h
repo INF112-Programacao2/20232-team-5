@@ -19,6 +19,7 @@ public:
   void listarGraduacao();
   Graduacao *buscaGraduacaoInicial(int chaveMod);
   Graduacao *buscaGraduacaoAluno(int chavAlu);
+  Graduacao *buscaGraduacao(int chaveGrd);
   std::vector<Graduacao> buscaGraduacoesSeguintes(Graduacao *gradAtual);
 };
 

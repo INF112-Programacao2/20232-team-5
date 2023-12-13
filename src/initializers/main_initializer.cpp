@@ -96,7 +96,7 @@ void MainInitializer::initializeTurma()
 
 void MainInitializer::initializeGraduacao()
 {
-  _controllerGraduacao = new ControllerGraduacao(_session, _dataGraduacao);
+  _controllerGraduacao = new ControllerGraduacao(_session, _dataGraduacao, _dataModalidade);
   _menuOpcoesGraduacao = new MenuOpcoesGraduacao("Graduação", _controllerGraduacao);
 }
 

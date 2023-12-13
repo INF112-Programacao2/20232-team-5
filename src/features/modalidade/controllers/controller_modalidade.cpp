@@ -3,40 +3,26 @@
 #include "modalidade.h"
 #include "global.h"
 
-ControllerModalidade::ControllerModalidade(Session *session, DataModalidade *dataModalidade)
-    : _session(session), _dataModalidade(dataModalidade)
+ControllerModalidade::ControllerModalidade(Session *session, DataModalidade *dataModalidade) : _session(session), _dataModalidade(dataModalidade)
 {
 }
 
 RetornoController ControllerModalidade::realizaCadastro()
 {
-    Modalidade *modalidade;
+    Modalidade *modalidade = nullptr;
     handleExecution(
         [&]()
         {
             std::string nome;
-            int chaveMod;
 
             // Solicitar valores ao usuário
             std::cout << "CADASTRO" << std::endl;
-
-            std::cout << "Digite a chave da modalidade: ";
-            chaveMod = readVal<int>(
-                [&](int chaveMod)
-                {
-                    if (chaveMod < 0)
-                    {
-                        std::cout << "Opção inválida!" << std::endl;
-                        return false;
-                    }
-                    return true;
-                });
 
             std::cout << "Digite o nome: ";
             nome = readLine();
 
             // Cria a modalidade
-            modalidade = new Modalidade(chaveMod, nome);
+            modalidade = new Modalidade(nullnum, nome);
 
             // salva a modalidade
             _dataModalidade->cadastraModalidade(modalidade);
@@ -49,7 +35,7 @@ RetornoController ControllerModalidade::realizaCadastro()
 
 RetornoController ControllerModalidade::realizaEdicao()
 {
-    Modalidade *modalidade;
+    Modalidade *modalidade = nullptr;
     handleExecution(
         [&]()
         {
@@ -59,7 +45,7 @@ RetornoController ControllerModalidade::realizaEdicao()
             // Solicitar valores ao usuário
             std::cout << "EDIÇÃO" << std::endl;
 
-            std::cout << "Digite a chave da modalidade: ";
+            std::cout << "Informe a chave da modalidade: ";
             chaveMod = readVal<int>(
                 [&](int chaveMod)
                 {
@@ -71,14 +57,19 @@ RetornoController ControllerModalidade::realizaEdicao()
                     return true;
                 });
 
+            // Verifica se modalidade existe
+            modalidade = _dataModalidade->buscaModalidade(chaveMod);
+            if (!modalidade)
+            {
+                std::cout << "Modalidade não encontrada!" << std::endl;
+                return;
+            }
+
             std::cout << "Digite o nome: ";
             nome = readLine();
 
-            // Cria a modalidade
-            Modalidade *modalidade = new Modalidade(chaveMod, nome);
-
             // salva a modalidade
-            _dataModalidade->editaModalidade(modalidade);
+            _dataModalidade->editaModalidade(chaveMod, nome);
             std::cout << "Modalidade editada com sucesso!" << std::endl;
         });
     if (modalidade)
@@ -88,7 +79,7 @@ RetornoController ControllerModalidade::realizaEdicao()
 
 RetornoController ControllerModalidade::realizaRemocao()
 {
-    Modalidade *modalidade;
+    Modalidade *modalidade = nullptr;
     handleExecution(
         [&]()
         {
@@ -98,7 +89,7 @@ RetornoController ControllerModalidade::realizaRemocao()
             // Solicitar valores ao usuário
             std::cout << "REMOÇÃO" << std::endl;
 
-            std::cout << "Digite a chave da modalidade: ";
+            std::cout << "Informe a chave da modalidade: ";
             chaveMod = readVal<int>(
                 [&](int chaveMod)
                 {
@@ -110,14 +101,16 @@ RetornoController ControllerModalidade::realizaRemocao()
                     return true;
                 });
 
-            std::cout << "Digite o nome: ";
-            nome = readLine();
-
-            // Instancia a modalidade
-            Modalidade *modalidade = new Modalidade(chaveMod, nome);
+            // Verifica se modalidade existe
+            modalidade = _dataModalidade->buscaModalidade(chaveMod);
+            if (!modalidade)
+            {
+                std::cout << "Modalidade não encontrada!" << std::endl;
+                return;
+            }
 
             // exclui a modalidade
-            _dataModalidade->excluiModalidade(modalidade);
+            _dataModalidade->excluiModalidade(chaveMod);
             std::cout << "Modalidade deletada com sucesso!" << std::endl;
         });
     if (modalidade)

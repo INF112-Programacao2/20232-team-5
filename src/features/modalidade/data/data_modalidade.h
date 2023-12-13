@@ -21,9 +21,9 @@ public:
   std::vector<Modalidade *> buscaListaModalidadesUsuario(int chaveUsu);
 
   // editar modalidade
-  void editaModalidade(Modalidade *modalidade);
+  void editaModalidade(int chaveMod, std::string nome);
   // excluir modalidade
-  void excluiModalidade(Modalidade *modalidade);
+  void excluiModalidade(int chaveMod);
   // Busca modalidade pela chave
   Modalidade *buscaModalidade(int chaveMod);
 };

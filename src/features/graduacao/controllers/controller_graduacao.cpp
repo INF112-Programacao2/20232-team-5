@@ -3,14 +3,15 @@
 #include "graduacao.h"
 #include "global.h"
 
-ControllerGraduacao::ControllerGraduacao(Session *session, DataGraduacao *dataGraduacao)
-    : _session(session), _dataGraduacao(dataGraduacao)
+ControllerGraduacao::ControllerGraduacao(Session *session, DataGraduacao *dataGraduacao, DataModalidade *dataModalidade)
+    : _session(session), _dataGraduacao(dataGraduacao), _dataModalidade(dataModalidade)
 {
 }
 
 RetornoController ControllerGraduacao::realizaCadastro()
 {
   Graduacao *graduacao = nullptr;
+  Modalidade *modalidade = nullptr;
   handleExecution(
       [&]()
       {
@@ -33,7 +34,15 @@ RetornoController ControllerGraduacao::realizaCadastro()
               return true;
             });
 
-        std::cout << "Digite o nome: ";
+        modalidade = _dataModalidade->buscaModalidade(chaveMod);
+        if (!modalidade)
+        {
+          std::cout << "Modalidade não encontrada!" << std::endl;
+          return;
+        }
+
+        std::cout
+            << "Digite o nome: ";
         nome = readLine();
 
         std::cout << "Digite a ordem: ";
@@ -70,6 +79,8 @@ RetornoController ControllerGraduacao::realizaCadastro()
 
   if (graduacao)
     delete graduacao;
+  if (modalidade)
+    delete modalidade;
   return RetornoController::Completo;
 }
 
@@ -84,6 +95,7 @@ RetornoController ControllerGraduacao::realizaListagem()
 
         // Lista as graduações
         _dataGraduacao->listarGraduacao();
+        hold();
       });
 }
 
@@ -103,16 +115,23 @@ RetornoController ControllerGraduacao::realizaEdicao()
         std::cout << "EDIÇÃO" << std::endl;
 
         std::cout << "Digite a chave da graduação: ";
-        int chaveGdr = readVal<int>(
-            [&](int chaveGdr)
+        int chaveGrd = readVal<int>(
+            [&](int chaveGrd)
             {
-              if (chaveGdr < 0)
+              if (chaveGrd < 0)
               {
                 std::cout << "Opção inválida!" << std::endl;
                 return false;
               }
               return true;
             });
+
+        graduacao = _dataGraduacao->buscaGraduacao(chaveGrd);
+        if (!graduacao)
+        {
+          std::cout << "Graduação não encontrada!" << std::endl;
+          return;
+        }
 
         std::cout << "Digite o nome: ";
         nome = readLine();
@@ -142,7 +161,7 @@ RetornoController ControllerGraduacao::realizaEdicao()
             });
 
         // Cria a graduação
-        graduacao = new Graduacao(chaveGdr, nullnum, nome, ordem, minAulas);
+        graduacao = new Graduacao(chaveGrd, nullnum, nome, ordem, minAulas);
 
         // Salva a graduação
         _dataGraduacao->editarGraduacao(graduacao);
@@ -165,10 +184,10 @@ RetornoController ControllerGraduacao::realizaRemocao()
         std::cout << "EXCLUSÃO" << std::endl;
 
         std::cout << "Digite a chave da graduação: ";
-        int chaveGdr = readVal<int>(
-            [&](int chaveGdr)
+        int chaveGrd = readVal<int>(
+            [&](int chaveGrd)
             {
-              if (chaveGdr < 0)
+              if (chaveGrd < 0)
               {
                 std::cout << "Opção inválida!" << std::endl;
                 return false;
@@ -176,11 +195,20 @@ RetornoController ControllerGraduacao::realizaRemocao()
               return true;
             });
 
-        // Cria a graduação
-        graduacao = new Graduacao(chaveGdr, nullnum, nullstr, nullnum, nullnum);
+        graduacao = _dataGraduacao->buscaGraduacao(chaveGrd);
+        if (!graduacao)
+        {
+          std::cout << "Graduação não encontrada!" << std::endl;
+          return;
+        }
 
         // exclui a graduação
         _dataGraduacao->excluirGraduacao(graduacao);
+        if (!graduacao)
+        {
+          std::cout << "Graduação não encontrada!" << std::endl;
+          return;
+        }
         std::cout << "Graduação excluída com sucesso!" << std::endl;
       });
 

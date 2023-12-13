@@ -10,29 +10,14 @@ DataModalidade::DataModalidade(Database *database)
 // cadastra modalidade
 void DataModalidade::cadastraModalidade(Modalidade *modalidade)
 {
-  std::string query = "INSERT INTO public.\"MODALIDADE\" "
-                      "(\"CHAVEMOD\", \"NOME\") "
-                      "VALUES ($1, $2)";
+  std::string query = "INSERT INTO \"MODALIDADE\" "
+                      "(\"NOME\") "
+                      "VALUES ($1)";
 
-  std::vector<std::string> params = {
-      std::to_string(modalidade->getChaveMod()),
-      modalidade->getNome(),
-  };
+  std::vector<std::string> params = {modalidade->getNome()};
 
-  try
-  {
-    PGresult *res = _database->executar(query, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
 }
 
 // Recupera a lista de modalidades cadastradas
@@ -89,38 +74,26 @@ std::vector<Modalidade *> DataModalidade::buscaListaModalidadesUsuario(int chave
 }
 
 // editar modalidade
-void DataModalidade::editaModalidade(Modalidade *modalidade)
+void DataModalidade::editaModalidade(int chaveMod, std::string nome)
 {
   std::string query = "UPDATE public.\"MODALIDADE\" "
                       "SET \"NOME\"=$1 "
                       "WHERE \"CHAVEMOD\"=$2";
 
   std::vector<std::string> params = {
-      modalidade->getNome(),
-      std::to_string(modalidade->getChaveMod()),
+      nome,
+      std::to_string(chaveMod),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(query, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(query, params);
+  PQclear(res);
 }
 
 // excluir as graduações e sua modalidade se não houver alunos
-void DataModalidade::excluiModalidade(Modalidade *modalidade)
+void DataModalidade::excluiModalidade(int chaveMod)
 {
   std::string queryCheckAlunos = "SELECT COUNT(*) FROM \"ALUNO\" WHERE \"CHAVEGRD\" IN (SELECT \"CHAVEGRD\" FROM \"GRADUACAO\" WHERE \"CHAVEMOD\" = $1)";
-  std::vector<std::string> paramsCheckAlunos = {std::to_string(modalidade->getChaveMod())};
+  std::vector<std::string> paramsCheckAlunos = {std::to_string(chaveMod)};
 
   PGresult *resCheckAlunos = _database->executar(queryCheckAlunos, paramsCheckAlunos);
   int numAlunos = std::stoi(PQgetvalue(resCheckAlunos, 0, 0));
@@ -129,24 +102,10 @@ void DataModalidade::excluiModalidade(Modalidade *modalidade)
   if (numAlunos == 0)
   {
     std::string queryDeleteGraduacoes = "DELETE FROM \"GRADUACAO\" WHERE \"CHAVEMOD\" = $1";
-    std::vector<std::string> paramsDeleteGraduacoes = {std::to_string(modalidade->getChaveMod())};
+    std::vector<std::string> paramsDeleteGraduacoes = {std::to_string(chaveMod)};
 
-    try
-    {
-      PGresult *resDeleteGraduacoes = _database->executar(queryDeleteGraduacoes, paramsDeleteGraduacoes);
-      PQclear(resDeleteGraduacoes);
-    }
-    catch (DatabaseError e)
-    {
-      std::cerr << e.what() << std::endl;
-      return;
-    }
-    catch (std::exception e)
-    {
-      std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-      std::cerr << e.what() << std::endl;
-      return;
-    }
+    PGresult *resDeleteGraduacoes = _database->executar(queryDeleteGraduacoes, paramsDeleteGraduacoes);
+    PQclear(resDeleteGraduacoes);
   }
   else
   {
@@ -155,22 +114,10 @@ void DataModalidade::excluiModalidade(Modalidade *modalidade)
   }
 
   std::string queryDeleteModalidade = "DELETE FROM \"MODALIDADE\" WHERE \"CHAVEMOD\" = $1";
-  std::vector<std::string> paramsDeleteModalidade = {std::to_string(modalidade->getChaveMod())};
+  std::vector<std::string> paramsDeleteModalidade = {std::to_string(chaveMod)};
 
-  try
-  {
-    PGresult *resDeleteModalidade = _database->executar(queryDeleteModalidade, paramsDeleteModalidade);
-    PQclear(resDeleteModalidade);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *resDeleteModalidade = _database->executar(queryDeleteModalidade, paramsDeleteModalidade);
+  PQclear(resDeleteModalidade);
 }
 
 // Busca modalidade pela chave

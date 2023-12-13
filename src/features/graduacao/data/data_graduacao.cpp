@@ -29,20 +29,8 @@ void DataGraduacao::cadastraGraduacao(Graduacao *graduacao)
       std::to_string(graduacao->getMinAulas()),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(insertQuery, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(insertQuery, params);
+  PQclear(res);
 }
 
 Graduacao *DataGraduacao::buscaGraduacaoInicial(int chaveMod)
@@ -69,20 +57,8 @@ void DataGraduacao::editarGraduacao(Graduacao *graduacao)
       std::to_string(graduacao->getChaveGrd()),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(updateQuery, params);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(updateQuery, params);
+  PQclear(res);
 }
 
 // excluir uma graduação: Não é possível caso já haja ao menos 1 aluno com a graduação.
@@ -109,20 +85,8 @@ void DataGraduacao::excluirGraduacao(Graduacao *graduacao)
       std::to_string(graduacao->getChaveGrd()),
   };
 
-  try
-  {
-    PGresult *res = _database->executar(deleteQuery, deleteParams);
-    PQclear(res);
-  }
-  catch (DatabaseError e)
-  {
-    std::cerr << e.what() << std::endl;
-  }
-  catch (std::exception e)
-  {
-    std::cerr << "Ocorreu um erro inesperado!" << std::endl;
-    std::cerr << e.what() << std::endl;
-  }
+  PGresult *res = _database->executar(deleteQuery, deleteParams);
+  PQclear(res);
 }
 
 // listar as graduações cadastradas no sistema, por modalidade
@@ -157,6 +121,18 @@ Graduacao *DataGraduacao::buscaGraduacaoAluno(int chaveAlu)
 {
   std::string query = "SELECT * FROM \"GRADUACAO\" g INNER JOIN \"ALUNO\" a ON a.\"CHAVEGRD\" = g.\"CHAVEGRD\" WHERE \"CHAVEALU\" = $1;";
   std::vector<std::string> params = {std::to_string(chaveAlu)};
+  PGresult *res = _database->executar(query, params);
+  Graduacao *g = nullptr;
+  if (PQntuples(res))
+    g = Graduacao::fromDatabaseToPtr(res, 0);
+  PQclear(res);
+  return g;
+}
+
+Graduacao *DataGraduacao::buscaGraduacao(int chaveGrd)
+{
+  std::string query = "SELECT * FROM \"GRADUACAO\" g WHERE \"CHAVEGRD\" = $1;";
+  std::vector<std::string> params = {std::to_string(chaveGrd)};
   PGresult *res = _database->executar(query, params);
   Graduacao *g = nullptr;
   if (PQntuples(res))

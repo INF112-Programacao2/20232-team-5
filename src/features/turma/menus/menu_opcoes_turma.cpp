@@ -14,6 +14,6 @@ void MenuOpcoesTurma::inicializarOpcoes()
   _opcaoList.push_back(OpcaoMenu("Editar turma", std::bind(&ControllerTurma::realizaEdicao, _controllerTurma)));
   _opcaoList.push_back(OpcaoMenu("Excluir turma", std::bind(&ControllerTurma::realizaRemocao, _controllerTurma)));
   _opcaoList.push_back(OpcaoMenu("Listar turmas", std::bind(&ControllerTurma::realizaListagem, _controllerTurma)));
-  _opcaoList.push_back(OpcaoMenu("Visualizar presença", std::bind(&ControllerTurma::realizaListagem, _controllerTurma)));
+  _opcaoList.push_back(OpcaoMenu("Visualizar presença", std::bind(&ControllerTurma::realizaPresenca, _controllerTurma)));
   _opcaoList.push_back(OpcaoMenu("Voltar", std::bind(voltar)));
 }

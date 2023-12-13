@@ -16,7 +16,8 @@ public:
   void excluirTurma(int chaveTurma);
   void listarTurmas();
   void presencaTurma(int chaveTurma);
-  std::vector<Turma*> buscaTurmasModalidade(int chaveMod);
+  std::vector<Turma *> buscaTurmasModalidade(int chaveMod);
+  Turma *buscaTurma(int chaveTur);
 };
 
 #endif

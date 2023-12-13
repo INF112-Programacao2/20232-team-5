@@ -90,7 +90,7 @@ void MainInitializer::initializeModalidade()
 
 void MainInitializer::initializeTurma()
 {
-  _controllerTurma = new ControllerTurma(_session, _dataTurma);
+  _controllerTurma = new ControllerTurma(_session, _dataTurma, _dataUsuario, _dataModalidade);
   _menuOpcoesTurma = new MenuOpcoesTurma("Turmas", _controllerTurma);
 }
 

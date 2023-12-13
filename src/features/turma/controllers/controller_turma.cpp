@@ -2,14 +2,15 @@
 #include <iostream>
 #include "turma.h"
 
-ControllerTurma::ControllerTurma(Session *session, DataTurma *dataTurma)
-    : _session(session), _dataTurma(dataTurma)
+ControllerTurma::ControllerTurma(Session *session, DataTurma *dataTurma, DataUsuario *dataUsuario, DataModalidade *dataModalidade) : _session(session), _dataTurma(dataTurma), _dataUsuario(dataUsuario), _dataModalidade(dataModalidade)
 {
 }
 
 RetornoController ControllerTurma::realizaCadastro()
 {
     Turma *turma = nullptr;
+    Usuario *usuario = nullptr;
+    Modalidade *modalidade = nullptr;
     handleExecution(
         [&]()
         {
@@ -22,7 +23,7 @@ RetornoController ControllerTurma::realizaCadastro()
             // Solicitar valores ao usuário
             std::cout << "CADASTRO DE TURMA" << std::endl;
 
-            std::cout << "Digite a chave do usuário: ";
+            std::cout << "Digite a chave do usuário (professor): ";
             _chaveUsu = readVal<int>(
                 [&](int _chaveUsu)
                 {
@@ -33,6 +34,13 @@ RetornoController ControllerTurma::realizaCadastro()
                     }
                     return true;
                 });
+
+            usuario = _dataUsuario->buscaUsuarioByChave(_chaveUsu);
+            if (!usuario)
+            {
+                std::cout << "Usuário não encontrado!" << std::endl;
+                return;
+            }
 
             std::cout << "Digite a chave da modalidade: ";
             _chaveMod = readVal<int>(
@@ -45,6 +53,13 @@ RetornoController ControllerTurma::realizaCadastro()
                     }
                     return true;
                 });
+
+            modalidade = _dataModalidade->buscaModalidade(_chaveMod);
+            if (!modalidade)
+            {
+                std::cout << "Modalidade não encontrada!" << std::endl;
+                return;
+            }
 
             std::cout << "Digite a hora de início: ";
             _hrInicio = readLine();
@@ -63,12 +78,18 @@ RetornoController ControllerTurma::realizaCadastro()
         });
     if (turma)
         delete turma;
+    if (usuario)
+        delete usuario;
+    if (modalidade)
+        delete modalidade;
     return RetornoController::Completo;
 }
 
 RetornoController ControllerTurma::realizaEdicao()
 {
     Turma *turma = nullptr;
+    Usuario *usuario = nullptr;
+    Modalidade *modalidade = nullptr;
     handleExecution(
         [&]()
         {
@@ -94,7 +115,15 @@ RetornoController ControllerTurma::realizaEdicao()
                     return true;
                 });
 
-            std::cout << "Digite a chave do usuário: ";
+            turma = _dataTurma->buscaTurma(chaveTurma);
+            if (!turma)
+            {
+                std::cout << "Turma não encontrada!" << std::endl;
+                return;
+            }
+
+            std::cout
+                << "Digite a chave do usuário: ";
             _chaveUsu = readVal<int>(
                 [&](int _chaveUsu)
                 {
@@ -105,6 +134,13 @@ RetornoController ControllerTurma::realizaEdicao()
                     }
                     return true;
                 });
+
+            usuario = _dataUsuario->buscaUsuarioByChave(_chaveUsu);
+            if (!usuario)
+            {
+                std::cout << "Usuário não encontrado!" << std::endl;
+                return;
+            }
 
             std::cout << "Digite a chave da modalidade: ";
             _chaveMod = readVal<int>(
@@ -117,6 +153,13 @@ RetornoController ControllerTurma::realizaEdicao()
                     }
                     return true;
                 });
+
+            modalidade = _dataModalidade->buscaModalidade(_chaveMod);
+            if (!modalidade)
+            {
+                std::cout << "Modalidade não encontrada!" << std::endl;
+                return;
+            }
 
             std::cout << "Digite a hora de início: ";
             _hrInicio = readLine();
@@ -135,12 +178,17 @@ RetornoController ControllerTurma::realizaEdicao()
         });
     if (turma)
         delete turma;
+    if (usuario)
+        delete usuario;
+    if (modalidade)
+        delete modalidade;
     return RetornoController::Completo;
 }
 
 RetornoController ControllerTurma::realizaRemocao()
 {
-    return handleExecution(
+    Turma *turma = nullptr;
+    handleExecution(
         [&]()
         {
             int chaveTurma;
@@ -160,10 +208,20 @@ RetornoController ControllerTurma::realizaRemocao()
                     return true;
                 });
 
+            turma = _dataTurma->buscaTurma(chaveTurma);
+            if (!turma)
+            {
+                std::cout << "Turma não encontrada!" << std::endl;
+                return;
+            }
+
             _dataTurma->excluirTurma(chaveTurma);
 
             std::cout << "Turma excluída com sucesso!" << std::endl;
         });
+    if (turma)
+        delete turma;
+    return RetornoController::Completo;
 }
 
 RetornoController ControllerTurma::realizaListagem()
@@ -178,7 +236,8 @@ RetornoController ControllerTurma::realizaListagem()
 
 RetornoController ControllerTurma::realizaPresenca()
 {
-    return handleExecution(
+    Turma *turma = nullptr;
+    handleExecution(
         [&]()
         {
             int chaveTurma;
@@ -198,6 +257,16 @@ RetornoController ControllerTurma::realizaPresenca()
                     return true;
                 });
 
+            turma = _dataTurma->buscaTurma(chaveTurma);
+            if (!turma)
+            {
+                std::cout << "Turma não encontrada!" << std::endl;
+                return;
+            }
+
             _dataTurma->presencaTurma(chaveTurma);
         });
+    if (turma)
+        delete turma;
+    return RetornoController::Completo;
 }

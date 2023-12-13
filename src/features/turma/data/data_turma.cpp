@@ -1,6 +1,7 @@
 ﻿#include "data_turma.h"
 #include <string>
 #include <vector>
+#include "global.h"
 #include "database_error.h"
 #include <exception>
 
@@ -111,12 +112,7 @@ void DataTurma::listarTurmas()
 
 void DataTurma::presencaTurma(int chaveTurma)
 {
-  std::string selectQuery = "SELECT \"CHAVEUSU\", \"NOME\", \"PRESENCA\" "
-                            "FROM public.\"TURMA\" t INNER JOIN public.\"USUARIO\" u ON u.\"CHAVEUSU\" = t.\"CHAVEUSU\" "
-                            "INNER JOIN public.\"ALUNO\" a ON a.\"CHAVEUSU\" = u.\"CHAVEUSU\" "
-                            "INNER JOIN public.\"GRADUACAO\" g ON g.\"CHAVEGRD\" = a.\"CHAVEGRD\" "
-                            "INNER JOIN public.\"MODALIDADE\" m ON m.\"CHAVEMOD\" = g.\"CHAVEMOD\" "
-                            "WHERE t.\"CHAVETURMA\" = $1";
+  std::string selectQuery = "SELECT  u.\"CHAVEUSU\", u.\"NOME\", COUNT(p.\"CHAVEPRE\") AS \"DIAS\" FROM public.\"TURMA\" t INNER JOIN \"PRESENCA\" p ON p.\"CHAVETUR\" = t.\"CHAVETUR\" INNER JOIN public.\"ALUNO\" a ON a.\"CHAVEALU\" = p.\"CHAVEALU\" INNER JOIN \"USUARIO\" u ON u.\"CHAVEUSU\" = a.\"CHAVEUSU\" WHERE t.\"CHAVETUR\" = $1 GROUP BY u.\"CHAVEUSU\"";
 
   std::vector<std::string> params = {
       std::to_string(chaveTurma),
@@ -131,15 +127,29 @@ void DataTurma::presencaTurma(int chaveTurma)
     PQclear(res);
     return;
   }
-
-  std::cout << "Alunos cadastrados:" << std::endl;
+  finalizarTela();
+  std::cout << "Alunos cadastrados:" << std::endl
+            << std::endl;
   for (int i = 0; i < numAlunos; i++)
   {
-    std::cout << "Chave do usuário: " << PQgetvalue(res, i, 0) << std::endl;
-    std::cout << "Nome: " << PQgetvalue(res, i, 1) << std::endl;
-    std::cout << "Presença: " << PQgetvalue(res, i, 2) << std::endl;
-    std::cout << std::endl;
+    std::cout << "Chave do usuário: " << Database::value(res, i, "CHAVEUSU") << std::endl;
+    std::cout << "Nome: " << Database::value(res, i, "NOME") << std::endl;
+    std::cout << "Dias presente: " << Database::value(res, i, "DIAS") << std::endl;
+    std::cout << std::endl
+              << std::endl;
   }
 
   PQclear(res);
+}
+
+Turma *DataTurma::buscaTurma(int chaveTur)
+{
+  std::string query = "SELECT * FROM \"TURMA\" WHERE \"CHAVETUR\" = $1";
+  std::vector<std::string> params = {std::to_string(chaveTur)};
+
+  PGresult *res = _database->executar(query, params);
+  Turma *t = nullptr;
+  if (PQntuples(res))
+    t = Turma::fromDatabaseToPtr(res, 0);
+  return t;
 }

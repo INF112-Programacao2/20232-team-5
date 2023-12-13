@@ -4,16 +4,20 @@
 #include "global.h"
 #include "session.h"
 #include "data_turma.h"
+#include "data_usuario.h"
+#include "data_modalidade.h"
 
 // Classe responsável por controlar as operações de turma
-class ControllerTurma: public Controller
+class ControllerTurma : public Controller
 {
 private:
     Session *_session;
     DataTurma *_dataTurma;
+    DataUsuario *_dataUsuario;
+    DataModalidade *_dataModalidade;
 
 public:
-    ControllerTurma(Session *session, DataTurma *dataTurma);
+    ControllerTurma(Session *session, DataTurma *dataTurma, DataUsuario *dataUsuario, DataModalidade *dataModalidade);
 
     // Realiza o cadastro de uma nova turma
     RetornoController realizaCadastro();

@@ -1,1 +1,0 @@
-/usr/bin/c++ -rdynamic CMakeFiles/tpfinal.dir/main.cpp.o CMakeFiles/tpfinal.dir/base/global.cpp.o CMakeFiles/tpfinal.dir/base/menu.cpp.o CMakeFiles/tpfinal.dir/base/opcao_menu.cpp.o CMakeFiles/tpfinal.dir/initializers/main_initializer.cpp.o CMakeFiles/tpfinal.dir/menus/menu_inicial.cpp.o CMakeFiles/tpfinal.dir/controllers/controller_login.cpp.o -o tpfinal 

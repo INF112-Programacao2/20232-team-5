@@ -5,6 +5,12 @@ DataPresenca::DataPresenca(Database *database)
 {
 }
 
+/**
+ * Registra a presença de um aluno em uma turma.
+ * 
+ * @param chaveTur A chave da turma.
+ * @param chaveAlu A chave do aluno.
+ */
 void DataPresenca::RegistrarPresenca(int chaveTur, int chaveAlu)
 {
     std::string query = "INSERT INTO public.\"PRESENCA\"(\"CHAVEALU\", \"CHAVETUR\") "

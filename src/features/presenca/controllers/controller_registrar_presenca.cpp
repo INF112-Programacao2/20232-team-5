@@ -86,5 +86,9 @@ RetornoController ControllerRegistrarPresenca::registrarPresencaUsuarioLogado()
 
     std::cout << "Presença registrada com sucesso!" << std::endl;
     delete aluno;
+
+    for (int i = 0; i < turmas.size(); i++)
+        delete turmas[i];
+        
     return RetornoController::Completo;
 }
